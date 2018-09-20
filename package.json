@@ -1,0 +1,21 @@
+{
+  "name": "fun",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "react": "^16.5.2",
+    "react-click-outside": "github:tj/react-click-outside",
+    "react-dom": "^16.5.2",
+    "react-icons": "^3.1.0",
+    "react-router": "^4.3.1",
+    "react-scripts": "1.1.5",
+    "redux": "^4.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
