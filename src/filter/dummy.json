@@ -1,0 +1,26 @@
+{
+    "fundamental": [{
+        "label": "fundamental 1",
+        "name": "fundamental 1",
+        "options": [{
+            "label": "option1",
+            "value": "option1"
+        }]
+    }],
+    "descriptive": [{
+        "label": "descriptive 1",
+        "name": "descriptive 1",
+        "options": [{
+            "label": "option1",
+            "value": "option1"
+        }]
+    }],
+    "technical": [{
+        "label": "technical 1",
+        "name": "technical 1",
+        "options": [{
+            "label": "option1",
+            "value": "option1"
+        }]
+    }]
+}

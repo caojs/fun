@@ -3,7 +3,7 @@ import noop from 'lodash/fp/noop';
 import isFunction from 'lodash/fp/isFunction';
 import findIndex from 'lodash/fp/findIndex';
 
-export default class ItemList extends Component {
+export default class ClickableMenu extends Component {
     constructor(props) {
         super(props);
 

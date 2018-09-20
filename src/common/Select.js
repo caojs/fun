@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactClickOutside from 'react-click-outside';
-import ItemList from './ItemList';
+import ClickableMenu from './ClickableMenu';
 import { FaBeer } from 'react-icons/fa';
 
 
@@ -57,11 +57,11 @@ export default class Select extends Component {
 
                     <button onClick={this.toggle}>Click</button>
 
-                    {showMenu && <ItemList data={data} onSelect={this.onSelect}>
+                    {showMenu && <ClickableMenu data={data} onSelect={this.onSelect}>
                         {(item) => (selected && item.label === selected.label)
                             ? <React.Fragment>selected {item.label} </React.Fragment>
                             : <React.Fragment> {item.label} </React.Fragment>}
-                    </ItemList>}
+                    </ClickableMenu>}
                 </div>
                 {selected && <input name={name} value={selected.value} readOnly/>}
             </ReactClickOutside>
