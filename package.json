@@ -8,6 +8,7 @@
     "react-click-outside": "github:tj/react-click-outside",
     "react-dom": "^16.5.2",
     "react-icons": "^3.1.0",
+    "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-scripts": "1.1.5",
     "react-tabs": "^2.3.0",

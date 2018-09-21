@@ -23,7 +23,7 @@ export default class ClickableMenu extends Component {
 
         if (index >= 0 && isFunction(onSelect))
         {
-            onSelect(data[index]);
+            onSelect(data[index], index);
         }
     }
 
@@ -41,7 +41,8 @@ export default class ClickableMenu extends Component {
     render() {
         let {
             children,
-            data
+            data,
+            defaultSelectedIndex = -1
         } = this.props;
 
         if (!Array.isArray(data)){
@@ -54,7 +55,7 @@ export default class ClickableMenu extends Component {
 
         return (
             <ul ref={this.ref} onClick={this.onClick}>
-                {data.map((item, index) => <li key={index}> {children(item)} </li>)}
+                {data.map((item, index) => <li key={index}> {children(item, defaultSelectedIndex === index)} </li>)}
             </ul>
         );
     }
