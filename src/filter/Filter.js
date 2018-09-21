@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Select from '../common/Select';
+import Select from './FilterSelect';
 import dummy from './dummy.json';
 
 export default class Filter extends Component {

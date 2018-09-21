@@ -36,8 +36,13 @@ export default class Select extends Component {
             selectedIndex: index
         });
 
-        if (this.props.onSelect)
-            this.props.onSelect(data);
+        let {
+            onSelect,
+            name
+        } = this.props;
+
+        if (onSelect)
+            onSelect(name, data.value);
     }
 
     render() {
