@@ -5,6 +5,9 @@
         "options": [{
             "label": "option1",
             "value": "option1"
+        },{
+            "label": "option 2",
+            "value": "option 2"
         }]
     }],
     "descriptive": [{

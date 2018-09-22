@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Select from './FilterSelect';
+import FilterSelect from './FilterSelect';
 import dummy from './dummy.json';
 
 export default class Filter extends Component {
-    constructor(props) {
-        super(props);
-        console.log(dummy);
-    }
-
     renderSelect(item, index) {
-        return <Select
+        return <FilterSelect
             key={index}
-            label={item.label}
             name={item.name}
-            data={item.options}/>;
+            label={item.label}
+            options={item.options}/>;
     }
 
     render() {
@@ -25,8 +20,7 @@ export default class Filter extends Component {
         } = dummy;
 
         return (
-            <Tabs forceRenderTabPanel={true}>
-                <span>abc</span>
+            <Tabs>
                 <TabList>
                     <Tab>Descriptive</Tab>
                     <Tab>Fundamental</Tab>

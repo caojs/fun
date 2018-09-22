@@ -1,16 +1,42 @@
 import React, { Component } from 'react';
 import ReactClickOutside from 'react-click-outside';
+import { noop, find, findIndex } from 'lodash/fp';
+import PropTypes from 'prop-types';
 import ClickableMenu from './ClickableMenu';
-import { FaBeer } from 'react-icons/fa';
 
+const propTypes = {
+    options: PropTypes.array,
+    onSelect: PropTypes.func,
+    getOptionLabel: PropTypes.func,
+    getOptionValue: PropTypes.func,
+    defaultValue: PropTypes.string
+};
+
+const defaultProps = {
+    options: [],
+    onSelect: noop,
+    getOptionLabel: (option) => option.label,
+    getOptionValue: (option) => option.value,
+};
 
 export default class Select extends Component {
+    static propTypes = propTypes;
+
+    static defaultProps = defaultProps;
+
     constructor(props) {
         super(props);
 
+        let {
+            options,
+            defaultValue,
+            getOptionValue
+        } = props;
+
         this.state = {
-            selectedIndex: props.selectedIndex || -1,
-            showMenu: false
+            selectedOption: defaultValue
+                ? find(option => getOptionValue(option) === defaultValue, options)
+                : null
         };
 
         this.toggle = this.toggle.bind(this);
@@ -31,54 +57,59 @@ export default class Select extends Component {
         });
     }
 
-    onSelect(data, index) {
+    onSelect(data) {
         this.setState({
-            selectedIndex: index
+            selectedOption: data
         });
 
         let {
             onSelect,
-            name
+            getOptionValue
         } = this.props;
 
         if (onSelect)
-            onSelect(name, data.value);
+            onSelect(getOptionValue(data));
     }
 
     render() {
         let {
-            label,
-            name,
-            data,
+            options,
+            getOptionLabel,
+            getOptionValue
         } = this.props;
 
         let {
-            selectedIndex,
+            selectedOption,
             showMenu
         } = this.state;
 
-        let hasSelected = selectedIndex >= 0;
-        var selectedItem = hasSelected && data[selectedIndex];
+        let selectedIndex = selectedOption
+            ? findIndex(option => getOptionValue(option) === getOptionValue(selectedOption), options)
+            : -1;
 
         return (
             <ReactClickOutside onClickOutside={this.hide}>
                 <div>
-                    <label>{label}</label>
-                    {hasSelected && <button onClick={this.delete}><FaBeer/></button>}
+                    {selectedOption && <span>{getOptionLabel(selectedOption)}</span>}
 
-                    <button onClick={this.toggle}>Click</button>
+                    <div>
+                        {selectedOption && <button onClick={this.delete}>clear</button>}
 
-                    {showMenu &&
-                        <ClickableMenu
-                            data={data}
-                            onSelect={this.onSelect}
-                            defaultSelectedIndex={selectedIndex}>
-                            {(item, isSelected) => isSelected
-                                ? <React.Fragment> {item.label} v </React.Fragment>
-                                : <React.Fragment> {item.label} </React.Fragment>}
-                        </ClickableMenu>}
+                        <button onClick={this.toggle}>dropdown</button>
+                    </div>
                 </div>
-                {selectedItem && <input name={name} value={selectedItem.value} readOnly/>}
+                {showMenu &&
+                    <ClickableMenu
+                        data={options}
+                        onSelect={this.onSelect}
+                        defaultSelectedIndex={selectedIndex}>
+                        {(item, isSelected) => {
+                            let label = getOptionLabel(item);
+                            return isSelected
+                                ? <React.Fragment> {label} v </React.Fragment>
+                                : <React.Fragment> {label} </React.Fragment>
+                        }}
+                    </ClickableMenu>}
             </ReactClickOutside>
         );
     }
