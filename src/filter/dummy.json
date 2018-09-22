@@ -1,5 +1,5 @@
 {
-    "fundamental": [{
+    "Fundamental": [{
         "label": "fundamental 1",
         "name": "fundamental 1",
         "options": [{
@@ -10,7 +10,7 @@
             "value": "option 2"
         }]
     }],
-    "descriptive": [{
+    "Descriptive": [{
         "label": "descriptive 1",
         "name": "descriptive 1",
         "options": [{
@@ -18,7 +18,7 @@
             "value": "option1"
         }]
     }],
-    "technical": [{
+    "Technical": [{
         "label": "technical 1",
         "name": "technical 1",
         "options": [{

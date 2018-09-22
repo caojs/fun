@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { get } from 'lodash/fp';
 import Select from '../common/Select';
 
-const onSelect = (name) => (value) => ({
+const onSelect = (type, name) => (value) => ({
     type: "ON_FILTER_SELECT",
-    payload: { name, value }
+    payload: { type, name, value }
 });
 
 const FilterSelect = (props) => (
@@ -19,9 +19,9 @@ const FilterSelect = (props) => (
 export default connect(
     (state, ownProps) => ({
         ...ownProps,
-        defaultValue: get(`filter.${ownProps.name}`, state)
+        defaultValue: get(`filter.${ownProps.type}.${ownProps.name}`, state)
     }),
     (dispatch, ownProps) => bindActionCreators({
-        onSelect: onSelect(ownProps.name)
+        onSelect: onSelect(ownProps.type, ownProps.name)
     }, dispatch)
 )(FilterSelect);

@@ -1,41 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { map, keys, reduce, get, size, filter } from 'lodash';
 import FilterSelect from './FilterSelect';
 import dummy from './dummy.json';
 
-export default class Filter extends Component {
-    renderSelect(item, index) {
-        return <FilterSelect
-            key={index}
-            name={item.name}
-            label={item.label}
-            options={item.options}/>;
-    }
+let filterKeys = keys(dummy);
 
-    render() {
-        let {
-            descriptive,
-            fundamental,
-            technical
-        } = dummy;
-
-        return (
-            <Tabs>
-                <TabList>
-                    <Tab>Descriptive</Tab>
-                    <Tab>Fundamental</Tab>
-                    <Tab>Technical</Tab>
-                </TabList>
-                <TabPanel>
-                    {descriptive.map(this.renderSelect)}
+const Filter = (props) => {
+    return (
+        <Tabs>
+            <TabList>
+                {map(filterKeys, (k) => (
+                    <Tab key={k}>{k} {props[`${k}Count`]}</Tab>
+                ))}
+            </TabList>
+            {map(filterKeys, (k) => (
+                <TabPanel key={k}>
+                    {dummy[k].map((item, index) => (
+                        <FilterSelect
+                            key={index}
+                            type={k}
+                            {...item}/>
+                    ))}
                 </TabPanel>
-                <TabPanel>
-                    {fundamental.map(this.renderSelect)}
-                </TabPanel>
-                <TabPanel>
-                    {technical.map(this.renderSelect)}
-                </TabPanel>
-            </Tabs>
-        )
-    }
+            ))}
+        </Tabs>
+    );
 }
+
+export default connect(
+    (state, ownProps) => {
+        return ({
+            ...ownProps,
+            ...reduce(filterKeys, (accum, k) => {
+                return {
+                    ...accum,
+                    [`${k}Count`]: size(filter(get(state, `filter.${k}`, {}), (item) => item))
+                };
+            }, {})
+        });
+    })(Filter)
