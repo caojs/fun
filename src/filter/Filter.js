@@ -35,8 +35,8 @@ export default connect(
     (state, ownProps) => {
         return ({
             ...ownProps,
-            ...reduce(filterList, (accum, {type}) => {
-                return {
+            ...reduce((accum, {type}) => {
+                let result = {
                     ...accum,
                     [filterCount(type)]: flow(
                         get(`filter.${type}`),
@@ -44,6 +44,8 @@ export default connect(
                         size
                     )(state)
                 };
-            }, {})
+
+                return result;
+            }, {}, filterList)
         });
     })(Filter)
