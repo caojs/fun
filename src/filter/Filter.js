@@ -1,30 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { map, keys, reduce, get, size, filter } from 'lodash';
+import { map, reduce, get, size, filter, flow } from 'lodash/fp';
 import FilterSelect from './FilterSelect';
-import dummy from './dummy.json';
+import {
+    filter_list as filterList
+} from './dummy.json';
 
-let filterKeys = keys(dummy);
+let filterCount = (type) => `${type}Count`;
 
 const Filter = (props) => {
     return (
         <Tabs>
             <TabList>
-                {map(filterKeys, (k) => (
-                    <Tab key={k}>{k} {props[`${k}Count`]}</Tab>
-                ))}
+                {map(({type, label}) => (
+                    <Tab key={type}>{label} {props[filterCount(type)]}</Tab>
+                ), filterList)}
             </TabList>
-            {map(filterKeys, (k) => (
-                <TabPanel key={k}>
-                    {dummy[k].map((item, index) => (
+            {map(({ type, filters }) => (
+                <TabPanel key={type}>
+                    {filters.map((filter) => (
                         <FilterSelect
-                            key={index}
-                            type={k}
-                            {...item}/>
+                            key={filter.name}
+                            type={type}
+                            {...filter}/>
                     ))}
                 </TabPanel>
-            ))}
+            ), filterList)}
         </Tabs>
     );
 }
@@ -33,10 +35,14 @@ export default connect(
     (state, ownProps) => {
         return ({
             ...ownProps,
-            ...reduce(filterKeys, (accum, k) => {
+            ...reduce(filterList, (accum, {type}) => {
                 return {
                     ...accum,
-                    [`${k}Count`]: size(filter(get(state, `filter.${k}`, {}), (item) => item))
+                    [filterCount(type)]: flow(
+                        get(`filter.${type}`),
+                        filter(item => !!item),
+                        size
+                    )(state)
                 };
             }, {})
         });

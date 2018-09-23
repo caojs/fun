@@ -1,29 +1,62 @@
 {
-    "Fundamental": [{
-        "label": "fundamental 1",
-        "name": "fundamental 1",
-        "options": [{
-            "label": "option1",
-            "value": "option1"
-        },{
-            "label": "option 2",
-            "value": "option 2"
+    "filter_list": [{
+        "type": "descriptive",
+        "label": "Descriptive",
+        "filters": [{
+            "label": "Exchange",
+            "name": "exchange",
+            "options": [{
+                "label": "AMEX",
+                "value": "amex"
+            },{
+                "label": "NYSE",
+                "value": "nyse"
+            }]
+        }, {
+            "label": "Index",
+            "name": "index",
+            "options": [{
+                "label": "S&P500",
+                "value": "sp500"
+            },{
+                "label": "DJIA",
+                "value": "djia"
+            }]
         }]
-    }],
-    "Descriptive": [{
-        "label": "descriptive 1",
-        "name": "descriptive 1",
-        "options": [{
-            "label": "option1",
-            "value": "option1"
+    }, {
+        "type": "fundamental",
+        "label": "Fundamental",
+        "filters": [{
+            "label": "P/E",
+            "name": "pe",
+            "options": [{
+                "label": "Low < 50",
+                "value": "l50"
+            },{
+                "label": "High (>50)",
+                "value": "h50"
+            }]
+        }, {
+            "label": "Forward P/E",
+            "name": "forwardpe",
+            "options": [{
+                "label": "Low < 50",
+                "value": "l50"
+            },{
+                "label": "High (>50)",
+                "value": "h50"
+            }]
         }]
-    }],
-    "Technical": [{
-        "label": "technical 1",
-        "name": "technical 1",
-        "options": [{
-            "label": "option1",
-            "value": "option1"
+    }, {
+        "type": "technical",
+        "label": "Technical",
+        "filters": [{
+            "label": "Performance",
+            "name": "performance",
+            "options": [{
+                "label": "Today up",
+                "value": "dup"
+            }]
         }]
     }]
 }
