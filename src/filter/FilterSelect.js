@@ -19,7 +19,7 @@ const FilterSelect = (props) => (
 export default connect(
     (state, ownProps) => ({
         ...ownProps,
-        defaultValue: get(`filter.${ownProps.type}.${ownProps.name}`, state)
+        defaultValue: get(`filters.${ownProps.type}.${ownProps.name}`, state)
     }),
     (dispatch, ownProps) => bindActionCreators({
         onSelect: onSelect(ownProps.type, ownProps.name)

@@ -39,7 +39,7 @@ export default connect(
                 let result = {
                     ...accum,
                     [filterCount(type)]: flow(
-                        get(`filter.${type}`),
+                        get(`filters.${type}`),
                         filter(item => !!item),
                         size
                     )(state)

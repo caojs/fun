@@ -12,11 +12,11 @@ export default function (state = {}, action) {
                 value
             } = payload;
 
-            let filter = state.filter || {};
-            let o = filter[filterType] || {};
+            let filters = state.filters || {};
+            let o = filters[filterType] || {};
 
-            filter = {
-                ...filter,
+            filters = {
+                ...filters,
                 [filterType]: {
                     ...o,
                     [name]: value
@@ -25,7 +25,7 @@ export default function (state = {}, action) {
 
             return {
                 ...state,
-                filter
+                filters
             };
 
         default:
