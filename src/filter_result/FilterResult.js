@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import FilterSummary from './FilterSummary';
 
 export default class FilterResult extends Component {
     render() {
@@ -11,7 +12,7 @@ export default class FilterResult extends Component {
                         <Tab>Basic</Tab>
                     </TabList>
                     <TabPanel>
-                        summary
+                        <FilterSummary/>
                     </TabPanel>
                     <TabPanel>
                         Basic
