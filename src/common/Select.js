@@ -27,22 +27,23 @@ export default class Select extends Component {
     constructor(props) {
         super(props);
 
-        let {
-            options,
-            defaultValue,
-            getOptionValue
-        } = props;
-
-        this.state = {
-            selectedOption: defaultValue
-                ? find(option => getOptionValue(option) === defaultValue, options)
-                : null
-        };
+        this.state = {};
 
         this.toggle = this.toggle.bind(this);
         this.hide = this.hide.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.delete = this.onSelect.bind(this, -1);
+    }
+
+    _findSelectedOption(value) {
+        let {
+            options,
+            getOptionValue
+        } = this.props;
+
+        return value
+            ? find(option => getOptionValue(option) === value, options)
+            : null;
     }
 
     toggle() {
@@ -58,10 +59,6 @@ export default class Select extends Component {
     }
 
     onSelect(data) {
-        this.setState({
-            selectedOption: data
-        });
-
         let {
             onSelect,
             getOptionValue
@@ -74,14 +71,13 @@ export default class Select extends Component {
     render() {
         let {
             options,
+            value,
             getOptionLabel,
             getOptionValue
         } = this.props;
 
-        let {
-            selectedOption,
-            showMenu
-        } = this.state;
+        let { showMenu } = this.state;
+        let selectedOption = this._findSelectedOption(value);
 
         let selectedIndex = selectedOption
             ? findIndex(option => getOptionValue(option) === getOptionValue(selectedOption), options)

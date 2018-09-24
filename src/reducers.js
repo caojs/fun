@@ -5,11 +5,11 @@ export default function (state = {}, action) {
     } = action;
 
     switch (type) {
-        case "ON_FILTER_SELECT": 
+        case "ON_FILTER_SELECT": {
             let {
-                type: filterType,
-                name,
-                value
+                filterType,
+                filterId,
+                optionId
             } = payload;
 
             let filters = state.filters || {};
@@ -19,7 +19,7 @@ export default function (state = {}, action) {
                 ...filters,
                 [filterType]: {
                     ...o,
-                    [name]: value
+                    [filterId]: optionId
                 }
             };
 
@@ -27,6 +27,30 @@ export default function (state = {}, action) {
                 ...state,
                 filters
             };
+        }
+
+        case "REMOVE_ACTIVATED_FILTER": {
+            let {
+                filterType,
+                filterId
+            } = payload;
+            
+            let filters = state.filters || {};
+            let o = filters[filterType] || {};
+
+            filters = {
+                ...filters,
+                [filterType]: {
+                    ...o,
+                    [filterId]: null
+                }
+            };
+
+            return {
+                ...state,
+                filters
+            };
+        }
 
         default:
             return state;

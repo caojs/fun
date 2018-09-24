@@ -1,0 +1,79 @@
+{
+    "filter_list": {
+        "100": {
+            "label": "Exchange",
+            "name": "exchange",
+            "option_ids": ["100", "101"]
+        },
+        "101": {
+            "label": "Index",
+            "name": "index",
+            "option_ids": ["150", "151"]
+        },
+
+        "200": {
+            "label": "P/E",
+            "name": "pe",
+            "option_ids": ["200", "201"]
+        },
+        "201": {
+            "label": "Forward P/E",
+            "name": "forwardpe",
+            "option_ids": ["200", "201"]
+        },
+
+        "300": {
+            "label": "Performance",
+            "name": "performance",
+            "option_ids": ["250"]
+        }
+    },
+
+    "filter_types": [{
+        "type": "descriptive",
+        "label": "Descriptive",
+        "filter_ids": ["100", "101"]
+    }, {
+        "type": "fundamental",
+        "label": "Fundamental",
+        "filter_ids": ["200", "201"]
+    }, {
+        "type": "technical",
+        "label": "Technical",
+        "filter_ids": ["300"]
+    }],
+
+    "filter_options": {
+        "100": {
+            "label": "AMEX",
+            "value": "amex"
+        },
+        "101": {
+            "label": "NYSE",
+            "value": "nyse"
+        },
+
+        "150": {
+            "label": "S&P500",
+            "value": "sp500"
+        },
+        "151": {
+            "label": "DJIA",
+            "value": "djia"
+        },
+
+        "200": {
+            "label": "Low < 50",
+            "value": "l50"
+        },
+        "201": {
+            "label": "High (>50)",
+            "value": "h50"
+        },
+
+        "250": {
+            "label": "Today up",
+            "value": "dup"
+        }
+    }
+}

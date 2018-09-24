@@ -1,27 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { get } from 'lodash/fp';
+import { get, map } from 'lodash/fp';
 import Select from '../common/Select';
+import { filter_options as filterOptions } from './filter.json';
 
-const onSelect = (type, name) => (value) => ({
+const onSelect = (filterType, filterId, optionId) => ({
     type: "ON_FILTER_SELECT",
-    payload: { type, name, value }
+    payload: { filterType, filterId, optionId }
 });
 
-const FilterSelect = (props) => (
+const FilterSelect = ({label, option_ids: optionIds, ...rest}) => (
     <div>
-        {props.label}
-        <Select {...props} />
+        {label}
+        <Select
+            {...rest}
+            options={map(id => ({ id, ...filterOptions[id]}), optionIds)}
+            getOptionValue={(option) => option.id}/>
     </div>
-)
+);
 
 export default connect(
     (state, ownProps) => ({
         ...ownProps,
-        defaultValue: get(`filters.${ownProps.type}.${ownProps.name}`, state)
+        value: get(`filters.${ownProps.filterType}.${ownProps.filterId}`, state)
     }),
     (dispatch, ownProps) => bindActionCreators({
-        onSelect: onSelect(ownProps.type, ownProps.name)
+        onSelect: (optionId) => onSelect(ownProps.filterType, ownProps.filterId, optionId)
     }, dispatch)
 )(FilterSelect);
