@@ -8,18 +8,15 @@ const callApi = (endpoint) => {
             .json()
             .then(json => {
                 if (!response.ok) {
-                return Promise.reject(json)
+                    return Promise.reject(json)
                 }
 
                 return json;
             }))
 }
 
-// Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_API = 'Call API'
 
-// A Redux middleware that interprets actions with CALL_API info specified.
-// Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
     const callAPI = action[CALL_API]
     if (typeof callAPI === 'undefined') {
@@ -58,11 +55,11 @@ export default store => next => action => {
     return callApi(endpoint).then(
         response => next(actionWith({
             type: successType,
-            response,
+            payload: { response },
         })),
         error => next(actionWith({
             type: failureType,
-            error: error.message || 'Something bad happened'
+            payload: { error: error.message || 'Something bad happened'}
         }))
     )
 }

@@ -29,13 +29,13 @@ class ActivatedFilters extends Component {
 
 export default connect(
     (state, ownProps) => {
-        let { filters = {} } = state;
+        let { filters: { main } } = state;
 
         let activatedFilters = flow(
             toPairs,
             map(([filterType, o]) => [filterType, toPairs(omitBy(isNil, o))]),
             flatMap(([filterType, list]) => map(([filterId, optionId]) => ({filterType, filterId, optionId}), list))
-        )(filters);
+        )(main);
 
         return {
             ...ownProps,

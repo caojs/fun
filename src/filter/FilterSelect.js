@@ -19,7 +19,7 @@ const FilterSelect = ({label, option_ids: optionIds, ...rest}) => (
 export default connect(
     (state, ownProps) => ({
         ...ownProps,
-        value: get(`filters.${ownProps.filterType}.${ownProps.filterId}`, state)
+        value: get(`filters.main.${ownProps.filterType}.${ownProps.filterId}`, state)
     }),
     (dispatch, ownProps) => bindActionCreators({
         onSelect: (optionId) => actions.onSelect(ownProps.filterType, ownProps.filterId, optionId)

@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { bindActionCreators } from 'redux';
 import { map, reduce, get, size, filter, flow } from 'lodash/fp';
+
 import FilterSelect from './FilterSelect';
 import {
     filter_types as filterTypes,
     filter_list as filterList
 } from '../data/filter.json';
+import { actions } from '../ducks/filters';
 
 let filterCount = (type) => `${type}Count`;
 
@@ -21,16 +24,21 @@ const Filter = (props) => {
 
             {map(({ type, filter_ids : filterIds }) => (
                 <TabPanel key={type}>
-                    {filterIds.map((id) => {
-                        let filter = filterList[id];
-                        return (
-                            <FilterSelect
-                                key={id}
-                                filterType={type}
-                                filterId={id}
-                                {...filter}/>
-                        );
-                    })}
+                    <div>
+                        {filterIds.map((id) => {
+                            let filter = filterList[id];
+                            return (
+                                <FilterSelect
+                                    key={id}
+                                    filterType={type}
+                                    filterId={id}
+                                    {...filter}/>
+                            );
+                        })}
+                    </div>
+                    <div>
+                        <button onClick={() => props.applyFilters("test")}>Apply</button>
+                    </div>
                 </TabPanel>
             ), filterTypes)}
         </Tabs>
@@ -45,7 +53,7 @@ export default connect(
                 let result = {
                     ...accum,
                     [filterCount(type)]: flow(
-                        get(`filters.${type}`),
+                        get(`filters.main.${type}`),
                         filter(item => !!item),
                         size
                     )(state)
@@ -54,4 +62,7 @@ export default connect(
                 return result;
             }, {}, filterTypes)
         });
-    })(Filter)
+    },
+    {
+        applyFilters: actions.applyFilters
+    })(Filter);

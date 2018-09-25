@@ -1,9 +1,19 @@
 import update from 'immutability-helper';
+import { CALL_API } from '../middlewares/api';
 
 export const ON_FILTER_SELECT = "ON_FILTER_SELECT";
 export const REMOVE_ACTIVATED_FILTER = "REMOVE_ACTIVATED_FILTER";
+export const FILTERS_REQUEST = "FILTERS_REQUEST";
+export const FILTERS_SUCCESS = "FILTERS_SUCCESS";
+export const FILTERS_FAILURE = "FILTERS_FAILURE";
 
-const initialState = {};
+const initialState = {
+    isFetching: false,
+    main: {},
+    search: {},
+    order: {},
+    results: {}
+};
 
 export default (state = initialState, action) => {
     let {
@@ -11,7 +21,7 @@ export default (state = initialState, action) => {
         payload
     } = action;
 
-    switch(type) {
+    switch (type) {
         case ON_FILTER_SELECT:
         case REMOVE_ACTIVATED_FILTER:
         {
@@ -22,16 +32,42 @@ export default (state = initialState, action) => {
             } = payload;
 
             return update(state, {
-                $auto: {
-                    [filterType]: {
-                        $auto: {
-                            [filterId]: { $set: optionId }
+                main: {
+                    $auto: {
+                        [filterType]: {
+                            $auto: {
+                                [filterId]: { $set: optionId }
+                            }
                         }
                     }
                 }
             });
         }
 
+        case FILTERS_REQUEST:
+        {
+            return update(state, {
+                isFetching: { $set: true }
+            });
+        }
+
+        case FILTERS_SUCCESS:
+        {
+            let { response } = payload;
+            return update(state, {
+                isFetching: { $set: false },
+                results: { $set: response }
+            });
+        }
+
+        case FILTERS_FAILURE:
+        {
+            let { error } = payload;
+            return update(state, {
+                isFetching: { $set: false }
+            });
+        }
+        
         default:
             return state;
     }
@@ -54,7 +90,15 @@ const onRemove = (filterType, filterId) => () => ({
     }
 });
 
+const applyFilters = (url) => ({
+    [CALL_API]: {
+        types: [FILTERS_REQUEST, FILTERS_SUCCESS, FILTERS_FAILURE],
+        endpoint: url
+    }
+});
+
 export const actions = {
     onSelect,
-    onRemove
+    onRemove,
+    applyFilters
 };
