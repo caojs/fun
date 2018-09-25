@@ -5,7 +5,7 @@ import FilterTag from './FilterTag';
 import {
     filter_list as filterList,
     filter_options as filterOptions 
-} from '../filter/filter.json';
+} from '../data/filter.json';
 
 class ActivatedFilters extends Component {
     render() {

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
+    "immutability-helper": "^2.8.1",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
@@ -15,7 +16,8 @@
     "react-scripts-cssmodules": "^1.1.50",
     "react-tabs": "^2.3.0",
     "react-virtualized": "^9.20.1",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

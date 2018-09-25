@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Grid from 'react-virtualized/dist/es/Grid';
 import MultiGrid from 'react-virtualized/dist/es/MultiGrid';
 import AutoSizer from 'react-virtualized/dist/es/AutoSizer';
 import CellMeasurer from 'react-virtualized/dist/es/CellMeasurer';
@@ -49,7 +48,6 @@ function cellRenderer ({ columnIndex, key, rowIndex, style, parent }) {
 
 export default class FilterSummary extends Component {
     render() {
-        console.log(styles.BodyGrid);
         return (
             <AutoSizer disableHeight={true}>
                 {({width}) => (
@@ -63,7 +61,7 @@ export default class FilterSummary extends Component {
                         columnWidth={(ref) => cache.columnWidth(ref) + 20}
                         columnCount={16}
                         fixedColumnCount={1}
-                        fixedRowCount={1}
+                        fixedRowCount={0}
                         height={40 * list.length + 40}
                         rowHeight={40}
                         rowCount={list.length}
@@ -72,6 +70,6 @@ export default class FilterSummary extends Component {
                         overscanRowCount={0}/>
                 )}
             </AutoSizer>
-        )
+        );
     }
 }

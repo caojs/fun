@@ -3,12 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { get, map } from 'lodash/fp';
 import Select from '../common/Select';
-import { filter_options as filterOptions } from './filter.json';
-
-const onSelect = (filterType, filterId, optionId) => ({
-    type: "ON_FILTER_SELECT",
-    payload: { filterType, filterId, optionId }
-});
+import { actions } from '../ducks/filters';
+import { filter_options as filterOptions } from '../data/filter.json';
 
 const FilterSelect = ({label, option_ids: optionIds, ...rest}) => (
     <div>
@@ -26,6 +22,6 @@ export default connect(
         value: get(`filters.${ownProps.filterType}.${ownProps.filterId}`, state)
     }),
     (dispatch, ownProps) => bindActionCreators({
-        onSelect: (optionId) => onSelect(ownProps.filterType, ownProps.filterId, optionId)
+        onSelect: (optionId) => actions.onSelect(ownProps.filterType, ownProps.filterId, optionId)
     }, dispatch)
 )(FilterSelect);

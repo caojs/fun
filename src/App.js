@@ -8,10 +8,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Filter/>
-        <span>abcdef</span>
-        <ActivatedFilters/> */}
-        <FilterResult/>
+        <Filter/>
+        <span>-----</span>
+        <ActivatedFilters/>
       </div>
     );
   }

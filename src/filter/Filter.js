@@ -6,7 +6,7 @@ import FilterSelect from './FilterSelect';
 import {
     filter_types as filterTypes,
     filter_list as filterList
-} from './filter.json';
+} from '../data/filter.json';
 
 let filterCount = (type) => `${type}Count`;
 
