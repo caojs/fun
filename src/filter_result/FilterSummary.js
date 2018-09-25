@@ -60,7 +60,7 @@ export default class FilterSummary extends Component {
                         deferredMeasurementCache={cache}
                         columnWidth={(ref) => cache.columnWidth(ref) + 20}
                         columnCount={16}
-                        fixedColumnCount={1}
+                        fixedColumnCount={0}
                         fixedRowCount={0}
                         height={40 * list.length + 40}
                         rowHeight={40}
