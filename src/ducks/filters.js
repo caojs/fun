@@ -17,7 +17,8 @@ const initialState = {
         isLoaded: false,
         page: 0,
         response: null,
-        error: null
+        error: null,
+        customHeaders: [0]
     }
 };
 

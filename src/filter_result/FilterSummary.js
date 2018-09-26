@@ -42,7 +42,7 @@ const makeCellRenderer = ({ headers, body }) => {
     }
 }
 
-class FilterSummary extends Component {
+export class FilterSummary extends Component {
     render() {
         let {
             results: { response, error }
