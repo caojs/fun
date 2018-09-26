@@ -6,14 +6,19 @@ export const REMOVE_ACTIVATED_FILTER = "REMOVE_ACTIVATED_FILTER";
 export const FILTERS_REQUEST = "FILTERS_REQUEST";
 export const FILTERS_SUCCESS = "FILTERS_SUCCESS";
 export const FILTERS_FAILURE = "FILTERS_FAILURE";
+export const FILTERS_PAGE_CHANGE = "FILTER_PAGE_CHANGE";
 
 const initialState = {
-    isFetching: false,
-    isLoaded: false,
     main: {},
     search: {},
     order: {},
-    results: {}
+    results: {
+        isFetching: false,
+        isLoaded: false,
+        page: 0,
+        response: null,
+        error: null
+    }
 };
 
 export default (state = initialState, action) => {
@@ -48,7 +53,9 @@ export default (state = initialState, action) => {
         case FILTERS_REQUEST:
         {
             return update(state, {
-                isFetching: { $set: true }
+                results: {
+                    isFetching: { $set: true }
+                }
             });
         }
 
@@ -56,9 +63,12 @@ export default (state = initialState, action) => {
         {
             let { response } = payload;
             return update(state, {
-                isFetching: { $set: false },
-                isLoaded: { $set: true },
-                results: { $set: response }
+                results: {
+                    isFetching: { $set: false },
+                    isLoaded: { $set: true },
+                    response: { $set: response },
+                    error: { $set: null }
+                }
             });
         }
 
@@ -66,7 +76,22 @@ export default (state = initialState, action) => {
         {
             let { error } = payload;
             return update(state, {
-                isFetching: { $set: false }
+                results: {
+                    isFetching: { $set: false },
+                    error: { $set: error }
+                }
+            });
+        }
+
+        case FILTERS_PAGE_CHANGE:
+        {
+            let { page } = payload;
+            return update(state, {
+                results: {
+                    page: {
+                        $set: page
+                    }
+                }
             });
         }
         
@@ -99,8 +124,16 @@ const applyFilters = (url) => ({
     }
 });
 
+const onPageChange = (page) => ({
+    type: FILTERS_PAGE_CHANGE,
+    payload: {
+        page
+    }
+});
+
 export const actions = {
     onSelect,
     onRemove,
+    onPageChange,
     applyFilters
 };

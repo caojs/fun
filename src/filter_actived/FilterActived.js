@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { flow, map, flatMap, toPairs, omitBy, isNil } from 'lodash/fp';
+import { flow, get, map, flatMap, toPairs, omitBy, isNil } from 'lodash/fp';
 import FilterTag from './FilterTag';
 import {
     filter_list as filterList,
@@ -29,13 +29,13 @@ class ActivatedFilters extends Component {
 
 export default connect(
     (state, ownProps) => {
-        let { filters: { main } } = state;
 
         let activatedFilters = flow(
+            get('filters.main'),
             toPairs,
             map(([filterType, o]) => [filterType, toPairs(omitBy(isNil, o))]),
             flatMap(([filterType, list]) => map(([filterId, optionId]) => ({filterType, filterId, optionId}), list))
-        )(main);
+        )(state);
 
         return {
             ...ownProps,

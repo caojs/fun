@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { get } from 'lodash/fp';
+
 import FilterSummary from './FilterSummary';
+import FilterPagination from './FilterPagination';
 
 class FilterResult extends Component {
     render() {
@@ -26,6 +29,7 @@ class FilterResult extends Component {
                             <TabPanel>
                                 Basic
                             </TabPanel>
+                            <FilterPagination pageCount={20}/>
                         </Tabs>)
                     : "empty"}
             </div>
@@ -34,5 +38,5 @@ class FilterResult extends Component {
 }
 
 export default connect(
-    ({ filters }) => filters
+    (state) => get('filters.results', state)
 )(FilterResult);

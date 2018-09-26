@@ -14,11 +14,11 @@ const cache = new CellMeasurerCache({
     fixedHeight: true
 });
 
-const cellRenderer = ({ headers, results }) => {
+const makeCellRenderer = ({ headers, body }) => {
     const getter = (rowIndex, columnIndex) => {
         return rowIndex == 0 ?
             (headers[columnIndex]["label"]) :
-            (results[rowIndex - 1][columnIndex]["value"]);
+            (body[rowIndex - 1][columnIndex]["value"]);
     };
 
     return ({ columnIndex, key, rowIndex, style, parent }) => {
@@ -43,18 +43,21 @@ const cellRenderer = ({ headers, results }) => {
 }
 
 class FilterSummary extends Component {
-    constructor(props) {
-        super(props);
-        this.cellRenderer = cellRenderer(props.results);
-    }
-
     render() {
-        let { results = {} } = this.props;
+        let {
+            results: { response, error }
+        } = this.props;
+
+        if (error) {
+            return <div>Error!</div>
+        }
 
         let {
             headers = [],
-            results: body = []
-        } = results;
+            body = []
+        } = response;
+
+        let cellRenderer = makeCellRenderer(response);
 
         let tableColumnCount = headers.length;
         let tableRowCount = body.length + 1;
@@ -67,7 +70,7 @@ class FilterSummary extends Component {
                         classNameBottomRightGrid=""
                         classNameTopLeftGrid=""
                         classNameTopRightGrid=""
-                        cellRenderer={this.cellRenderer}
+                        cellRenderer={cellRenderer}
                         deferredMeasurementCache={cache}
                         fixedColumnCount={1}
                         fixedRowCount={1}
@@ -85,6 +88,6 @@ class FilterSummary extends Component {
     }
 }
 
-export default connect((state, ownProps) => ({
+export default connect((state) => ({
     results: get(`filters.results`, state)
 }))(FilterSummary);

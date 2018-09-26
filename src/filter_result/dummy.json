@@ -11,7 +11,7 @@
     }, {
         "label": "Industry"
     }],
-    "results": [
+    "body": [
         [{
             "value": "A"
         },{
@@ -20,8 +20,7 @@
             "value": "Healthcare"
         }, {
             "value": "Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research"
-        }],
-        [{
+        }], [{
             "value": "AA"
         }, {
             "value": "Alcoa Corporation"
