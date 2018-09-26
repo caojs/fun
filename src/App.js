@@ -12,6 +12,8 @@ class App extends Component {
         <Filter/>
         <span>-----</span>
         <ActivatedFilters/>
+        <span>-----</span>
+        <FilterResult/>
       </div>
     );
   }

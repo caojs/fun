@@ -9,6 +9,7 @@ export const FILTERS_FAILURE = "FILTERS_FAILURE";
 
 const initialState = {
     isFetching: false,
+    isLoaded: false,
     main: {},
     search: {},
     order: {},
@@ -56,6 +57,7 @@ export default (state = initialState, action) => {
             let { response } = payload;
             return update(state, {
                 isFetching: { $set: false },
+                isLoaded: { $set: true },
                 results: { $set: response }
             });
         }

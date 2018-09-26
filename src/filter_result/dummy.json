@@ -1,8 +1,34 @@
 {
     "page": 1,
-    "total_page": 20,
+    "total_count": 20,
     "per_page": 20,
-    "results": [{
-        
-    }]
+    "headers": [{
+        "label": "Ticker"
+    }, {
+        "label": "Company"
+    }, {
+        "label": "Sector"
+    }, {
+        "label": "Industry"
+    }],
+    "results": [
+        [{
+            "value": "A"
+        },{
+            "value": "Agilent Technologies, Inc."
+        }, {
+            "value": "Healthcare"
+        }, {
+            "value": "Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research"
+        }],
+        [{
+            "value": "AA"
+        }, {
+            "value": "Alcoa Corporation"
+        }, {
+            "value": "Basic Materials"
+        }, {
+            "value": "Aluminum"
+        }]
+    ]
 }

@@ -1,7 +1,16 @@
+import dummy from '../filter_result/dummy.json';
+
 const API_ROOT = 'https://api.github.com/'
 
 const callApi = (endpoint) => {
     const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+
+    if (endpoint === "test")
+    {
+        return new Promise((res) => {
+            setTimeout(() => res(dummy), 1000);
+        });
+    }
 
     return fetch(fullUrl)
         .then(response => response
@@ -15,19 +24,20 @@ const callApi = (endpoint) => {
             }))
 }
 
-export const CALL_API = 'Call API'
+export const CALL_API = 'Call API';
 
 export default store => next => action => {
-    const callAPI = action[CALL_API]
+    const callAPI = action[CALL_API];
+
     if (typeof callAPI === 'undefined') {
         return next(action)
     }
 
-    let { endpoint } = callAPI
-    const { types } = callAPI
+    let { endpoint } = callAPI;
+    const { types } = callAPI;
 
     if (typeof endpoint === 'function') {
-        endpoint = endpoint(store.getState())
+        endpoint = endpoint(store.getState());
     }
 
     if (typeof endpoint !== 'string') {

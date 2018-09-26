@@ -40,6 +40,6 @@ export default connect(
         return {
             ...ownProps,
             activatedFilters
-        }
+        };
     }
 )(ActivatedFilters)

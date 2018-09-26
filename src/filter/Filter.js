@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { bindActionCreators } from 'redux';
 import { map, reduce, get, size, filter, flow } from 'lodash/fp';
 
 import FilterSelect from './FilterSelect';
+import LoadableButton from '../common/LoadableButton';
 import {
     filter_types as filterTypes,
     filter_list as filterList
@@ -37,7 +37,7 @@ const Filter = (props) => {
                         })}
                     </div>
                     <div>
-                        <button onClick={() => props.applyFilters("test")}>Apply</button>
+                        <LoadableButton onClickPromise={() => props.applyFilters("test")}>Apply</LoadableButton>
                     </div>
                 </TabPanel>
             ), filterTypes)}
