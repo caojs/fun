@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { get } from 'lodash/fp';
-
 import MultiGrid from 'react-virtualized/dist/es/MultiGrid';
 import AutoSizer from 'react-virtualized/dist/es/AutoSizer';
 import CellMeasurer from 'react-virtualized/dist/es/CellMeasurer';
 import CellMeasurerCache from 'react-virtualized/dist/es/CellMeasurer/CellMeasurerCache';
+
 import styles from './styles.module.css';
 
-const cache = new CellMeasurerCache({
-    defaultWidth: 100,
-    minWidth: 75,
-    fixedHeight: true
-});
-
-const makeCellRenderer = ({ headers, body }) => {
+const makeCellRenderer = (cache, { headers, body }) => {
     const getter = (rowIndex, columnIndex) => {
-        return rowIndex == 0 ?
+        return rowIndex === 0 ?
             (headers[columnIndex]["label"]) :
             (body[rowIndex - 1][columnIndex]["value"]);
     };
@@ -42,52 +34,52 @@ const makeCellRenderer = ({ headers, body }) => {
     }
 }
 
-export class FilterSummary extends Component {
+export default class FilterSummary extends Component {
+    constructor(props) {
+        super(props);
+        this.cache = new CellMeasurerCache({
+            defaultWidth: 100,
+            minWidth: 75,
+            fixedHeight: true
+        });
+    }
+
     render() {
-        let {
-            results: { response, error }
-        } = this.props;
-
-        if (error) {
-            return <div>Error!</div>
-        }
-
+        let { response } = this.props;
         let {
             headers = [],
             body = []
         } = response;
 
-        let cellRenderer = makeCellRenderer(response);
-
+        let cache = this.cache;
+        let cellRenderer = makeCellRenderer(cache, response);
         let tableColumnCount = headers.length;
         let tableRowCount = body.length + 1;
 
         return (
-            <AutoSizer disableHeight={true}>
-                {({width}) => (
-                    <MultiGrid
-                        classNameBottomLeftGrid=""
-                        classNameBottomRightGrid=""
-                        classNameTopLeftGrid=""
-                        classNameTopRightGrid=""
-                        cellRenderer={cellRenderer}
-                        deferredMeasurementCache={cache}
-                        fixedColumnCount={1}
-                        fixedRowCount={1}
-                        columnCount={tableColumnCount}
-                        rowCount={tableRowCount}
-                        columnWidth={(ref) => cache.columnWidth(ref) + 20}
-                        rowHeight={40}
-                        width={width}
-                        height={40 * tableRowCount + 5}
-                        overscanColumnCount={0}
-                        overscanRowCount={0}/>
-                )}
-            </AutoSizer>
+            tableColumnCount <= 0 ?
+                <div>Wrong!</div> :
+                <AutoSizer disableHeight={true}>
+                    {({width}) => (
+                        <MultiGrid
+                            classNameBottomLeftGrid=""
+                            classNameBottomRightGrid=""
+                            classNameTopLeftGrid=""
+                            classNameTopRightGrid=""
+                            cellRenderer={cellRenderer}
+                            deferredMeasurementCache={cache}
+                            fixedColumnCount={1}
+                            fixedRowCount={1}
+                            columnCount={tableColumnCount}
+                            rowCount={tableRowCount}
+                            columnWidth={(ref) => cache.columnWidth(ref) + 20}
+                            rowHeight={40}
+                            width={width}
+                            height={40 * tableRowCount + 5}
+                            overscanColumnCount={0}
+                            overscanRowCount={0}/>
+                    )}
+                </AutoSizer>
         );
     }
 }
-
-export default connect((state) => ({
-    results: get(`filters.results`, state)
-}))(FilterSummary);

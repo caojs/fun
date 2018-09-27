@@ -7,18 +7,19 @@ export const FILTERS_REQUEST = "FILTERS_REQUEST";
 export const FILTERS_SUCCESS = "FILTERS_SUCCESS";
 export const FILTERS_FAILURE = "FILTERS_FAILURE";
 export const FILTERS_PAGE_CHANGE = "FILTER_PAGE_CHANGE";
+export const FILTERS_CUSTOM_HEADERS = "FILTERS_CUSTOM_HEADERS";
 
 const initialState = {
     main: {},
     search: {},
     order: {},
     results: {
+        customHeaderIds: [0],
         isFetching: false,
         isLoaded: false,
         page: 0,
         response: null,
         error: null,
-        customHeaders: [0]
     }
 };
 
@@ -95,6 +96,18 @@ export default (state = initialState, action) => {
                 }
             });
         }
+
+        case FILTERS_CUSTOM_HEADERS:
+        {
+            let { value } = payload;
+            return update(state, {
+                results: {
+                    customHeaderIds: {
+                        $set: value
+                    }
+                }
+            });
+        }
         
         default:
             return state;
@@ -132,9 +145,17 @@ const onPageChange = (page) => ({
     }
 });
 
+const changeCustomHeaders = (value) => ({
+    type: FILTERS_CUSTOM_HEADERS,
+    payload: {
+        value
+    }
+})
+
 export const actions = {
     onSelect,
     onRemove,
     onPageChange,
-    applyFilters
+    applyFilters,
+    changeCustomHeaders
 };

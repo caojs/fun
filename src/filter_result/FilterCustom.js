@@ -1,30 +1,50 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { get } from 'lodash/fp';
+import { flow, map, filter, findIndex } from 'lodash/fp';
 
-import { FilterSummary } from './FilterSummary';
+import FilterSummary from './FilterSummary';
+import FilterCustomSelect from './FilterCustomSelect';
 
-class FilterCustom extends Component {
+const getter = (customHeaderIds) => (headers = [], body = []) => {
+    let indexs = flow(
+        map(id => findIndex(header => header.id === id, headers)),
+        filter(idx => idx !== -1)
+    )(customHeaderIds);
+    let newHeaders = map(idx => headers[idx], indexs);
+    let newBody = map((row) => map(idx => row[idx], indexs), body);
+    return {
+        headers: newHeaders,
+        body: newBody
+    };
+};
+
+let count = 0;
+
+export default class FilterCustom extends Component {
     render() {
         let {
-            results: { response, error }
+            response,
+            customHeaderIds = []
         } = this.props;
-
-        if (error) {
-            return <div>Error!</div>
-        }
 
         let {
             headers = [],
             body = []
-        } = response;
+        } = getter(customHeaderIds)(response.headers, response.body);
 
         return (
-            <div></div>
-        )
+            <div>
+                <div>
+                    <FilterCustomSelect/>
+                </div>
+                <FilterSummary
+                    key={count++}
+                    {...this.props}
+                    response={{
+                        ...response,
+                        headers,
+                        body
+                    }}/>
+            </div>
+        );
     }
 }
-
-export default connect(
-    (state) => ({ results: get('filters.results', state) })
-)(FilterCustom);

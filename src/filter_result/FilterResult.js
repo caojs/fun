@@ -3,36 +3,41 @@ import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { get } from 'lodash/fp';
 
+import ErrorWrapper from '../common/ErrorWrapper';
 import FilterSummary from './FilterSummary';
+import FilterCustom from './FilterCustom';
 import FilterPagination from './FilterPagination';
 
 class FilterResult extends Component {
     render() {
         let {
             isLoaded,
-            isFetching
+            isFetching,
+            error
         } = this.props;
 
         return (
-            <div>
-                {isLoaded
-                    ? (isFetching
-                        ? "fetching"
-                        : <Tabs>
-                            <TabList>
-                                <Tab>Summary</Tab>
-                                <Tab>Basic</Tab>
-                            </TabList>
-                            <TabPanel>
-                                <FilterSummary/>
-                            </TabPanel>
-                            <TabPanel>
-                                Basic
-                            </TabPanel>
-                            <FilterPagination pageCount={20}/>
-                        </Tabs>)
-                    : "empty"}
-            </div>
+            <ErrorWrapper error={error}>
+                {() => {
+                    return isLoaded
+                        ? (isFetching
+                            ? "fetching"
+                            : <Tabs>
+                                <TabList>
+                                    <Tab>Summary</Tab>
+                                    <Tab>Custom</Tab>
+                                </TabList>
+                                <TabPanel>
+                                    <FilterSummary {...this.props}/>
+                                </TabPanel>
+                                <TabPanel>
+                                    <FilterCustom {...this.props}/>
+                                </TabPanel>
+                                <FilterPagination {...this.props}/>
+                            </Tabs>)
+                        : "empty"}
+                }
+            </ErrorWrapper>
         );
     }
 }
