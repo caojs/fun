@@ -14,6 +14,7 @@ const initialState = {
     search: {},
     order: {},
     results: {
+        summaryHeaderIds: "all",
         customHeaderIds: [0],
         isFetching: false,
         isLoaded: false,

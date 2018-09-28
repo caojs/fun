@@ -14,6 +14,9 @@
     }, {
         "id": 3,
         "label": "Industry"
+    }, {
+        "id": 4,
+        "label": "Chart"
     }],
     "body": [
         [{
@@ -24,6 +27,9 @@
             "value": "Healthcare"
         }, {
             "value": "Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research Medical Laboratories & Research"
+        }, {
+            "type": "image",
+            "value": "https://via.placeholder.com/350x150"
         }], [{
             "value": "AA"
         }, {
@@ -32,6 +38,9 @@
             "value": "Basic Materials"
         }, {
             "value": "Aluminum"
+        }, {
+            "type": "image",
+            "value": "https://via.placeholder.com/350x150"
         }]
     ]
 }

@@ -13,12 +13,23 @@ class FilterResult extends Component {
         let {
             isLoaded,
             isFetching,
-            error
+            error,
         } = this.props;
 
         return (
             <ErrorWrapper error={error}>
                 {() => {
+                    let {
+                        response,
+                        summaryHeaderIds,
+                        customHeaderIds
+                    } = this.props;
+
+                    let {
+                        headers,
+                        body
+                    } = response || {};
+
                     return isLoaded
                         ? (isFetching
                             ? "fetching"
@@ -28,10 +39,16 @@ class FilterResult extends Component {
                                     <Tab>Custom</Tab>
                                 </TabList>
                                 <TabPanel>
-                                    <FilterSummary {...this.props}/>
+                                    <FilterSummary
+                                        headerIds={summaryHeaderIds}
+                                        headers={headers}
+                                        body={body}/>
                                 </TabPanel>
                                 <TabPanel>
-                                    <FilterCustom {...this.props}/>
+                                    <FilterCustom 
+                                        headerIds={customHeaderIds}
+                                        headers={headers}
+                                        body={body}/>
                                 </TabPanel>
                                 <FilterPagination {...this.props}/>
                             </Tabs>)
