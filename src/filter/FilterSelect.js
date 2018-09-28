@@ -7,8 +7,8 @@ import { actions } from '../ducks/filters';
 import { filter_options as filterOptions } from '../data/filter.json';
 
 const FilterSelect = ({label, option_ids: optionIds, ...rest}) => (
-    <div>
-        {label}
+    <div className="filter-select">
+        <span>{label}</span>
         <Select
             {...rest}
             options={map(id => ({ id, ...filterOptions[id]}), optionIds)}

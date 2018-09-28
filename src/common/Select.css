@@ -1,0 +1,27 @@
+.select__main-label,
+.select__main-buttons {
+    display: inline-block;
+}
+.select__dropdown {
+    position: relative;
+}
+
+.select__dropdown-inner {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+}
+
+.select__dropdown-item {
+    display: block;
+    padding: 8px 8px;
+    cursor: pointer;
+}
+
+.select__dropdown-item:hover {
+    background-color: whitesmoke;
+}
+
+.select__dropdown-item.selected {
+    background: yellow;
+}

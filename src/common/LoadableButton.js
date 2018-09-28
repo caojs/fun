@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isPromise from 'is-promise';
 
 export default class LoadableButton extends Component {
     static propTypes = {
@@ -18,20 +19,24 @@ export default class LoadableButton extends Component {
         let {
             children,
             onClickPromise,
+            disabled,
             ...rest
         } = this.props;
 
-        let {
-            isClickable,
-            isLoading
-        } = this.state;
+        let { isClickable } = this.state;
 
         let onClick = (e) => {
             let pm = onClickPromise(e);
+
+            if (!isPromise(pm)) {
+                pm = Promise.resolve(pm);
+            }
+
             this.setState({
                 isClickable: false,
                 isLoading: true
             });
+
             return pm
                 .finally(() => {
                     this.setState({
@@ -45,7 +50,7 @@ export default class LoadableButton extends Component {
             <button
                 {...rest}
                 onClick={onClick}
-                disabled={!isClickable}>
+                disabled={disabled || !isClickable}>
                 {children}
             </button>
         )

@@ -1,5 +1,4 @@
-import update from 'immutability-helper';
-import { CALL_API } from '../middlewares/api';
+import update from 'immutability-helper'; import { CALL_API } from '../middlewares/api';
 
 export const ON_FILTER_SELECT = "ON_FILTER_SELECT";
 export const REMOVE_ACTIVATED_FILTER = "REMOVE_ACTIVATED_FILTER";
@@ -8,11 +7,15 @@ export const FILTERS_SUCCESS = "FILTERS_SUCCESS";
 export const FILTERS_FAILURE = "FILTERS_FAILURE";
 export const FILTERS_PAGE_CHANGE = "FILTER_PAGE_CHANGE";
 export const FILTERS_CUSTOM_HEADERS = "FILTERS_CUSTOM_HEADERS";
+export const FILTERS_SEARCH = "FILTERS_SEARCH";
+export const FILTERS_CHANGE_SIGNAL = "FILTERS_CHANGE_SIGNAL";
+export const FILTERS_CHANGE_SORT = "FILTERS_CHANGE_SORT";
 
 const initialState = {
     main: {},
-    search: {},
-    order: {},
+    search: "",
+    sort: [],
+    signal: "",
     results: {
         summaryHeaderIds: "all",
         customHeaderIds: [0],
@@ -109,7 +112,31 @@ export default (state = initialState, action) => {
                 }
             });
         }
+
+        case FILTERS_SEARCH:
+        {
+            let { value } = payload;
+            return update(state, {
+                search: { $set: value }
+            });
+        }
         
+        case FILTERS_CHANGE_SIGNAL:
+        {
+            let { value } = payload;
+            return update(state, {
+                signal: { $set: value }
+            });
+        }
+
+        case FILTERS_CHANGE_SORT:
+        {
+            let { value } = payload;
+            return update(state, {
+                sort: { $set: value }
+            });
+        }
+
         default:
             return state;
     }
@@ -151,6 +178,21 @@ const changeCustomHeaders = (value) => ({
     payload: {
         value
     }
+});
+
+const search = (value) => ({
+    type: FILTERS_SEARCH,
+    payload: { value }
+});
+
+const changeSignal = (value) => ({
+    type: FILTERS_CHANGE_SIGNAL,
+    payload: { value }
+});
+
+const changeSort = (value) => ({
+    type: FILTERS_CHANGE_SORT,
+    payload: { value }
 })
 
 export const actions = {
@@ -158,5 +200,8 @@ export const actions = {
     onRemove,
     onPageChange,
     applyFilters,
-    changeCustomHeaders
+    changeCustomHeaders,
+    search,
+    changeSignal,
+    changeSort
 };

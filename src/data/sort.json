@@ -1,0 +1,17 @@
+{
+    "type_options": [{
+        "label": "Ticker",
+        "value": "ticker"
+    }, {
+        "label": "Company",
+        "value": "company"
+    }],
+
+    "order_options": [{
+        "label": "Asc",
+        "value": "asc"
+    }, {
+        "label": "Desc",
+        "value": "desc"
+    }]
+}

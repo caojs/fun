@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import ReactClickOutside from 'react-click-outside';
+import cn from 'classnames';
 import { noop, find, findIndex } from 'lodash/fp';
+import { IoMdArrowDropdown, IoMdClose } from 'react-icons/io';
 import PropTypes from 'prop-types';
 import ClickableMenu from './ClickableMenu';
+import './Select.css';
 
 const propTypes = {
     options: PropTypes.array,
     onSelect: PropTypes.func,
     getOptionLabel: PropTypes.func,
     getOptionValue: PropTypes.func,
-    defaultValue: PropTypes.string
+    value: PropTypes.string
 };
 
 const defaultProps = {
@@ -85,27 +88,44 @@ export default class Select extends Component {
 
         return (
             <ReactClickOutside onClickOutside={this.hide}>
-                <div>
-                    {selectedOption && <span>{getOptionLabel(selectedOption)}</span>}
+                <div className="select">
+                    <div className="select__main">
+                        {selectedOption &&
+                            <span className={"select__main-label"}>
+                                {getOptionLabel(selectedOption)}
+                            </span>}
 
-                    <div>
-                        {selectedOption && <button onClick={this.delete}>clear</button>}
+                        <div className={"select__main-buttons"}>
+                            {selectedOption &&
+                                <span
+                                    className="select__main-close-btn"
+                                    onClick={this.delete}>
+                                    <IoMdClose/>
+                                </span>}
 
-                        <button onClick={this.toggle}>dropdown</button>
+                            <span
+                                className="select__main-dropdown-btn"
+                                onClick={this.toggle}>
+                                <IoMdArrowDropdown/>
+                            </span>
+                        </div>
+                    </div>
+                    <div className={"select__dropdown"}>
+                        <div className={"select__dropdown-inner"}>
+                            {showMenu &&
+                                <ClickableMenu
+                                    data={options}
+                                    onSelect={this.onSelect}
+                                    defaultSelectedIndex={selectedIndex}>
+                                    {(item, isSelected) => {
+                                        let label = getOptionLabel(item);
+                                        let klass = cn("select__dropdown-item", { selected: isSelected });
+                                        return <span className={klass}> {label} </span>
+                                    }}
+                                </ClickableMenu>}
+                        </div>
                     </div>
                 </div>
-                {showMenu &&
-                    <ClickableMenu
-                        data={options}
-                        onSelect={this.onSelect}
-                        defaultSelectedIndex={selectedIndex}>
-                        {(item, isSelected) => {
-                            let label = getOptionLabel(item);
-                            return isSelected
-                                ? <React.Fragment> {label} v </React.Fragment>
-                                : <React.Fragment> {label} </React.Fragment>
-                        }}
-                    </ClickableMenu>}
             </ReactClickOutside>
         );
     }

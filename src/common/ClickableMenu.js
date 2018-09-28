@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 import noop from 'lodash/fp/noop';
 import isFunction from 'lodash/fp/isFunction';
 import findIndex from 'lodash/fp/findIndex';
+
+import styles from './ClickableMenu.module.css';
 
 export default class ClickableMenu extends Component {
     constructor(props) {
@@ -54,8 +57,15 @@ export default class ClickableMenu extends Component {
         }
 
         return (
-            <ul ref={this.ref} onClick={this.onClick}>
-                {data.map((item, index) => <li key={index}> {children(item, defaultSelectedIndex === index)} </li>)}
+            <ul
+                className={cn("clickable-menu-list", styles.list)}
+                ref={this.ref}
+                onClick={this.onClick}>
+                {data.map((item, index) => (
+                    <li className={cn("clickable-menu-item", styles.listItem)} key={index}>
+                        {children(item, defaultSelectedIndex === index)}
+                    </li>
+                ))}
             </ul>
         );
     }

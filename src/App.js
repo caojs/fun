@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'cross-fetch/polyfill';
-import './App.css';
+import 'normalize.css';
 import Filter from './filter/Filter';
 import ActivatedFilters from './filter_actived/FilterActived';
 import FilterResult from './filter_result/FilterResult';

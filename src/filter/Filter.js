@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { map, reduce, get, size, filter, flow } from 'lodash/fp';
 
+import FilterSearch from './FilterSearch';
+import FilterSort from './FilterSort';
+import FilterSignal from './FilterSignal';
 import FilterSelect from './FilterSelect';
 import LoadableButton from '../common/LoadableButton';
 import {
@@ -16,6 +19,9 @@ let filterCount = (type) => `${type}Count`;
 const Filter = (props) => {
     return (
         <Tabs>
+            <FilterSearch/>
+            <FilterSort/>
+            <FilterSignal/>
             <TabList>
                 {map(({type, label}) => (
                     <Tab key={type}>{label} {props[filterCount(type)]}</Tab>

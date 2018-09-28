@@ -1,0 +1,14 @@
+.label,
+.buttons{
+    display: inline-block;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdownInner {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+}

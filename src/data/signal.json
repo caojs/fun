@@ -1,0 +1,9 @@
+{
+    "signal_options": [{
+        "label": "Top gainers",
+        "value": "topgainers"
+    }, {
+        "label": "Top Losers",
+        "value": "toplosers"
+    }]
+}
