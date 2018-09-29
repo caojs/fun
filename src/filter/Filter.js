@@ -34,15 +34,15 @@ const Filter = (props) => {
                 </div>
             </div>
             <div className="w-100 border-top"></div>
-            <Tabs className={cn("row", styles.main)}>
-                <div className={cn("col", styles.tabHead)}>
+            <Tabs className={cn("row", styles.main, styles.tabs)}>
+                <div className={"col tabs__head"}>
                     <span className="tabs__label">Filter Type:</span>
-                    <TabList className="tabs__list">
+                    <TabList>
                         {map(({type, label}) => {
                             let count = props[filterCount(type)];
                             let countText = count > 0 ? `(${count})` : '';
                             return (
-                                <Tab className="tabs__tab" key={type}>
+                                <Tab key={type}>
                                     {label}{countText}
                                 </Tab>
                             );
@@ -52,7 +52,7 @@ const Filter = (props) => {
 
                 {map(({ type, filter_ids : filterIds }) => (
                     <TabPanel 
-                        className={cn("col-12", styles.tabPanel)}
+                        className="col-12"
                         key={type}>
                         <div className="row">
                             {filterIds.map((id, index) => {

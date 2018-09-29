@@ -19,6 +19,11 @@
     font-size: 0.9em;
     color: #2591db;
     cursor: pointer;
+    border-radius: 3px;
+}
+
+.tagRemove:hover {
+    background-color: #f7f7f7;
 }
 
 .tagRemove svg {

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { map, findIndex, filter, flow, range, isArray } from 'lodash/fp';
+import cn from 'classnames';
 import MultiGrid from 'react-virtualized/dist/es/MultiGrid';
 import AutoSizer from 'react-virtualized/dist/es/AutoSizer';
 import CellMeasurer from 'react-virtualized/dist/es/CellMeasurer';
 import CellMeasurerCache from 'react-virtualized/dist/es/CellMeasurer/CellMeasurerCache';
 
-import styles from './styles.module.css';
+import styles from './FilterTable.module.css';
 
 const makeCellRenderer = (cache, { headers, body }) => {
     const getter = (rowIndex, columnIndex) => {
@@ -16,6 +17,8 @@ const makeCellRenderer = (cache, { headers, body }) => {
     };
 
     return ({ columnIndex, key, rowIndex, style, parent }) => {
+        let isHeader = rowIndex === 0;
+        let isOddRow = rowIndex % 2 === 0;
         return (
             <CellMeasurer
                 cache={cache}
@@ -24,7 +27,11 @@ const makeCellRenderer = (cache, { headers, body }) => {
                 parent={parent}
                 rowIndex={rowIndex}>
                 <div
-                    className={styles.cell}
+                    className={cn(styles.cell, {
+                        [styles.headerRow]: isHeader,
+                        [styles.evenRow]: !isOddRow,
+                        [styles.oddRow]: isOddRow
+                    })}
                     style={{
                         ...style,
                         whiteSpace: 'nowrap',
@@ -96,10 +103,10 @@ export default class FilterTable extends Component {
                 <AutoSizer disableHeight={true}>
                     {({width}) => (
                         <MultiGrid
-                            classNameBottomLeftGrid=""
-                            classNameBottomRightGrid=""
-                            classNameTopLeftGrid=""
-                            classNameTopRightGrid=""
+                            classNameBottomLeftGrid="table__bt-grid"
+                            classNameBottomRightGrid="table__br-grid"
+                            classNameTopLeftGrid="table__tl-grid"
+                            classNameTopRightGrid="table__tr-grid"
                             cellRenderer={cellRenderer}
                             deferredMeasurementCache={cache}
                             fixedColumnCount={1}
@@ -109,7 +116,7 @@ export default class FilterTable extends Component {
                             columnWidth={(ref) => cache.columnWidth(ref) + 20}
                             rowHeight={40}
                             width={width}
-                            height={40 * tableRowCount + 5}
+                            height={40 * tableRowCount + 20}
                             overscanColumnCount={0}
                             overscanRowCount={0}/>
                     )}

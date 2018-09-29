@@ -1,17 +1,28 @@
 .main {
-    align-items: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-left: 0;
-    margin-right: 0;
-    background-color: white;
-    font-size: 1rem;
+    font-size: 1em;
     color: #8c8b8f;
+}
+.tabs {
+    padding: 15px;
+    background-color: white;
+    font-size: 0.75em;
 }
 
 .tabs :global(.tabs__head) {
+    display: flex;
+    align-items: center;
     margin-bottom: 15px;
-    font-size: 0.75em;
+}
+
+.tabs :global(.tabs__total) {
+    margin-right: 20px;
+    color: #323642;
+}
+
+.tabs :global(.tabs__total-number)
+{
+    margin-left: 5px;
+    color: #8c8b8f;
 }
 
 .tabs :global(.tabs__label) {
@@ -51,19 +62,6 @@
     border-top: 1px solid #f4f5f2;
 }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    padding-top: 15px;
-}
-
-.buttons :global(.filters__apply) {
-    padding: 5px 10px 4px 10px;
-    background-color: #2591db;
-    color: white;
-    font-size: 0.75em;
-    text-transform: uppercase;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
+.tabs :global(.react-tabs__tab-panel) {
+    margin-bottom: 15px;
 }

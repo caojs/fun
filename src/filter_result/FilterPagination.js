@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actions } from '../ducks/filters';
 import ReactPaginate from 'react-paginate';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+
+import { actions } from '../ducks/filters';
+
+import styles from './FilterPagination.module.css';
 
 class FilterPagination extends Component {
     render() {
@@ -20,17 +24,19 @@ class FilterPagination extends Component {
         return (
             pageCount > 1
                 ? <ReactPaginate
-                        previousLabel={"<"}
-                        nextLabel={">"}
+                        previousLabel={<FiChevronLeft/>}
+                        nextLabel={<FiChevronRight/>}
                         breakLabel={"..."}
-                        breakClassName={"break-me"}
                         initialPage={0}
                         pageCount={pageCount}
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={5}
                         onPageChange={onPageChange}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
+                        containerClassName={styles.main}
+                        pageClassName="pagination__item"
+                        breakClassName="pagination__break"
+                        previousClassName="pagination__prev"
+                        nextClassName="pagination__next"
                         activeClassName={"active"} />
                 : null
         );

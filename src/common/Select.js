@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactClickOutside from 'react-click-outside';
 import cn from 'classnames';
 import { noop, find, findIndex, isFunction } from 'lodash/fp';
-import { GoChevronDown, GoX } from 'react-icons/go';
+import { FiChevronDown, FiX } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import ClickableMenu from './ClickableMenu';
 import styles from './Select.module.css';
@@ -80,7 +80,7 @@ export default class Select extends Component {
         return (props) => {
             return (
                 selectedOption && <span {...props} onClick={this.delete}>
-                    <GoX/>
+                    <FiX/>
                 </span>
             );
         };
@@ -89,7 +89,7 @@ export default class Select extends Component {
     renderDropDownIcon(props) {
         return (
             <span {...props} onClick={this.toggle}>
-                <GoChevronDown/>
+                <FiChevronDown/>
             </span>
         );
     }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findIndex, some } from 'lodash/fp';
 
+import styles from './SelectableList.module.css';
+
 export default class SelectableList extends Component {
     static propTypes = {
         data: PropTypes.array.isRequired,
@@ -52,11 +54,14 @@ export default class SelectableList extends Component {
         } = this.props;
 
         return (
-            <ul ref={this.ref} onClick={this.onClick}>
+            <ul
+                className={styles.main}
+                ref={this.ref}
+                onClick={this.onClick}>
                 {data.map((item, index) => {
                     let hasInValue = some(item, value);
                     return (
-                        <li key={index}>
+                        <li className={styles.item} key={index}>
                             {children(item, hasInValue)}
                         </li>);
                 })}

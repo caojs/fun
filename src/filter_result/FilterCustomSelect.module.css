@@ -1,0 +1,21 @@
+.main {
+    padding-bottom: 15px;
+}
+
+.main :global(.custom__item) {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.main :global .custom__item svg {
+    float: left;
+}
+
+.main :global .custom__check-icon {
+    margin-right: 5px;
+}
+
+.main :global .custom__item.selected .custom__check-icon {
+    color: #2591db;
+}

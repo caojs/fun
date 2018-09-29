@@ -19,8 +19,7 @@
 
 .deleteIcon, .dropdownIcon {
     padding: 3px;
-    margin-right: 5px;
-    font-size: 1.1em;
+    font-size: 1.4em;
     border-radius: 4px;
     cursor: pointer;
 }

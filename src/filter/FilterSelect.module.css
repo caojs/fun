@@ -11,8 +11,14 @@
 }
 
 .dropdownIcon {
+    padding: 3px;
+    border-radius: 4px;
     cursor: pointer;
     color: #2591db;
+}
+
+.dropdownIcon:hover {
+    background-color: #f7f7f7;
 }
 
 .dropdownIcon svg {

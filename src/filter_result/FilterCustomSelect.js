@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { flow, map, filter, get, find } from 'lodash/fp';
+import { FiSquare, FiCheckSquare } from 'react-icons/fi';
 import cn from 'classnames';
 
 import MultiSelectableList from '../common/MultiSelectableList';
 import { actions } from '../ducks/filters';
+
+import styles from './FilterCustomSelect.module.css';
 
 class FilterCustomSelect extends Component {
     render() {
@@ -21,13 +24,19 @@ class FilterCustomSelect extends Component {
             )(customHeaderIds);
 
         return (
-            <div>
+            <div className={styles.main}>
                 <MultiSelectableList
                     data={headers}
                     value={selectedheaders}
                     onChange={(value) => changeCustomHeaders(map(item => item.id, value))}>
                     {(item, isSelected) => {
-                        return <span className={cn({ isSelected })}>{isSelected ? "select": ""} {item.label}</span>
+                        let icon = isSelected ?
+                            <FiCheckSquare/> :
+                            <FiSquare/>;
+                        return <div className={cn("custom__item", { selected: isSelected })}>
+                            <span className="custom__check-icon">{icon}</span>
+                            {item.label}
+                        </div>
                     }}
                 </MultiSelectableList>
             </div>
