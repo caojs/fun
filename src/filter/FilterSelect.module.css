@@ -1,0 +1,35 @@
+.frame {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.label {
+    padding-right: 5px;
+    font-size: 0.7em;
+    color: #8c8b8f;
+}
+
+.dropdownIcon {
+    cursor: pointer;
+    color: #2591db;
+}
+
+.dropdownIcon svg {
+    float: left;
+}
+
+.dropdown {
+    position: relative;
+    width: 100%;
+    font-size: 0.8em;
+}
+
+.optionLabel {
+    float: left;
+    padding: 2px 5px;
+    border-radius: 1px;
+    font-size: 0.65em;
+    color: #2591db;
+    background-color: #c1e3f5;
+}

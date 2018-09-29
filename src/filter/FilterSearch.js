@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash/fp';
+import { IoMdSearch } from 'react-icons/io';
 import LoadableButton from '../common/LoadableButton';
 import { actions } from '../ducks/filters';
+import styles from './FilterSearch.module.css';
 
 class FilterSearch extends Component {
     constructor(props) {
@@ -37,13 +39,18 @@ class FilterSearch extends Component {
         let { text } = this.state;
 
         return (
-            <div>
-                <input value={text} onChange={this.onChange} placeholder="Search..."/>
-                    <LoadableButton
-                        disabled={text === search}
-                        onClickPromise={this.onClickPromise}>
-                        <span>Search</span>
-                    </LoadableButton>
+            <div className={styles.main}>
+                <input
+                    className={styles.input}
+                    value={text}
+                    onChange={this.onChange}
+                    placeholder="Search..."/>
+                <LoadableButton
+                    className={styles.button}
+                    disabled={text === search}
+                    onClickPromise={this.onClickPromise}>
+                    <IoMdSearch/>
+                </LoadableButton>
             </div>
         )
     }

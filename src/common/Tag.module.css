@@ -1,0 +1,26 @@
+.tag {
+    display: inline-flex;
+    padding: 3px 8px;
+    background-color: white;
+    font-size: 1rem;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.tagLabel {
+    display: inline-block;
+    padding-right: 6px;
+    color: #60617a;
+    font-size: 0.7em;
+}
+
+.tagRemove {
+    display: inline-block;
+    font-size: 0.9em;
+    color: #2591db;
+    cursor: pointer;
+}
+
+.tagRemove svg {
+    float: left;
+}

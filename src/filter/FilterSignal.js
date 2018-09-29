@@ -5,6 +5,8 @@ import Select from '../common/Select';
 import { actions } from '../ducks/filters';
 import { signal_options as signalOptions } from '../data/signal.json';
 
+import styles from './FilterSignal.module.css';
+
 class FilterSignal extends Component {
     render() {
         let {
@@ -13,9 +15,10 @@ class FilterSignal extends Component {
         } = this.props;
 
         return (
-            <div>
-                <span>Signal: </span>
+            <div className={styles.main}>
+                <span className={styles.label}>Signal:</span>
                 <Select
+                    className={styles.select}
                     value={signal}
                     options={signalOptions}
                     onSelect={changeSignal}/>

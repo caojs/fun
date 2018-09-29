@@ -6,15 +6,29 @@ import Select from '../common/Select';
 import { actions } from '../ducks/filters';
 import { filter_options as filterOptions } from '../data/filter.json';
 
-const FilterSelect = ({label, option_ids: optionIds, ...rest}) => (
-    <div className="filter-select">
-        <span>{label}</span>
+import styles from './FilterSelect.module.css';
+
+const FilterSelect = ({ label, option_ids: optionIds, ...rest }) => {
+    return (
         <Select
             {...rest}
             options={map(id => ({ id, ...filterOptions[id]}), optionIds)}
-            getOptionValue={(option) => option.id}/>
-    </div>
-);
+            getOptionValue={(option) => option.id}>
+            {({ OptionLabel, DropDownIcon, DropDownMenu }) => {
+                return <React.Fragment>
+                    <div>
+                        <div className={styles.frame}>
+                            <span className={styles.label}>{label}</span>
+                            <DropDownIcon className={styles.dropdownIcon}/>
+                        </div>
+                        <DropDownMenu className={styles.dropdown}/>
+                    </div>
+                    <OptionLabel className={styles.optionLabel}/>
+                </React.Fragment>
+            }}
+        </Select>
+    )
+};
 
 export default connect(
     (state, ownProps) => ({

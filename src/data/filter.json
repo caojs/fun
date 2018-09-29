@@ -32,7 +32,7 @@
     "filter_types": [{
         "type": "descriptive",
         "label": "Descriptive",
-        "filter_ids": ["100", "101"]
+        "filter_ids": ["100", "101", "200", "201", "300"]
     }, {
         "type": "fundamental",
         "label": "Fundamental",

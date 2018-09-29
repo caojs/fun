@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactClickOutside from 'react-click-outside';
 import cn from 'classnames';
-import { noop, find, findIndex } from 'lodash/fp';
-import { IoMdArrowDropdown, IoMdClose } from 'react-icons/io';
+import { noop, find, findIndex, isFunction } from 'lodash/fp';
+import { GoChevronDown, GoX } from 'react-icons/go';
 import PropTypes from 'prop-types';
 import ClickableMenu from './ClickableMenu';
-import './Select.css';
+import styles from './Select.module.css';
 
 const propTypes = {
     options: PropTypes.array,
@@ -36,6 +36,11 @@ export default class Select extends Component {
         this.hide = this.hide.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.delete = this.onSelect.bind(this, -1);
+
+        this.renderDeleteIconPartial = this.renderDeleteIconPartial.bind(this);
+        this.renderDropDownIcon = this.renderDropDownIcon.bind(this);
+        this.renderDropdownMenuPartial = this.renderDropdownMenuPartial.bind(this);
+        this.renderOptionLabelPartial = this.renderOptionLabelPartial.bind(this);
     }
 
     _findSelectedOption(value) {
@@ -71,12 +76,63 @@ export default class Select extends Component {
             onSelect(getOptionValue(data));
     }
 
+    renderDeleteIconPartial(selectedOption) {
+        return (props) => {
+            return (
+                selectedOption && <span {...props} onClick={this.delete}>
+                    <GoX/>
+                </span>
+            );
+        };
+    }
+
+    renderDropDownIcon(props) {
+        return (
+            <span {...props} onClick={this.toggle}>
+                <GoChevronDown/>
+            </span>
+        );
+    }
+
+    renderOptionLabelPartial(selectedOption) {
+        let { getOptionLabel } = this.props;
+        return (props) => {
+            return (
+                selectedOption && <span {...props}>
+                    {getOptionLabel(selectedOption)}
+                </span>
+            )
+        };
+    }
+
+    renderDropdownMenuPartial(options, isShowMenu, selectedIndex) {
+        let { getOptionLabel } = this.props;
+        return (props) => {
+            return (
+                <div {...props}>
+                    {isShowMenu &&
+                        <ClickableMenu
+                            data={options}
+                            onSelect={this.onSelect}
+                            defaultSelectedIndex={selectedIndex}>
+                            {(item, isSelected) => {
+                                let label = getOptionLabel(item);
+                                let klass = cn("select-dropdown-item", { selected: isSelected });
+                                return <span className={klass}> {label} </span>
+                            }}
+                        </ClickableMenu>}
+                </div>
+            );
+        };
+    }
+
     render() {
         let {
             options,
             value,
-            getOptionLabel,
-            getOptionValue
+            getOptionValue,
+            className,
+            children,
         } = this.props;
 
         let { showMenu } = this.state;
@@ -86,46 +142,35 @@ export default class Select extends Component {
             ? findIndex(option => getOptionValue(option) === getOptionValue(selectedOption), options)
             : -1;
 
-        return (
-            <ReactClickOutside onClickOutside={this.hide}>
-                <div className="select">
-                    <div className="select__main">
-                        {selectedOption &&
-                            <span className={"select__main-label"}>
-                                {getOptionLabel(selectedOption)}
-                            </span>}
+        let DropDownIcon = this.renderDropDownIcon;
+        let OptionLabel = this.renderOptionLabelPartial(selectedOption);
+        let DeleteIcon = this.renderDeleteIconPartial(selectedOption);
+        let DropDownMenu = this.renderDropdownMenuPartial(options, showMenu, selectedIndex);
+        
+        let component = isFunction(children) ?
+            children({
+                OptionLabel ,
+                DeleteIcon,
+                DropDownIcon,
+                DropDownMenu
+            }) :
+            (<React.Fragment>
+                <div className={cn("select__main", styles.main)}>
+                    <OptionLabel className={cn("select__option-label", styles.label)}/>
 
-                        <div className={"select__main-buttons"}>
-                            {selectedOption &&
-                                <span
-                                    className="select__main-close-btn"
-                                    onClick={this.delete}>
-                                    <IoMdClose/>
-                                </span>}
-
-                            <span
-                                className="select__main-dropdown-btn"
-                                onClick={this.toggle}>
-                                <IoMdArrowDropdown/>
-                            </span>
-                        </div>
-                    </div>
-                    <div className={"select__dropdown"}>
-                        <div className={"select__dropdown-inner"}>
-                            {showMenu &&
-                                <ClickableMenu
-                                    data={options}
-                                    onSelect={this.onSelect}
-                                    defaultSelectedIndex={selectedIndex}>
-                                    {(item, isSelected) => {
-                                        let label = getOptionLabel(item);
-                                        let klass = cn("select__dropdown-item", { selected: isSelected });
-                                        return <span className={klass}> {label} </span>
-                                    }}
-                                </ClickableMenu>}
-                        </div>
+                    <div className={cn("select__main-buttons", styles.buttons)}>
+                        <DeleteIcon className={cn("select__delete-icon", styles.deleteIcon)}/>
+                        <DropDownIcon className={cn("select__dropdown-icon", styles.dropdownIcon)}/>
                     </div>
                 </div>
+                <div className={cn("select__dropdown", styles.dropdown)}>
+                    <DropDownMenu className={cn("select__dropdown-menu", styles.dropdownInner)}/>
+                </div>
+            </React.Fragment>);
+
+        return (
+            <ReactClickOutside className={cn("select", className)} onClickOutside={this.hide}>
+                {component}               
             </ReactClickOutside>
         );
     }

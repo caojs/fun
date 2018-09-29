@@ -6,24 +6,30 @@ import {
     filter_list as filterList,
     filter_options as filterOptions 
 } from '../data/filter.json';
+import styles from './FilterActived.module.css';
+console.log(styles)
 
 class ActivatedFilters extends Component {
     render() {
         let {activatedFilters} = this.props;
         return (
-            <div>
-                {activatedFilters.map(({ filterType, filterId, optionId }) => {
-                    let { label: filterLabel } = filterList[filterId];
-                    let { label: optionLabel } = filterOptions[optionId];
-                    return (
-                        <FilterTag
-                            key={filterId}
-                            filterType={filterType}
-                            filterId={filterId}
-                            label={`${filterLabel} : ${optionLabel}`}/>);
-                })}
-            </div>
-        )
+            activatedFilters.length > 0 ?
+                (<div className="cm-zone">
+                    <span className="cm-heading">Active filters:</span>
+                    <div className={styles.filters}>
+                        {activatedFilters.map(({ filterType, filterId, optionId }) => {
+                            let { label: filterLabel } = filterList[filterId];
+                            let { label: optionLabel } = filterOptions[optionId];
+                            return (
+                                <FilterTag
+                                    key={filterId}
+                                    filterType={filterType}
+                                    filterId={filterId}
+                                    label={`${filterLabel} : ${optionLabel}`}/>);
+                        })}
+                    </div>
+                </div>):
+                null);
     }
 }
 

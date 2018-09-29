@@ -58,14 +58,18 @@ export default class ClickableMenu extends Component {
 
         return (
             <ul
-                className={cn("clickable-menu-list", styles.list)}
+                className={cn("dropdown-menu", styles.list)}
                 ref={this.ref}
                 onClick={this.onClick}>
-                {data.map((item, index) => (
-                    <li className={cn("clickable-menu-item", styles.listItem)} key={index}>
-                        {children(item, defaultSelectedIndex === index)}
-                    </li>
-                ))}
+                {data.map((item, index) => {
+                    let isSelected = defaultSelectedIndex === index;
+                    return (
+                        <li className={cn("dropdown-item", {selected: isSelected}, styles.listItem)}
+                            key={index}>
+                            {children(item, isSelected)}
+                        </li>
+                    );
+                })}
             </ul>
         );
     }

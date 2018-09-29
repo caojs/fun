@@ -1,0 +1,11 @@
+.main {
+    display: flex;
+    align-items: center;
+    font-size: 0.75em;
+    color: #8c8b8f;
+}
+
+.label {
+    margin-right: 5px;
+    color: #323642;
+}

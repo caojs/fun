@@ -8,6 +8,8 @@ import {
     order_options as orderOptions
 } from '../data/sort.json';
 
+import styles from './FilterSort.module.css';
+
 class FilterSort extends Component {
     render() {
         let {
@@ -17,13 +19,15 @@ class FilterSort extends Component {
         } = this.props;
 
         return (
-            <div>
-                <span>Order:</span>
+            <div className={styles.main}>
+                <span className={styles.label}>Order:</span>
                 <Select
+                    className={styles.select}
                     value={type}
                     options={typeOptions}
                     onSelect={(value) => changeSort([value, order])}/>
                 <Select
+                    className={styles.select}
                     value={order}
                     options={orderOptions}
                     onSelect={(value) => changeSort([type, value])}/>

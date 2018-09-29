@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
+import { IoMdClose } from 'react-icons/io';
+
+import styles from './Tag.module.css';
 
 const propTypes = {
     label: PropTypes.string.isRequired,
@@ -15,9 +19,12 @@ export default class Tag extends Component {
             onRemove
         } = this.props;
         return (
-            <div>
-                {label}
-                {onRemove && <span onClick={onRemove}>remove</span>}
+            <div className={cn("tag", styles.tag)}>
+                <span className={cn("tag__label", styles.tagLabel)}>{label}</span>
+                {onRemove &&
+                    <span className={cn("tag__remove", styles.tagRemove)} onClick={onRemove}>
+                        <IoMdClose/>
+                    </span>}
             </div>
         )
     }

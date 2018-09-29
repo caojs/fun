@@ -1,8 +1,12 @@
 .list {
+    display: block;
     padding: 0;
     margin: 0;
 }
 
 .listItem {
-    display: block;
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: 0.3rem 1rem;
+    color: #8c8b8f;
 }
