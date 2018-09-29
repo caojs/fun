@@ -52,7 +52,7 @@ class FilterResult extends Component {
                                 </TabPanel>
                                 <FilterPagination {...this.props}/>
                             </Tabs>)
-                        : "empty"}
+                        : null}
                 }
             </ErrorWrapper>
         );

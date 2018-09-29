@@ -9,9 +9,7 @@ class App extends Component {
     return (
       <div className="App container">
         <Filter/>
-        <span>-----</span>
         <ActivatedFilters/>
-        <span>-----</span>
         <FilterResult/>
       </div>
     );

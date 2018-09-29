@@ -18,9 +18,16 @@
 }
 
 .deleteIcon, .dropdownIcon {
-    font-size: 1.1em;
-    cursor: pointer;
+    padding: 3px;
     margin-right: 5px;
+    font-size: 1.1em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteIcon:hover,
+.dropdownIcon:hover {
+    background-color: #f7f7f7;
 }
 
 .deleteIcon {

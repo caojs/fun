@@ -1,7 +1,7 @@
 .frame {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .label {
@@ -28,6 +28,7 @@
 .optionLabel {
     float: left;
     padding: 2px 5px;
+    margin-bottom: 3px;
     border-radius: 1px;
     font-size: 0.65em;
     color: #2591db;

@@ -33,20 +33,32 @@ const Filter = (props) => {
                     <FilterSignal/>
                 </div>
             </div>
+            <div className="w-100 border-top"></div>
             <Tabs className={cn("row", styles.main)}>
-                <TabList className="col-12">
-                    {map(({type, label}) => (
-                        <Tab key={type}>{label} {props[filterCount(type)]}</Tab>
-                    ), filterTypes)}
-                </TabList>
+                <div className={cn("col", styles.tabHead)}>
+                    <span className="tabs__label">Filter Type:</span>
+                    <TabList className="tabs__list">
+                        {map(({type, label}) => {
+                            let count = props[filterCount(type)];
+                            let countText = count > 0 ? `(${count})` : '';
+                            return (
+                                <Tab className="tabs__tab" key={type}>
+                                    {label}{countText}
+                                </Tab>
+                            );
+                        }, filterTypes)}
+                    </TabList>
+                </div>
 
                 {map(({ type, filter_ids : filterIds }) => (
-                    <TabPanel key={type} className="col-12">
+                    <TabPanel 
+                        className={cn("col-12", styles.tabPanel)}
+                        key={type}>
                         <div className="row">
                             {filterIds.map((id, index) => {
                                 let filter = filterList[id];
                                 let comp = (
-                                    <div className="col-3" key={id}>
+                                    <div className="col-3 tabs__select-item" key={id}>
                                         <FilterSelect
                                             filterType={type}
                                             filterId={id}
@@ -56,14 +68,19 @@ const Filter = (props) => {
 
                                 return index !== 0 && index % 4 == 0 ?
                                     <React.Fragment key={id}>
+                                        <div className="w-100">
+                                            <div className="tabs__border"></div>
+                                        </div>
                                         {comp}
-                                        <div className="w-100"></div>
                                     </React.Fragment> :
                                     comp;
                             })}
                         </div>
-                        <div>
-                            <LoadableButton onClickPromise={() => props.applyFilters("test")}>Apply</LoadableButton>
+                        <div className={styles.buttons}>
+                            <LoadableButton
+                                className="filters__apply"
+                                onClickPromise={() => props.applyFilters("test")}>Apply
+                            </LoadableButton>
                         </div>
                     </TabPanel>
                 ), filterTypes)}
