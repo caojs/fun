@@ -13,10 +13,16 @@ import styles from './FilterSort.module.css';
 class FilterSort extends Component {
     render() {
         let {
-            type = get('[0].value', typeOptions),
-            order = get('[0].value', orderOptions),
+            type,
+            order,
             changeSort
         } = this.props;
+
+        if (!type) {
+            type = get('[0].value', typeOptions);
+            order = get('[0].value', orderOptions);
+            changeSort([type, order]);
+        }
 
         return (
             <div className={styles.main}>

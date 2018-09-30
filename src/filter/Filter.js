@@ -11,6 +11,7 @@ import FilterSelect from './FilterSelect';
 import LoadableButton from '../common/LoadableButton';
 import { filter_types as filterTypes, filter_list as filterList } from '../data/filter.json';
 import { actions } from '../ducks/filters';
+import { filterApi } from '../apiConfig';
 
 import styles from './Filter.module.css';
 
@@ -20,7 +21,7 @@ const Filter = (props) => {
     return (
         <div className="cm-zone">
             <div className="row">
-                <span className="col-12 cm-heading">Filters</span>
+                <span className="col-12 cm-heading">Filters:</span>
             </div>
             <div className={cn("row", styles.main)}>
                 <div className="col">
@@ -79,7 +80,7 @@ const Filter = (props) => {
                         <div className={styles.buttons}>
                             <LoadableButton
                                 className="filters__apply"
-                                onClickPromise={() => props.applyFilters("test")}>Apply
+                                onClickPromise={() => props.applyFilters(filterApi)}>Apply
                             </LoadableButton>
                         </div>
                     </TabPanel>

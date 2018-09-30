@@ -1,4 +1,8 @@
 import update from 'immutability-helper'; import { CALL_API } from '../middlewares/api';
+import { flow, get, merge, join, pickBy, isString, reduce, mapKeys, mapValues } from 'lodash/fp';
+import queryString from 'query-string';
+
+import { filter_list as filterList , filter_options as filterOptions } from '../data/filter.json';
 
 export const ON_FILTER_SELECT = "ON_FILTER_SELECT";
 export const REMOVE_ACTIVATED_FILTER = "REMOVE_ACTIVATED_FILTER";
@@ -16,12 +20,12 @@ const initialState = {
     search: "",
     sort: [],
     signal: "",
+    page: 0,
     results: {
         summaryHeaderIds: "all",
         customHeaderIds: [0],
         isFetching: false,
         isLoaded: false,
-        page: 0,
         response: null,
         error: null,
     }
@@ -93,10 +97,8 @@ export default (state = initialState, action) => {
         {
             let { page } = payload;
             return update(state, {
-                results: {
-                    page: {
-                        $set: page
-                    }
+                page: {
+                    $set: page
                 }
             });
         }
@@ -162,7 +164,42 @@ const onRemove = (filterType, filterId) => () => ({
 const applyFilters = (url) => ({
     [CALL_API]: {
         types: [FILTERS_REQUEST, FILTERS_SUCCESS, FILTERS_FAILURE],
-        endpoint: url
+        endpoint: (state) => {
+            //TODO: find somewhere to place this code
+            let page = { page: get('filters.page', state) };
+            let search = { search: get('filters.search', state) };
+            let signal = { signal: get('filters.signal', state) };
+            let sort = { sort: join('_', get('filters.sort', state)) };
+            let filters = reduce(
+                (accum, value) => {
+                    let newValue = flow(
+                        pickBy(isString),
+                        mapKeys(key => filterList[key].name),
+                        mapValues(v => filterOptions[v].value)
+                    )(value);
+                    return ({
+                        ...accum,
+                        ...newValue
+                    });
+                },
+                {},
+                get('filters.main', state)
+            );
+
+            let all = pickBy(value => value !== "", Object.assign(
+                {},
+                page,
+                search,
+                signal,
+                sort,
+                filters
+            ));
+
+            let query = queryString.stringify(all);
+            
+            let u = query ? url + "?" + query : url;
+            return u;
+        }
     }
 });
 

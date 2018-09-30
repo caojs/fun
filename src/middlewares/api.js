@@ -1,11 +1,10 @@
 import dummy from '../filter_result/dummy.json';
-
-const API_ROOT = 'https://api.github.com/'
+import { rootApi } from '../apiConfig';
 
 const callApi = (endpoint, options) => {
-    const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+    const fullUrl = (endpoint.indexOf(rootApi) === -1) ? rootApi + endpoint : endpoint
 
-    if (endpoint === "test")
+    //if (endpoint === "filter")
     {
         return new Promise((res) => {
             setTimeout(() => res(dummy), 1000);

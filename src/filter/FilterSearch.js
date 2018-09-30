@@ -4,6 +4,8 @@ import { get } from 'lodash/fp';
 import { IoMdSearch } from 'react-icons/io';
 import LoadableButton from '../common/LoadableButton';
 import { actions } from '../ducks/filters';
+import { filterApi } from '../apiConfig';
+
 import styles from './FilterSearch.module.css';
 
 class FilterSearch extends Component {
@@ -14,6 +16,12 @@ class FilterSearch extends Component {
         this.onClickPromise = this.onClickPromise.bind(this);
     }
 
+    componentWillReceiveProps(props) {
+        this.setState({
+            text: props.search
+        });
+    }
+
     onChange(event) {
         this.setState({
             text: event.target.value
@@ -22,13 +30,20 @@ class FilterSearch extends Component {
 
     onClickPromise() {
         let {
+            text: oldText = "",
             doSearch,
             applyFilters
         } = this.props;
-        return applyFilters("abc")
-            .then(value => {
-                doSearch(this.state.text);
-                return value;
+
+        doSearch(this.state.text);
+        return applyFilters(filterApi)
+            .then(res => {
+                let { payload: { error } } = res;
+                if (error) {
+                    // back to old value;
+                    doSearch(oldText);
+                }
+                return res;
             });
     }
 

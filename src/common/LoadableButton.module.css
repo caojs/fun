@@ -1,0 +1,25 @@
+.button {
+    display: flex;
+    align-items: center;
+}
+
+@keyframes loop {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+         transform: rotate(360deg);
+    }
+}
+
+.loadingIcon {
+    display: inline-block;
+    animation-duration: 2000ms;
+    animation-name: loop;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.loadingIcon svg {
+    float: left
+}

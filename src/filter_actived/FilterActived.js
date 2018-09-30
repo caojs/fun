@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { flow, get, map, flatMap, toPairs, omitBy, isNil } from 'lodash/fp';
 import FilterTag from './FilterTag';
-import {
-    filter_list as filterList,
-    filter_options as filterOptions 
-} from '../data/filter.json';
+import { filter_list as filterList, filter_options as filterOptions } from '../data/filter.json';
 import styles from './FilterActived.module.css';
-console.log(styles)
 
 class ActivatedFilters extends Component {
     render() {

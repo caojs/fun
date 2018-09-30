@@ -67,3 +67,7 @@
     border: none;
     cursor: pointer;
 }
+
+.buttons :global(.loadablebutton__icon) {
+    font-size: 1.4em;
+}
