@@ -6,6 +6,7 @@ import MultiGrid from 'react-virtualized/dist/es/MultiGrid';
 import AutoSizer from 'react-virtualized/dist/es/AutoSizer';
 import CellMeasurer from 'react-virtualized/dist/es/CellMeasurer';
 import CellMeasurerCache from 'react-virtualized/dist/es/CellMeasurer/CellMeasurerCache';
+import MessageAlert, { Info } from '../common/MessageAlert';
 
 import styles from './FilterTable.module.css';
 
@@ -99,7 +100,7 @@ export default class FilterTable extends Component {
 
         return (
             tableColumnCount <= 0 ?
-                <div>Nothing To Show!</div> :
+                <MessageAlert type={Info} message="Nothing to show."/> :
                 <AutoSizer disableHeight={true}>
                     {({width}) => (
                         <MultiGrid

@@ -5,6 +5,7 @@ import { get } from 'lodash/fp';
 import cn from 'classnames';
 
 import ErrorWrapper from '../common/ErrorWrapper';
+import MessageAlert, { Waiting } from '../common/MessageAlert';
 import FilterSummary from './FilterSummary';
 import FilterCustom from './FilterCustom';
 import FilterPagination from './FilterPagination';
@@ -36,7 +37,7 @@ class FilterResult extends Component {
 
                     return isLoaded
                         ? (isFetching
-                            ? "fetching"
+                            ? <MessageAlert type={Waiting} message="Loading..."/>
                             : <div className={styles.main}>
                                 <span className="cm-heading">Results:</span>
                                 <Tabs className={cn(styles.tabs)}>

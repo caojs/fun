@@ -1,5 +1,5 @@
 import update from 'immutability-helper'; import { CALL_API } from '../middlewares/api';
-import { flow, get, merge, join, pickBy, isString, reduce, mapKeys, mapValues } from 'lodash/fp';
+import { flow, get, join, pickBy, isString, reduce, mapKeys, mapValues } from 'lodash/fp';
 import queryString from 'query-string';
 
 import { filter_list as filterList , filter_options as filterOptions } from '../data/filter.json';
@@ -191,13 +191,15 @@ const applyFilters = (url) => ({
                 page,
                 search,
                 signal,
-                sort,
+                //sort,
                 filters
             ));
 
             let query = queryString.stringify(all);
             
             let u = query ? url + "?" + query : url;
+
+            console.log(u);
             return u;
         }
     }

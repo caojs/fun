@@ -1,0 +1,38 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #8c8b8f;
+    background-color: white;
+    font-size: 0.8em;
+}
+
+.main :global(.message__icon) {
+    font-size: 1.5em;
+    margin-right: 6px;
+}
+
+.main :global .message__icon svg {
+    float: left;
+}
+
+.main :global .message__err {
+    color: #dc3545;
+}
+
+@keyframes loop {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+         transform: rotate(360deg);
+    }
+}
+
+.main :global(.message__waiting) {
+    animation-duration: 2000ms;
+    animation-name: loop;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}

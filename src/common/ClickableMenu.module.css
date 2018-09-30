@@ -10,3 +10,8 @@
     padding: 0.3rem 1rem;
     color: #8c8b8f;
 }
+
+.listItem:global(.selected) {
+    background-color: #007bff;
+    color: white;
+}

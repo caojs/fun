@@ -2,19 +2,22 @@ import dummy from '../filter_result/dummy.json';
 import { rootApi } from '../apiConfig';
 
 const callApi = (endpoint, options) => {
-    const fullUrl = (endpoint.indexOf(rootApi) === -1) ? rootApi + endpoint : endpoint
+    const fullUrl = (endpoint.indexOf(rootApi) === -1) ? rootApi + endpoint : endpoint;
+
+    console.log(fullUrl);
 
     //if (endpoint === "filter")
-    {
-        return new Promise((res) => {
-            setTimeout(() => res(dummy), 1000);
-        });
-    }
+    // {
+    //     return new Promise((res) => {
+    //         setTimeout(() => res(dummy), 1000);
+    //     });
+    // }
 
     return fetch(fullUrl, options)
         .then(response => response
             .json()
             .then(json => {
+                console.log(json);
                 if (!response.ok) {
                     return Promise.reject(json)
                 }

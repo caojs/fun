@@ -67,7 +67,7 @@ const Filter = (props) => {
                                     </div>
                                 );
 
-                                return index !== 0 && index % 4 == 0 ?
+                                return index !== 0 && index % 4 === 0 ?
                                     <React.Fragment key={id}>
                                         <div className="w-100">
                                             <div className="tabs__border"></div>
