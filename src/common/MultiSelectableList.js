@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { findIndex, filter } from 'lodash/fp';
+import { findIndex } from 'lodash/fp';
 import PropTypes from 'prop-types';
 import SelectableList from './SelectableList';
 

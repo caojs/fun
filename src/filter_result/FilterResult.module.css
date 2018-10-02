@@ -17,6 +17,7 @@
 .tabs :global(.tabs__total) {
     margin-right: 20px;
     color: #323642;
+    font-weight: bold;
 }
 
 .tabs :global(.tabs__total-number)
@@ -28,6 +29,7 @@
 .tabs :global(.tabs__label) {
     margin-right: 15px;
     color: #323642;
+    font-weight: bold;
 }
 
 .tabs :global(.react-tabs__tab-list) {

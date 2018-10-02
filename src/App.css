@@ -1,3 +1,7 @@
 .App {
   padding: 30px 0 40px 0;
 }
+
+:focus {
+  outline: 0;
+}

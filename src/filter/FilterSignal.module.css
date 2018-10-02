@@ -8,6 +8,7 @@
 .label {
     margin-right: 5px;
     color: #323642;
+    font-weight: bold;
 }
 
 .select {
