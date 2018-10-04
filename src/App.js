@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Filter from './filter/Filter';
-import ActivatedFilters from './filter_actived/FilterActived';
-import FilterResult from './filter_result/FilterResult';
+import Filter from './filter';
 import './App.css';
 
 class App extends Component {
@@ -9,8 +7,6 @@ class App extends Component {
     return (
       <div className="App container">
         <Filter/>
-        <ActivatedFilters/>
-        <FilterResult/>
       </div>
     );
   }

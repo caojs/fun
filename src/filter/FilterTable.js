@@ -110,7 +110,7 @@ export default class FilterTable extends Component {
                             classNameTopRightGrid="table__tr-grid"
                             cellRenderer={cellRenderer}
                             deferredMeasurementCache={cache}
-                            fixedColumnCount={1}
+                            fixedColumnCount={tableColumnCount > 1 ? 1 : 0}
                             fixedRowCount={1}
                             columnCount={tableColumnCount}
                             rowCount={tableRowCount}

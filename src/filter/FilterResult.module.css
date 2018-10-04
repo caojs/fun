@@ -2,43 +2,43 @@
     font-size: 1em;
     color: #8c8b8f;
 }
-.tabs {
+.result {
     padding: 15px;
     background-color: white;
     font-size: 0.75em;
 }
 
-.tabs :global(.tabs__head) {
+.result :global(.tabs__head) {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.tabs :global(.tabs__total) {
+.result :global(.tabs__total) {
     margin-right: 20px;
     color: #323642;
     font-weight: bold;
 }
 
-.tabs :global(.tabs__total-number)
+.result :global(.tabs__total-number)
 {
     margin-left: 5px;
     color: #8c8b8f;
 }
 
-.tabs :global(.tabs__label) {
+.result :global(.tabs__label) {
     margin-right: 15px;
     color: #323642;
     font-weight: bold;
 }
 
-.tabs :global(.react-tabs__tab-list) {
+.result :global(.react-tabs__tab-list) {
     display: inline-block;
     margin: 0;
     padding: 0;
 }
 
-.tabs :global(.react-tabs__tab) {
+.result :global(.react-tabs__tab) {
     display: inline-block;
     padding: 3px 8px;
     margin-right: 10px;
@@ -46,24 +46,24 @@
     cursor: pointer;
 }
 
-.tabs :global(.react-tabs__tab:hover) {
+.result :global(.react-tabs__tab:hover) {
     background-color: #f7f7f7;
 }
 
-.tabs :global(.react-tabs__tab.react-tabs__tab--selected) {
+.result :global(.react-tabs__tab.react-tabs__tab--selected) {
     background-color: #2591db;
     color: white;
 }
 
-.tabs :global(.tabs__select-item) {
+.result :global(.tabs__select-item) {
     margin: 16px 0 13px 0;
 }
 
-.tabs :global(.tabs__border) {
+.result :global(.tabs__border) {
     margin: 0 15px;
     border-top: 1px solid #f4f5f2;
 }
 
-.tabs :global(.react-tabs__tab-panel) {
+.result :global(.react-tabs__tab-panel) {
     margin-bottom: 15px;
 }

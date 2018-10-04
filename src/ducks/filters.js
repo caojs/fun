@@ -1,7 +1,9 @@
-import update from 'immutability-helper'; import { CALL_API } from '../middlewares/api';
+import update from 'immutability-helper';
 import { flow, get, join, pickBy, isString, reduce, mapKeys, mapValues } from 'lodash/fp';
 import queryString from 'query-string';
 
+import { CALL_API } from '../middlewares/api';
+import { filterApi } from '../apiConfig';
 import { filter_list as filterList , filter_options as filterOptions } from '../data/filter.json';
 
 export const ON_FILTER_SELECT = "ON_FILTER_SELECT";
@@ -15,6 +17,10 @@ export const FILTERS_SEARCH = "FILTERS_SEARCH";
 export const FILTERS_CHANGE_SIGNAL = "FILTERS_CHANGE_SIGNAL";
 export const FILTERS_CHANGE_SORT = "FILTERS_CHANGE_SORT";
 
+// TODO: need smart structure.
+export const ALL = 'All_Loading';
+export const PAGE = 'Page_Loading';
+
 const initialState = {
     main: {},
     search: "",
@@ -24,7 +30,7 @@ const initialState = {
     results: {
         summaryHeaderIds: "all",
         customHeaderIds: [0],
-        isFetching: false,
+        isLoading: false,
         isLoaded: false,
         response: null,
         error: null,
@@ -34,7 +40,8 @@ const initialState = {
 export default (state = initialState, action) => {
     let {
         type,
-        payload
+        payload,
+        meta = {}
     } = action;
 
     switch (type) {
@@ -64,7 +71,8 @@ export default (state = initialState, action) => {
         {
             return update(state, {
                 results: {
-                    isFetching: { $set: true }
+                    isLoading: { $set: true },
+                    loadingType: { $set: meta.loadingType }
                 }
             });
         }
@@ -74,7 +82,7 @@ export default (state = initialState, action) => {
             let { response } = payload;
             return update(state, {
                 results: {
-                    isFetching: { $set: false },
+                    isLoading: { $set: false },
                     isLoaded: { $set: true },
                     response: { $set: response },
                     error: { $set: null }
@@ -87,7 +95,7 @@ export default (state = initialState, action) => {
             let { error } = payload;
             return update(state, {
                 results: {
-                    isFetching: { $set: false },
+                    isLoading: { $set: false },
                     error: { $set: error }
                 }
             });
@@ -161,11 +169,14 @@ const onRemove = (filterType, filterId) => () => ({
     }
 });
 
-const applyFilters = (url) => ({
+
+const doFilter = (loadingType = ALL) => ({
+    meta: { loadingType },
     [CALL_API]: {
         types: [FILTERS_REQUEST, FILTERS_SUCCESS, FILTERS_FAILURE],
         endpoint: (state) => {
             //TODO: find somewhere to place this code
+            let url = filterApi;
             let page = { page: get('filters.page', state) };
             let search = { search: get('filters.search', state) };
             let signal = { signal: get('filters.signal', state) };
@@ -199,18 +210,27 @@ const applyFilters = (url) => ({
             
             let u = query ? url + "?" + query : url;
 
-            console.log(u);
             return u;
         }
     }
 });
 
-const onPageChange = (page) => ({
+const pageChange = (page) => ({
     type: FILTERS_PAGE_CHANGE,
     payload: {
         page
     }
 });
+
+const applyFilters = () => (dispatch) => {
+    dispatch(pageChange(0));
+    return dispatch(doFilter(ALL));
+}
+
+const onPageChange = (page) => (dispatch) => {
+    dispatch(pageChange(page));
+    return dispatch(doFilter(PAGE));
+}
 
 const changeCustomHeaders = (value) => ({
     type: FILTERS_CUSTOM_HEADERS,
@@ -218,6 +238,11 @@ const changeCustomHeaders = (value) => ({
         value
     }
 });
+
+const searchName = (value) => (dispatch) => {
+    dispatch(search(value));
+    return dispatch(doFilter(ALL));
+}
 
 const search = (value) => ({
     type: FILTERS_SEARCH,
@@ -240,7 +265,7 @@ export const actions = {
     onPageChange,
     applyFilters,
     changeCustomHeaders,
-    search,
+    searchName,
     changeSignal,
     changeSort
 };

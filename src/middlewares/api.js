@@ -1,4 +1,4 @@
-import dummy from '../filter_result/dummy.json';
+import dummy from '../filter/dummy.json';
 import { rootApi } from '../apiConfig';
 
 const callApi = (endpoint, options) => {

@@ -3,15 +3,24 @@ import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-import { actions } from '../ducks/filters';
+import { actions, PAGE } from '../ducks/filters';
 
 import styles from './FilterPagination.module.css';
 
 class FilterPagination extends Component {
+    constructor(props) {
+        super(props);
+        this.onPageChange = this.onPageChange.bind(this);
+    }
+
+    onPageChange({ selected }) {
+        let {onPageChange} = this.props;
+        onPageChange(selected);
+    }
+
     render() {
         let {
             response,
-            onPageChange
         } = this.props;
 
         let {
@@ -31,7 +40,8 @@ class FilterPagination extends Component {
                         pageCount={pageCount}
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={5}
-                        onPageChange={onPageChange}
+                        disableInitialCallback={true}
+                        onPageChange={this.onPageChange}
                         containerClassName={styles.main}
                         pageClassName="pagination__item"
                         breakClassName="pagination__break"
@@ -45,5 +55,8 @@ class FilterPagination extends Component {
 
 export default connect(
     null,
-    { onPageChange: ({ selected }) => actions.onPageChange(selected) }
+    {
+        onPageChange: actions.onPageChange,
+        applyFilters: actions.applyFilters
+     }
 )(FilterPagination)

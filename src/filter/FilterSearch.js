@@ -31,20 +31,10 @@ class FilterSearch extends Component {
     onClickPromise() {
         let {
             text: oldText = "",
-            doSearch,
-            applyFilters
+            searchName,
         } = this.props;
 
-        doSearch(this.state.text);
-        return applyFilters(filterApi)
-            .then(res => {
-                let { payload: { error } } = res;
-                if (error) {
-                    // back to old value;
-                    doSearch(oldText);
-                }
-                return res;
-            });
+        return searchName(this.state.text);
     }
 
     render() {
@@ -76,7 +66,7 @@ export default connect(
         search: get('filters.search', state)
     }),
     {
-        doSearch: actions.search,
+        searchName: actions.searchName,
         applyFilters: actions.applyFilters
     }
 )(FilterSearch)

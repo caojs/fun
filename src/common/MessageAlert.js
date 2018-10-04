@@ -43,7 +43,7 @@ export default function Message(props) {
     let iconInfo = getIconInfo(type);
 
     return (
-        <div className={cn(className, styles.main)}>
+        <div className={cn(styles.main, className)}>
             {iconInfo ?
                 <span className={cn("message__icon", iconInfo.className)}>{iconInfo.icon}</span>:
                 null}

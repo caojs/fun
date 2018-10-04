@@ -11,7 +11,6 @@ import FilterSelect from './FilterSelect';
 import LoadableButton from '../common/LoadableButton';
 import { filter_types as filterTypes, filter_list as filterList } from '../data/filter.json';
 import { actions } from '../ducks/filters';
-import { filterApi } from '../apiConfig';
 
 import styles from './Filter.module.css';
 
@@ -80,7 +79,7 @@ const Filter = (props) => {
                         <div className={styles.buttons}>
                             <LoadableButton
                                 className="filters__apply"
-                                onClickPromise={() => props.applyFilters(filterApi)}>Apply
+                                onClickPromise={() => props.applyFilters()}>Apply
                             </LoadableButton>
                         </div>
                     </TabPanel>
