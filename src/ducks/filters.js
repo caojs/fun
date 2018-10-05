@@ -1,10 +1,12 @@
 import update from 'immutability-helper';
 import { flow, get, join, pickBy, isString, reduce, mapKeys, mapValues } from 'lodash/fp';
 import queryString from 'query-string';
+import { RSAA } from 'redux-api-middleware';
+import { handleAction, combineActions, createAction } from 'redux-actions';
 
-import { CALL_API } from '../middlewares/api';
 import { filterApi } from '../apiConfig';
 import { filter_list as filterList , filter_options as filterOptions } from '../data/filter.json';
+import dummy from '../filter/dummy.json';
 
 export const ON_FILTER_SELECT = "ON_FILTER_SELECT";
 export const REMOVE_ACTIVATED_FILTER = "REMOVE_ACTIVATED_FILTER";
@@ -37,11 +39,52 @@ const initialState = {
     }
 };
 
+const apiActions = (loadingType = "ALL") => ({
+    requestAction: (type) => ({
+        type,
+        meta: () => ({
+            isLoading: true,
+            loadingType
+        })
+    }),
+    successAction: (type) => ({
+        type,
+        meta: () => ({
+            isLoading: false,
+            isLoaded: true,
+            loadingType
+        })
+    }),
+    failureAction: (type) => ({
+        type,
+        meta: () => ({
+            isLoading: false,
+            loadingType
+        })
+    })
+});
+
+const resultReducer = handleAction(
+    combineActions(FILTERS_REQUEST, FILTERS_SUCCESS, FILTERS_FAILURE),
+    (state, { payload, error, meta }) => {
+        return update(state, {
+            $merge: error ?
+                { ...meta, error: payload } :
+                {
+                    ...meta,
+                    ...payload ? {response: payload} : null,
+                    error: null
+                }
+            })
+    },
+    {});
+
+
+//results, main
 export default (state = initialState, action) => {
     let {
         type,
         payload,
-        meta = {}
     } = action;
 
     switch (type) {
@@ -68,35 +111,22 @@ export default (state = initialState, action) => {
         }
 
         case FILTERS_REQUEST:
-        {
-            return update(state, {
-                results: {
-                    isLoading: { $set: true },
-                    loadingType: { $set: meta.loadingType }
-                }
-            });
-        }
-
         case FILTERS_SUCCESS:
-        {
-            let { response } = payload;
-            return update(state, {
-                results: {
-                    isLoading: { $set: false },
-                    isLoaded: { $set: true },
-                    response: { $set: response },
-                    error: { $set: null }
-                }
-            });
-        }
-
         case FILTERS_FAILURE:
         {
-            let { error } = payload;
+            return {
+                ...state,
+                results: resultReducer(state.results, action)
+            };
+        }
+
+        case FILTERS_CUSTOM_HEADERS:
+        {
             return update(state, {
                 results: {
-                    isLoading: { $set: false },
-                    error: { $set: error }
+                    customHeaderIds: {
+                        $set: payload
+                    }
                 }
             });
         }
@@ -107,18 +137,6 @@ export default (state = initialState, action) => {
             return update(state, {
                 page: {
                     $set: page
-                }
-            });
-        }
-
-        case FILTERS_CUSTOM_HEADERS:
-        {
-            let { value } = payload;
-            return update(state, {
-                results: {
-                    customHeaderIds: {
-                        $set: value
-                    }
                 }
             });
         }
@@ -169,51 +187,72 @@ const onRemove = (filterType, filterId) => () => ({
     }
 });
 
+const queryFilterFromState = (state) => {
+    //TODO: find somewhere to place this code
+    let url = filterApi;
+    let page = { page: get('filters.page', state) };
+    let search = { search: get('filters.search', state) };
+    let signal = { signal: get('filters.signal', state) };
+    let sort = { sort: join('_', get('filters.sort', state)) };
+    let filters = reduce(
+        (accum, value) => {
+            let newValue = flow(
+                pickBy(isString),
+                mapKeys(key => filterList[key].name),
+                mapValues(v => filterOptions[v].value)
+            )(value);
+            return ({
+                ...accum,
+                ...newValue
+            });
+        },
+        {},
+        get('filters.main', state)
+    );
 
-const doFilter = (loadingType = ALL) => ({
-    meta: { loadingType },
-    [CALL_API]: {
-        types: [FILTERS_REQUEST, FILTERS_SUCCESS, FILTERS_FAILURE],
-        endpoint: (state) => {
-            //TODO: find somewhere to place this code
-            let url = filterApi;
-            let page = { page: get('filters.page', state) };
-            let search = { search: get('filters.search', state) };
-            let signal = { signal: get('filters.signal', state) };
-            let sort = { sort: join('_', get('filters.sort', state)) };
-            let filters = reduce(
-                (accum, value) => {
-                    let newValue = flow(
-                        pickBy(isString),
-                        mapKeys(key => filterList[key].name),
-                        mapValues(v => filterOptions[v].value)
-                    )(value);
-                    return ({
-                        ...accum,
-                        ...newValue
-                    });
-                },
-                {},
-                get('filters.main', state)
-            );
+    let all = pickBy(value => value !== "", Object.assign(
+        {},
+        page,
+        search,
+        signal,
+        //sort,
+        filters
+    ));
 
-            let all = pickBy(value => value !== "", Object.assign(
-                {},
-                page,
-                search,
-                signal,
-                //sort,
-                filters
-            ));
+    let query = queryString.stringify(all);
 
-            let query = queryString.stringify(all);
-            
-            let u = query ? url + "?" + query : url;
+    let u = query ? url + "?" + query : url;
 
-            return u;
+    return u;
+}
+
+const doFilter = (loadingType = ALL) => {
+    let { requestAction, successAction, failureAction } = apiActions(loadingType);
+    return ({
+        [RSAA]: {
+            method: 'GET',
+            endpoint: queryFilterFromState,
+            types: [
+                requestAction(FILTERS_REQUEST),
+                successAction(FILTERS_SUCCESS),
+                failureAction(FILTERS_FAILURE)
+            ],
+            fetch: async (...args) => {
+                // const res = await fetch(...args);
+                // const json = await res.json();
+                await new Promise((res) => {
+                    setTimeout(() => res(), 1000);
+                });
+                return new Response(JSON.stringify(dummy), {
+                    status: 200,
+                    headers: {
+                    'Content-Type': 'application/json'
+                    }
+                });
+            }
         }
-    }
-});
+    })
+};
 
 const pageChange = (page) => ({
     type: FILTERS_PAGE_CHANGE,
@@ -232,12 +271,7 @@ const onPageChange = (page) => (dispatch) => {
     return dispatch(doFilter(PAGE));
 }
 
-const changeCustomHeaders = (value) => ({
-    type: FILTERS_CUSTOM_HEADERS,
-    payload: {
-        value
-    }
-});
+const changeCustomHeaders = createAction(FILTERS_CUSTOM_HEADERS);
 
 const searchName = (value) => (dispatch) => {
     dispatch(search(value));
