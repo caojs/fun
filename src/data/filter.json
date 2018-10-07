@@ -5,35 +5,25 @@
             "name": "exchange",
             "option_ids": ["100", "101", "102"]
         },
-        "101": {
-            "label": "Index",
-            "name": "index",
-            "option_ids": ["150", "151"]
-        },
         "200": {
-            "label": "P/E",
-            "name": "pe",
-            "option_ids": ["200", "201"]
-        },
-        "201": {
-            "label": "Forward P/E",
-            "name": "forwardpe",
-            "option_ids": ["200", "201"]
+            "label": "Debt/Total Asset",
+            "name": "debt_total",
+            "option_ids": ["200", "201", "202", "203"]
         },
         "300": {
-            "label": "Performance",
-            "name": "performance",
-            "option_ids": ["250"]
+            "label": "RSI",
+            "name": "rsi",
+            "option_ids": ["250", "251", "252"]
         }
     },
     "filter_types": [{
         "type": "descriptive",
         "label": "Descriptive",
-        "filter_ids": ["100", "101"]
+        "filter_ids": ["100"]
     }, {
         "type": "fundamental",
         "label": "Fundamental",
-        "filter_ids": ["200", "201"]
+        "filter_ids": ["200"]
     }, {
         "type": "technical",
         "label": "Technical",
@@ -54,25 +44,33 @@
             "label": "UPCOM",
             "value": "upcom"
         },
-        "150": {
-            "label": "S&P500",
-            "value": "sp500"
-        },
-        "151": {
-            "label": "DJIA",
-            "value": "djia"
-        },
         "200": {
-            "label": "Low < 50",
-            "value": "l50"
+            "label": "Under 30",
+            "value": "u30"
         },
         "201": {
-            "label": "High (>50)",
-            "value": "h50"
+            "label": "30 to 50",
+            "value": "30to50"
+        },
+        "202": {
+            "label": "50 to 70",
+            "value": "50to70"
+        },
+        "203": {
+            "label": "Over 70",
+            "value": "o70"
         },
         "250": {
-            "label": "Today up",
-            "value": "dup"
+            "label": "Under 30",
+            "value": "u30"
+        },
+        "251": {
+            "label": "30 to 70",
+            "value": "30to70"
+        }, 
+        "252": {
+            "label": "Over 70",
+            "value": "o70"
         }
     }
 }
