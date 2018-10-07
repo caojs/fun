@@ -29,7 +29,7 @@ const initialState = {
     page: 0,
     results: {
         summaryHeaderIds: "all",
-        customHeaderIds: [0],
+        customHeaderIds: "all",
         isLoading: false,
         isLoaded: false,
         response: null,

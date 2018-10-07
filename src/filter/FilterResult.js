@@ -40,7 +40,7 @@ class FilterResult extends Component {
                     let LoadingMessage = () => <MessageAlert type={Waiting} message="Loading..."/>;
 
                     return isLoaded
-                        ? (isLoading && loadingType == ALL
+                        ? (isLoading && loadingType === ALL
                             ? <LoadingMessage/>
                             : <div className={styles.main}>
                                 <span className="cm-heading">Results:</span>
@@ -55,7 +55,7 @@ class FilterResult extends Component {
                                                 </TabList>
                                         </div>
                                         <TabPanel>
-                                            {isLoading && loadingType == PAGE ?
+                                            {isLoading && loadingType === PAGE ?
                                                 <LoadingMessage/> :
                                                 <FilterSummary
                                                     headerIds={summaryHeaderIds}
@@ -63,7 +63,7 @@ class FilterResult extends Component {
                                                     body={body}/>}
                                         </TabPanel>
                                         <TabPanel>
-                                            {isLoading && loadingType == PAGE ?
+                                            {isLoading && loadingType === PAGE ?
                                                 <LoadingMessage/> :
                                                 <FilterCustom 
                                                     headerIds={customHeaderIds}

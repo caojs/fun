@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-import { actions, PAGE } from '../ducks/filters';
+import { actions } from '../ducks/filters';
 
 import styles from './FilterPagination.module.css';
 

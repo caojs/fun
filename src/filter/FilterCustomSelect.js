@@ -17,7 +17,8 @@ class FilterCustomSelect extends Component {
             changeCustomHeaders
         } = this.props;
 
-        let selectedheaders = 
+        let selectedheaders = customHeaderIds === "all" ?
+            headers :
             flow(
                 map(id => find(header => header.id === id, headers)),
                 filter(item => !!item)

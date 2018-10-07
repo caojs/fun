@@ -7,12 +7,6 @@ let keyId = 0;
 
 export default class FilterCustom extends Component {
     render() {
-        let {
-            headerIds,
-            headers,
-            body
-        } = this.props;
-
         return (
             <div>
                 <div>
