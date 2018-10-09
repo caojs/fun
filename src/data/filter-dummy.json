@@ -1,0 +1,66 @@
+[{
+    "id": 1,
+    "type": "descriptive",
+    "label": "Descriptive",
+    "filters": [{
+        "label": "Exchange",
+        "name": "exchange",
+        "options": [{
+            "label": "HOSE",
+            "value": "hose"
+        },
+        {
+            "label": "HNX",
+            "value": "hnx"
+        },
+        {
+            "label": "UPCOM",
+            "value": "upcom"
+        }]
+    }]
+}, {
+    "id": 2,
+    "type": "fundamental",
+    "label": "Fundamental",
+    "filters": [{
+        "label": "Debt/Total Asset",
+        "name": "debt_total",
+        "options": [
+        {
+            "label": "Under 30",
+            "value": "u30"
+        },
+        {
+            "label": "30 to 50",
+            "value": "30to50"
+        },
+        {
+            "label": "50 to 70",
+            "value": "50to70"
+        },
+        {
+            "label": "Over 70",
+            "value": "o70"
+        }]
+    }]
+}, {
+    "id": 3,
+    "type": "technical",
+    "label": "Technical",
+    "filters": [{
+        "label": "RSI",
+        "name": "rsi",
+        "options": [{
+            "label": "Under 30",
+            "value": "u30"
+        },
+        {
+            "label": "30 to 70",
+            "value": "30to70"
+        }, 
+        {
+            "label": "Over 70",
+            "value": "o70"
+        }]
+    }]
+}]

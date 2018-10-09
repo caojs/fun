@@ -1,0 +1,19 @@
+{
+    "label": "Sort",
+    "name": "sort",
+    "types": [{
+        "label": "Ticker",
+        "value": "ticker"
+    }, {
+        "label": "Company",
+        "value": "company"
+    }],
+
+    "orders": [{
+        "label": "Asc",
+        "value": "asc"
+    }, {
+        "label": "Desc",
+        "value": "desc"
+    }]
+}
