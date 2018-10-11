@@ -8,12 +8,12 @@ import { filter_options as filterOptions } from '../data/filter.json';
 
 import styles from './FilterSelect.module.css';
 
-const FilterSelect = ({ label, option_ids: optionIds, ...rest }) => {
+const FilterSelect = ({ label, options, ...rest }) => {
     return (
         <Select
             {...rest}
-            options={map(id => ({ id, ...filterOptions[id]}), optionIds)}
-            getOptionValue={(option) => option.id}>
+            options={options}
+            getOptionValue={(option) => option.value}>
             {({ OptionLabel, DropDownIcon, DropDownMenu }) => {
                 return <React.Fragment>
                     <div>
@@ -31,10 +31,7 @@ const FilterSelect = ({ label, option_ids: optionIds, ...rest }) => {
 };
 
 export default connect(
-    (state, ownProps) => ({
-        ...ownProps,
-        value: get(`filters.main.${ownProps.filterType}.${ownProps.filterId}`, state)
-    }),
+    null,
     (dispatch, ownProps) => bindActionCreators({
         onSelect: (optionId) => actions.onSelect(ownProps.filterType, ownProps.filterId, optionId)
     }, dispatch)

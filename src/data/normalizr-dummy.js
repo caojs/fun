@@ -3,13 +3,14 @@ import filterDummy from './filter-dummy.json';
 
 const option = new schema.Entity('filterOptions', {}, {
     idAttribute: (value, parent) => {
-        return parent.name + '_' + value.value;
+        return `${parent.name}__${value.value}`;
     },
     processStrategy: (value, parent) => {
-        let v = parent.name + '_' + value.value;
+        let v = `${parent.name}__${value.value}`;
         return {
             ...value,
-            value: v
+            value: v,
+            id: v
         };
     }
 });
@@ -17,13 +18,24 @@ const option = new schema.Entity('filterOptions', {}, {
 const selection = new schema.Entity('filterSelections', {
     options: [option]
 }, {
-    idAttribute: 'name'
+    idAttribute: 'name',
+    processStrategy: (value) => {
+        return {
+            ...value,
+            id: value.name
+        };
+    }
 });
 
-const filter = new schema.Entity('filterTypes', {
+export const filterSchema = new schema.Entity('filterTypes', {
     filters: [selection]
 });
 
-const { entities } = normalize(filterDummy, [filter]);
+const normalizedData = normalize(filterDummy, [filterSchema]);
 
-export default entities;
+const { entities, result } = normalizedData;
+
+export default ({
+    ...entities,
+    filters: result
+});

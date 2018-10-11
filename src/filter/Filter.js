@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import cn from 'classnames';
 import { map, reduce, get, size, filter, flow } from 'lodash/fp';
+import { denormalize } from 'normalizr';
 
+import { filterSchema } from '../data/normalizr-dummy';
 import FilterSearch from './FilterSearch';
 import FilterSort from './FilterSort';
 import FilterSignal from './FilterSignal';
 import FilterSelect from './FilterSelect';
 import LoadableButton from '../common/LoadableButton';
-import { filter_types as filterTypes, filter_list as filterList } from '../data/filter.json';
 import { actions } from '../ducks/filters';
 
 import styles from './Filter.module.css';
@@ -46,17 +47,17 @@ const Filter = (props) => {
                                     {label}{countText}
                                 </Tab>
                             );
-                        }, filterTypes)}
+                        }, props.filters)}
                     </TabList>
                 </div>
 
-                {map(({ type, filter_ids : filterIds }) => (
+                {map(({ type, filters }) => (
                     <TabPanel 
                         className="col-12"
                         key={type}>
                         <div className="row">
-                            {filterIds.map((id, index) => {
-                                let filter = filterList[id];
+                            {filters.map((filter, index) => {
+                                let { id } = filter;
                                 let comp = (
                                     <div className="col-3 tabs__select-item" key={id}>
                                         <FilterSelect
@@ -83,29 +84,38 @@ const Filter = (props) => {
                             </LoadableButton>
                         </div>
                     </TabPanel>
-                ), filterTypes)}
+                ), props.filters)}
             </Tabs>
         </div>
 
     );
 }
 
+const filtersSelector = (state) => {
+    let filters = get('entities.filters', state);
+    console.log(filters)
+    let denor = denormalize(filters, [filterSchema], state.entities);
+    return denor;
+}
+
 export default connect(
     (state, ownProps) => {
+        console.log(filtersSelector(state));
         return ({
             ...ownProps,
-            ...reduce((accum, {type}) => {
-                let result = {
-                    ...accum,
-                    [filterCount(type)]: flow(
-                        get(`filters.main.${type}`),
-                        filter(item => !!item),
-                        size
-                    )(state)
-                };
+            filters: filtersSelector(state),
+            // ...reduce((accum, {type}) => {
+            //     let result = {
+            //         ...accum,
+            //         [filterCount(type)]: flow(
+            //             get(`filters.main.${type}`),
+            //             filter(item => !!item),
+            //             size
+            //         )(state)
+            //     };
 
-                return result;
-            }, {}, filterTypes)
+            //     return result;
+            // }, {}, filterTypes)
         });
     },
     {
