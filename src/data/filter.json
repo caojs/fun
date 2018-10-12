@@ -6,13 +6,13 @@
             "option_ids": ["100", "101", "102"]
         },
         "200": {
-            "label": "Debt/Total Asset",
-            "name": "debt_total",
+            "label": "Debt/Total Assets",
+            "name": "debt_over_total_assets",
             "option_ids": ["200", "201", "202", "203"]
         },
         "300": {
-            "label": "RSI",
-            "name": "rsi",
+            "label": "RSI 14",
+            "name": "rsi_14",
             "option_ids": ["250", "251", "252"]
         }
     },
