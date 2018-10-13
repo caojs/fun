@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash/fp';
 import { IoMdSearch } from 'react-icons/io';
-import LoadableButton from '../common/LoadableButton';
-import { actions } from '../ducks/filters';
+import LoadableButton from '../../components/common/LoadableButton';
+import { searchName, applyFilters } from './actions';
 
 import styles from './FilterSearch.module.css';
 
@@ -62,7 +62,7 @@ export default connect(
         search: get('filters.search', state)
     }),
     {
-        searchName: actions.searchName,
-        applyFilters: actions.applyFilters
+        searchName,
+        applyFilters
     }
 )(FilterSearch)

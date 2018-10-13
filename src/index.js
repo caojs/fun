@@ -3,17 +3,23 @@ import 'cross-fetch/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 import 'bootstrap/dist/css/bootstrap.css';
 import './common.css';
 import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import configureStore from './configureStore';
+import routes from './routes';
+
+const store = configureStore();
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+    <BrowserRouter>
+        <Provider store={store}>
+            {renderRoutes(routes)}
+        </Provider>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 registerServiceWorker();

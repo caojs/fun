@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Tag from '../common/Tag';
-import { actions } from '../ducks/filters';
+import Tag from '../../components/common/Tag';
+import { onRemove } from './actions';
 
 export default connect(
     null,
     (dispatch, ownProps) => {
         return bindActionCreators({
-            onRemove: () => actions.onRemove(ownProps.value)
+            onRemove: () => onRemove(ownProps.value)
         }, dispatch);
     }
 )(Tag);

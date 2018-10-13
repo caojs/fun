@@ -4,12 +4,12 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { get } from 'lodash/fp';
 import cn from 'classnames';
 
-import ErrorWrapper from '../common/ErrorWrapper';
-import MessageAlert, { Waiting } from '../common/MessageAlert';
+import ErrorWrapper from '../../components/common/ErrorWrapper';
+import MessageAlert, { Waiting } from '../../components/common/MessageAlert';
 import FilterSummary from './FilterSummary';
 import FilterCustom from './FilterCustom';
 import FilterPagination from './FilterPagination';
-import { ALL, PAGE } from '../ducks/filters';
+import { ALL, PAGE } from './constants';
 
 import styles from './FilterResult.module.css';
 

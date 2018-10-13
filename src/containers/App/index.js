@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Filter from './filter';
+import { renderRoutes } from 'react-router-config';
 import './App.css';
-import './data/normalizr-dummy';
 
 class App extends Component {
   render() {
+    let { route } = this.props;
     return (
       <div className="App container">
-        <Filter/>
+        Filter: /filter
+        {renderRoutes(route.routes)}
       </div>
     );
   }

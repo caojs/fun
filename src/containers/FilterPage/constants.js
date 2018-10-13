@@ -1,0 +1,14 @@
+export const ON_FILTER_SELECT = "ON_FILTER_SELECT";
+export const REMOVE_ACTIVATED_FILTER = "REMOVE_ACTIVATED_FILTER";
+export const FILTERS_REQUEST = "FILTERS_REQUEST";
+export const FILTERS_SUCCESS = "FILTERS_SUCCESS";
+export const FILTERS_FAILURE = "FILTERS_FAILURE";
+export const FILTERS_PAGE_CHANGE = "FILTER_PAGE_CHANGE";
+export const FILTERS_CUSTOM_HEADERS = "FILTERS_CUSTOM_HEADERS";
+export const FILTERS_SEARCH = "FILTERS_SEARCH";
+export const FILTERS_CHANGE_SIGNAL = "FILTERS_CHANGE_SIGNAL";
+export const FILTERS_CHANGE_SORT = "FILTERS_CHANGE_SORT";
+
+// TODO: need smart structure.
+export const ALL = 'All_Loading';
+export const PAGE = 'Page_Loading';

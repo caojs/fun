@@ -1,4 +1,4 @@
-import { rootApi } from '../apiConfig';
+import { rootApi } from '../../configs/apiConfig';
 
 const callApi = (endpoint, options) => {
     const fullUrl = (endpoint.indexOf(rootApi) === -1) ? rootApi + endpoint : endpoint;

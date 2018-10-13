@@ -1,5 +1,5 @@
 import { normalize, schema } from 'normalizr';
-import filterDummy from './filter-dummy.json';
+import filterDummy from './filter.json';
 
 const option = new schema.Entity('filterOptions', {}, {
     idAttribute: (value, parent) => {

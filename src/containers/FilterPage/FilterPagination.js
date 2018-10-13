@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-import { actions } from '../ducks/filters';
+import { onPageChange, applyFilters } from './actions';
 
 import styles from './FilterPagination.module.css';
 
@@ -56,7 +56,7 @@ class FilterPagination extends Component {
 export default connect(
     null,
     {
-        onPageChange: actions.onPageChange,
-        applyFilters: actions.applyFilters
+        onPageChange: onPageChange,
+        applyFilters: applyFilters
      }
 )(FilterPagination)

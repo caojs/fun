@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash/fp';
-import { actions } from '../ducks/filters';
-import Select from '../common/Select';
+import { changeSort } from './actions';
+import Select from '../../components/common/Select';
 import {
     type_options as typeOptions,
     order_options as orderOptions
-} from '../data/sort.json';
+} from './data/sort.json';
 
 import styles from './FilterSort.module.css';
 
@@ -50,5 +50,5 @@ export default connect(
             order
         };
     },
-    { changeSort: actions.changeSort }
+    { changeSort: changeSort }
 )(FilterSort);

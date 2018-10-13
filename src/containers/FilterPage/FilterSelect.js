@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { get, map } from 'lodash/fp';
-import Select from '../common/Select';
-import { actions } from '../ducks/filters';
-import { filter_options as filterOptions } from '../data/filter.json';
+import Select from '../../components/common/Select';
+import { onSelect } from './actions';
 
 import styles from './FilterSelect.module.css';
 
@@ -32,7 +30,7 @@ const FilterSelect = ({ label, options, ...rest }) => {
 
 export default connect(
     null,
-    (dispatch) => bindActionCreators({
-        onSelect: actions.onSelect
-    }, dispatch)
+    {
+        onSelect
+    }
 )(FilterSelect);

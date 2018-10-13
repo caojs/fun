@@ -4,8 +4,8 @@ import { flow, map, filter, get, find } from 'lodash/fp';
 import { FiSquare, FiCheckSquare } from 'react-icons/fi';
 import cn from 'classnames';
 
-import MultiSelectableList from '../common/MultiSelectableList';
-import { actions } from '../ducks/filters';
+import MultiSelectableList from '../../components/common/MultiSelectableList';
+import { changeCustomHeaders } from './actions';
 
 import styles from './FilterCustomSelect.module.css';
 
@@ -47,5 +47,5 @@ class FilterCustomSelect extends Component {
 
 export default connect(
     (state) => (get('filters.results', state)),
-    { changeCustomHeaders: actions.changeCustomHeaders }
+    { changeCustomHeaders }
 )(FilterCustomSelect)

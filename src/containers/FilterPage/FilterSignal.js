@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash/fp';
-import Select from '../common/Select';
-import { actions } from '../ducks/filters';
-import { signal_options as signalOptions } from '../data/signal.json';
+import Select from '../../components/common/Select';
+import { changeSignal } from './actions';
+import { signal_options as signalOptions } from './data/signal.json';
 
 import styles from './FilterSignal.module.css';
 
@@ -29,5 +29,5 @@ class FilterSignal extends Component {
 
 export default connect(
     (state) => ({ signal: get('filters.signal', state) }),
-    { changeSignal: actions.changeSignal }
+    { changeSignal: changeSignal }
 )(FilterSignal)
