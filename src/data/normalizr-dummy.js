@@ -9,8 +9,11 @@ const option = new schema.Entity('filterOptions', {}, {
         let v = `${parent.name}__${value.value}`;
         return {
             ...value,
+            id: v,
             value: v,
-            id: v
+            selectLabel: parent.label,
+            selectName: parent.name,
+            filterType: parent.filterType
         };
     }
 });
@@ -19,10 +22,11 @@ const selection = new schema.Entity('filterSelections', {
     options: [option]
 }, {
     idAttribute: 'name',
-    processStrategy: (value) => {
+    processStrategy: (value, parent) => {
         return {
             ...value,
-            id: value.name
+            id: value.name,
+            filterType: parent.type
         };
     }
 });

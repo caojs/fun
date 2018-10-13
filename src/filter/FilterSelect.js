@@ -32,7 +32,7 @@ const FilterSelect = ({ label, options, ...rest }) => {
 
 export default connect(
     null,
-    (dispatch, ownProps) => bindActionCreators({
-        onSelect: (optionId) => actions.onSelect(ownProps.filterType, ownProps.filterId, optionId)
+    (dispatch) => bindActionCreators({
+        onSelect: actions.onSelect
     }, dispatch)
 )(FilterSelect);

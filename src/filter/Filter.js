@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import cn from 'classnames';
-import { map, reduce, get, size, filter, flow } from 'lodash/fp';
+import { map, find, get, size, filter, flow } from 'lodash/fp';
 import { denormalize } from 'normalizr';
 
 import { filterSchema } from '../data/normalizr-dummy';
@@ -58,11 +58,19 @@ const Filter = (props) => {
                         <div className="row">
                             {filters.map((filter, index) => {
                                 let { id } = filter;
+                                let optionValue = find(value => {
+                                    let option = props.filterOptions[value];
+                                    return option.selectName == filter.name;
+                                }, props.selectedFilters);
+
+                                console.log(optionValue)
+
                                 let comp = (
                                     <div className="col-3 tabs__select-item" key={id}>
                                         <FilterSelect
                                             filterType={type}
                                             filterId={id}
+                                            value={optionValue}
                                             {...filter}/>
                                     </div>
                                 );
@@ -93,29 +101,28 @@ const Filter = (props) => {
 
 const filtersSelector = (state) => {
     let filters = get('entities.filters', state);
-    console.log(filters)
     let denor = denormalize(filters, [filterSchema], state.entities);
     return denor;
 }
 
 export default connect(
     (state, ownProps) => {
-        console.log(filtersSelector(state));
+        let filters = filtersSelector(state);
+        let filterOptions = get('entities.filterOptions', state);
+        let selectedFilters = get('filters.selectedFilters', state);
+        let counts = selectedFilters
+            .map(value => filterOptions[value])
+            .reduce((accum, option) => {
+                let attr = filterCount(option.filterType);
+                accum[attr] = accum[attr] ? accum[attr] + 1 : 1;
+                return accum;
+            }, {});
         return ({
             ...ownProps,
-            filters: filtersSelector(state),
-            // ...reduce((accum, {type}) => {
-            //     let result = {
-            //         ...accum,
-            //         [filterCount(type)]: flow(
-            //             get(`filters.main.${type}`),
-            //             filter(item => !!item),
-            //             size
-            //         )(state)
-            //     };
-
-            //     return result;
-            // }, {}, filterTypes)
+            ...counts,
+            filters,
+            filterOptions,
+            selectedFilters
         });
     },
     {

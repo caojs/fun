@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import { CALL_API } from '../middlewares/api';
 import { filterApi } from '../apiConfig';
 import { filter_list as filterList , filter_options as filterOptions } from '../data/filter.json';
+import { IoMdTennisball } from 'react-icons/io';
 
 export const ON_FILTER_SELECT = "ON_FILTER_SELECT";
 export const REMOVE_ACTIVATED_FILTER = "REMOVE_ACTIVATED_FILTER";
@@ -23,6 +24,7 @@ export const PAGE = 'Page_Loading';
 
 const initialState = {
     main: {},
+    selectedFilters: [],
     search: "",
     sort: [],
     signal: "",
@@ -46,25 +48,25 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case ON_FILTER_SELECT:
-        case REMOVE_ACTIVATED_FILTER:
         {
-            let {
-                filterType,
-                filterId,
-                optionId = null
-            } = payload;
-
+            let value = payload;
             return update(state, {
-                main: {
-                    $auto: {
-                        [filterType]: {
-                            $auto: {
-                                [filterId]: { $set: optionId }
-                            }
-                        }
-                    }
+                selectedFilters: (arr) => {
+                    let [selectName,_] = value.split('__');
+                    let filteredArr = arr.filter(item => item.indexOf(selectName) == -1);
+                    return [value, ...filteredArr];
                 }
             });
+        }
+
+        case REMOVE_ACTIVATED_FILTER:
+        {
+            let value = payload;
+            return update(state, {
+                selectedFilters: (arr) => {
+                    return arr.filter(item => item !== value);
+                }
+            })
         }
 
         case FILTERS_REQUEST:
@@ -152,21 +154,14 @@ export default (state = initialState, action) => {
     }
 }
 
-const onSelect = (filterType, filterId, optionId) => ({
+const onSelect = (value) => ({
     type: ON_FILTER_SELECT,
-    payload: {
-        filterType,
-        filterId,
-        optionId
-    }
+    payload: value
 });
 
-const onRemove = (filterType, filterId) => () => ({
+const onRemove = (value) => ({
     type: REMOVE_ACTIVATED_FILTER,
-    payload: {
-        filterType,
-        filterId
-    }
+    payload: value
 });
 
 

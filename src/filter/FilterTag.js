@@ -7,7 +7,7 @@ export default connect(
     null,
     (dispatch, ownProps) => {
         return bindActionCreators({
-            onRemove: actions.onRemove(ownProps.filterType, ownProps.filterId)
+            onRemove: () => actions.onRemove(ownProps.value)
         }, dispatch);
     }
 )(Tag);

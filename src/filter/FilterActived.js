@@ -7,21 +7,26 @@ import styles from './FilterActived.module.css';
 
 class ActivatedFilters extends Component {
     render() {
-        let {activatedFilters} = this.props;
+        let {
+            selectedFilters,
+            filterOptions
+        } = this.props;
         return (
-            activatedFilters.length > 0 ?
+            selectedFilters.length > 0 ?
                 (<div className="cm-zone">
                     <span className="cm-heading">Active filters:</span>
                     <div className={styles.filters}>
-                        {activatedFilters.map(({ filterType, filterId, optionId }) => {
-                            let { label: filterLabel } = filterList[filterId];
-                            let { label: optionLabel } = filterOptions[optionId];
+                        {selectedFilters.map(value => {
+                            let {
+                                id,
+                                selectLabel,
+                                label
+                            } = filterOptions[value];
                             return (
                                 <FilterTag
-                                    key={filterId}
-                                    filterType={filterType}
-                                    filterId={filterId}
-                                    label={`${filterLabel} : ${optionLabel}`}/>);
+                                    key={id}
+                                    value={value}
+                                    label={`${selectLabel} : ${label}`}/>);
                         })}
                     </div>
                 </div>):
@@ -41,7 +46,8 @@ export default connect(
 
         return {
             ...ownProps,
-            activatedFilters
+            filterOptions: state.entities.filterOptions,
+            selectedFilters: state.filters.selectedFilters
         };
     }
 )(ActivatedFilters)
