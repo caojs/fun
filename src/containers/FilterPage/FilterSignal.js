@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { get } from 'lodash/fp';
 import Select from '../../components/common/Select';
 import { changeSignal } from './actions';
-import { signal_options as signalOptions } from './data/signal.json';
+import { signal_options as signalOptions } from './dummy/signal.json';
 
 import styles from './FilterSignal.module.css';
 

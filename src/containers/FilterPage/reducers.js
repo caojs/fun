@@ -7,29 +7,13 @@ import {
     FILTERS_SUCCESS,
     FILTERS_FAILURE,
     FILTERS_CHANGE_SIGNAL,
-    FILTERS_CHANGE_SORT,
+    FILTERS_CHANGE_ORDER,
     FILTERS_CUSTOM_HEADERS,
     FILTERS_PAGE_CHANGE,
     FILTERS_SEARCH,
 } from './constants';
 
-const initialState = {
-    selectedFilters: [],
-    search: "",
-    sort: [],
-    signal: "",
-    page: 0,
-    results: {
-        summaryHeaderIds: "all",
-        customHeaderIds: "all",
-        isLoading: false,
-        isLoaded: false,
-        response: null,
-        error: null,
-    }
-};
-
-export default (state = initialState, action) => {
+export default (state, action) => {
     let {
         type,
         payload,
@@ -131,11 +115,11 @@ export default (state = initialState, action) => {
             });
         }
 
-        case FILTERS_CHANGE_SORT:
+        case FILTERS_CHANGE_ORDER:
         {
             let { value } = payload;
             return update(state, {
-                sort: { $set: value }
+                order: { $set: value }
             });
         }
 

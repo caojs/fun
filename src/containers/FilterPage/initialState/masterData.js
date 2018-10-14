@@ -1,3 +1,4 @@
+import update from 'immutability-helper';
 import { normalize, schema } from 'normalizr';
 import filterDummy from './filter.json';
 
@@ -39,7 +40,15 @@ const normalizedData = normalize(filterDummy, [filterSchema]);
 
 const { entities, result } = normalizedData;
 
-export default ({
-    ...entities,
-    filters: result
-});
+export default function masterData(state) {
+    return update(state, {
+        entities: {
+            $auto: {
+                $merge: {
+                    ...entities,
+                    filters: result
+                }
+            }
+        }
+    })
+}

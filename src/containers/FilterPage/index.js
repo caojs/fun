@@ -3,7 +3,7 @@ import Filter from './Filter';
 import ActivatedFilters from './FilterActived';
 import FilterResult from './FilterResult';
 
-export default (props) => {
+export default function FilterPage() {
     return (
         <React.Fragment>
             <Filter/>

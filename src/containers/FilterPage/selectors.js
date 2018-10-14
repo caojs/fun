@@ -2,7 +2,7 @@ import { get } from 'lodash/fp';
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 
-import { filterSchema } from './data/normalizr-dummy';
+import { filterSchema } from './dummy/index';
 
 export const filtersSelector = createSelector(
     get('entities.filters'),
@@ -19,7 +19,9 @@ export const filtersSelector = createSelector(
 export const selectedFiltersSelector = createSelector(
     get('filters.selectedFilters'),
     get('entities.filterOptions'),
-    (filters, options) => filters.map(value => options[value])
+    (filters, options) => filters
+        .map(value => options[value])
+        .filter(value => Boolean(value))
 );
 
 export const countSelectedFiltersSelector = createSelector(

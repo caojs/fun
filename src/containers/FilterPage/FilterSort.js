@@ -6,7 +6,7 @@ import Select from '../../components/common/Select';
 import {
     type_options as typeOptions,
     order_options as orderOptions
-} from './data/sort.json';
+} from './dummy/sort.json';
 
 import styles from './FilterSort.module.css';
 
@@ -44,7 +44,7 @@ class FilterSort extends Component {
 
 export default connect(
     (state) => {
-        let [type, order] = get('filters.sort', state);
+        let [type, order] = get('filters.order', state);
         return {
             type,
             order

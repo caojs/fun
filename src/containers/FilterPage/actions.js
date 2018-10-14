@@ -1,5 +1,6 @@
 import { get, join, pickBy } from 'lodash/fp';
 import queryString from 'query-string';
+import { stateToQuery } from './helpers';
 import {
     ON_FILTER_SELECT,
     REMOVE_ACTIVATED_FILTER,
@@ -7,7 +8,7 @@ import {
     FILTERS_SUCCESS,
     FILTERS_FAILURE,
     FILTERS_CHANGE_SIGNAL,
-    FILTERS_CHANGE_SORT,
+    FILTERS_CHANGE_ORDER,
     FILTERS_CUSTOM_HEADERS,
     FILTERS_PAGE_CHANGE,
     FILTERS_SEARCH,
@@ -36,22 +37,7 @@ const doFilter = (loadingType = ALL) => ({
         endpoint: (state) => {
             //TODO: find somewhere to place this code
             let url = filterApi;
-            let page = { page: get('filters.page', state) };
-            let search = { search: get('filters.search', state) };
-            let signal = { signal: get('filters.signal', state) };
-            let sort = { sort: join('_', get('filters.sort', state)) };
-            let filters = {filter: join(',', get('filters.selectedFilters', state))}
-            let all = pickBy(value => value !== "", Object.assign(
-                {},
-                page,
-                search,
-                signal,
-                //sort,
-                filters
-            ));
-
-            let query = queryString.stringify(all);
-            
+            let query = stateToQuery(state.filters);
             let u = query ? url + "?" + query : url;
 
             return u;
@@ -99,7 +85,7 @@ export const changeSignal = (value) => ({
 });
 
 export const changeSort = (value) => ({
-    type: FILTERS_CHANGE_SORT,
+    type: FILTERS_CHANGE_ORDER,
     payload: { value }
 })
 
