@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { isFunction } from 'lodash/fp';
+import { isFunction } from 'lodash-es';
 import MessageAlert, { Err } from './MessageAlert';
 
 export default class ErrorWrapper extends Component {

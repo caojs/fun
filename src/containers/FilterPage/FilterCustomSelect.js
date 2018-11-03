@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { flow, map, filter, get, find } from 'lodash/fp';
+import { flow, map, filter, get, curryRight } from 'lodash-es';
 import { FiSquare, FiCheckSquare } from 'react-icons/fi';
 import cn from 'classnames';
 
@@ -20,8 +20,8 @@ class FilterCustomSelect extends Component {
         let selectedheaders = customHeaderIds === "all" ?
             headers :
             flow(
-                map(id => find(header => header.id === id, headers)),
-                filter(item => !!item)
+                curryRight(map, 2)(id => headers.find(header => header.id === id)),
+                curryRight(filter, 2)(item => !!item)
             )(customHeaderIds);
 
         return (
@@ -29,7 +29,7 @@ class FilterCustomSelect extends Component {
                 <MultiSelectableList
                     data={headers}
                     value={selectedheaders}
-                    onChange={(value) => changeCustomHeaders(map(item => item.id, value))}>
+                    onChange={(value) => changeCustomHeaders(map(value, item => item.id))}>
                     {(item, isSelected) => {
                         let icon = isSelected ?
                             <FiCheckSquare/> :
@@ -46,6 +46,6 @@ class FilterCustomSelect extends Component {
 }
 
 export default connect(
-    (state) => (get('filters.results', state)),
+    (state) => get(state, 'filters.results'),
     { changeCustomHeaders }
 )(FilterCustomSelect)

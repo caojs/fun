@@ -1,5 +1,3 @@
-import { get, join, pickBy } from 'lodash/fp';
-import queryString from 'query-string';
 import { stateToQuery } from './helpers';
 import {
     ON_FILTER_SELECT,
@@ -28,7 +26,6 @@ export const onRemove = (value) => ({
     type: REMOVE_ACTIVATED_FILTER,
     payload: value
 });
-
 
 const doFilter = (loadingType = ALL) => ({
     meta: { loadingType },

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash/fp';
+import { get } from 'lodash-es';
 import Select from '../../components/common/Select';
 import { changeSignal } from './actions';
-import { signal_options as signalOptions } from './dummy/signal.json';
+import { signal_options as signalOptions } from './initialState/signal.json';
 
 import styles from './FilterSignal.module.css';
 

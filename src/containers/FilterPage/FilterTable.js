@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { map, findIndex, filter, flow, range, isArray } from 'lodash/fp';
+import { flow, curryRight, map, filter, range } from 'lodash-es';
 import cn from 'classnames';
 import MultiGrid from 'react-virtualized/dist/es/MultiGrid';
 import AutoSizer from 'react-virtualized/dist/es/AutoSizer';
@@ -45,10 +45,10 @@ const makeCellRenderer = (cache, { headers, body }) => {
 }
 
 const getHeaderIndexs = (headers, headerIds) => {
-    if (isArray(headerIds)) {
+    if (Array.isArray(headerIds)) {
         return flow(
-            map(id => findIndex(header => header.id === id, headers)),
-            filter(idx => idx !== -1)
+            curryRight(map, 2)(id => headers.findIndex(header => header.id === id)),
+            curryRight(filter, 2)(idx => idx !== -1)
         )(headerIds);
     }
 
@@ -63,8 +63,8 @@ const getHeaderIndexs = (headers, headerIds) => {
 const customHeaders = ({ headerIds, headers, body }) => {
     let headerIndexs = getHeaderIndexs(headers, headerIds);
 
-    let newHeaders = map(idx => headers[idx], headerIndexs);
-    let newBody = map((row) => map(idx => row[idx], headerIndexs), body);
+    let newHeaders = map(headerIndexs, idx => headers[idx]);
+    let newBody = map(body, row => map(headerIndexs, idx => row[idx]));
     return {
         headers: newHeaders,
         body: newBody

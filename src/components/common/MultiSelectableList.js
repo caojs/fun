@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { findIndex } from 'lodash/fp';
+import { findIndex } from 'lodash-es';
 import PropTypes from 'prop-types';
 import SelectableList from './SelectableList';
 
@@ -22,7 +22,7 @@ export default class MultiSelectableList extends Component {
             onChange
         } = this.props;
 
-        const index = findIndex(v => v === item, value);
+        const index = findIndex(value, v => v === item);
 
         if (index >= 0) {
             value = value.slice();

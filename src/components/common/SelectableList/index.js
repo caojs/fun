@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { findIndex, some } from 'lodash/fp';
+import { some } from 'lodash-es';
 
 import styles from './SelectableList.module.css';
 
@@ -22,7 +22,9 @@ export default class SelectableList extends Component {
     onClick(e) {
         let parent = this.ref.current;
         let child = this.findChildIn(e.target, parent);
-        let index = findIndex(c => c === child, parent.children);
+        let index = [].slice
+            .call(parent.children)
+            .findIndex(c => c === child);
 
         if (index >= 0)
         {
@@ -59,7 +61,7 @@ export default class SelectableList extends Component {
                 ref={this.ref}
                 onClick={this.onClick}>
                 {data.map((item, index) => {
-                    let hasInValue = some(item, value);
+                    let hasInValue = some(value, item);
                     return (
                         <li className={styles.item} key={index}>
                             {children(item, hasInValue)}

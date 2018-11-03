@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
-import { noop, isFunction, findIndex } from 'lodash/fp';
+import { noop, isFunction, findIndex } from 'lodash-es';
 
 import styles from './ClickableMenu.module.css';
 
@@ -15,7 +15,7 @@ export default class ClickableMenu extends Component {
     onClick(e) {
         let parent = this.ref.current;
         let child = this.findChildIn(e.target, parent);
-        let index = findIndex(c => c === child)(parent.children);
+        let index = findIndex(parent.children, c => c === child);
 
         let {
             data,

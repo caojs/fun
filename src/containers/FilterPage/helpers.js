@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { pick, pickBy } from 'lodash/fp';
+import { pick, pickBy } from 'lodash-es';
 
 export function stateToQuery(state) {
     let {
@@ -12,13 +12,13 @@ export function stateToQuery(state) {
 
     let hasValueState = Object.assign(
         {},
-        pickBy(item => !!item, {
+        pickBy({
             page,
             search,
             signal,
             filter: filter.sort().join(','),
             order: order.join('_')
-        })
+        }, item => !!item)
     );
 
     return queryString.stringify(hasValueState);
@@ -31,7 +31,7 @@ export function urlToState(url) {
         order,
         filter,
         ...rest
-    } = pick(['page', 'search', 'signal', 'order', 'filter'], query);
+    } = pick(query, ['page', 'search', 'signal', 'order', 'filter']);
 
     return {
         ...rest,

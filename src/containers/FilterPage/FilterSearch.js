@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash/fp';
+import { get } from 'lodash-es';
 import { IoMdSearch } from 'react-icons/io';
 import LoadableButton from '../../components/common/LoadableButton';
 import { searchName, applyFilters } from './actions';
@@ -59,7 +59,7 @@ class FilterSearch extends Component {
 
 export default connect(
     (state) => ({
-        search: get('filters.search', state)
+        search: get(state, 'filters.search')
     }),
     {
         searchName,

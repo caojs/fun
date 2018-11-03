@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactClickOutside from 'react-click-outside';
 import cn from 'classnames';
-import { noop, find, findIndex, isFunction } from 'lodash/fp';
+import { noop, find, findIndex, isFunction } from 'lodash-es';
 import { FiChevronDown, FiX } from 'react-icons/fi';
 import PropTypes from 'prop-types';
-import ClickableMenu from './ClickableMenu';
+import ClickableMenu from '../ClickableMenu';
 import styles from './Select.module.css';
 
 const propTypes = {
@@ -50,7 +50,7 @@ export default class Select extends Component {
         } = this.props;
 
         return value
-            ? find(option => getOptionValue(option) === value, options)
+            ? find(options, option => getOptionValue(option) === value)
             : null;
     }
 
@@ -139,7 +139,7 @@ export default class Select extends Component {
         let selectedOption = this._findSelectedOption(value);
 
         let selectedIndex = selectedOption
-            ? findIndex(option => getOptionValue(option) === getOptionValue(selectedOption), options)
+            ? findIndex(options, option => getOptionValue(option) === getOptionValue(selectedOption))
             : -1;
 
         let DropDownIcon = this.renderDropDownIcon;

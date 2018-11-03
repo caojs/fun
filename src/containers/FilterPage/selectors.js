@@ -1,14 +1,16 @@
-import { get } from 'lodash/fp';
+import { curryRight, get } from 'lodash-es';
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 
-import { filterSchema } from './dummy/index';
+import { filterSchema } from './initialState/masterData';
+
+const getRight = curryRight(get, 2);
 
 export const filtersSelector = createSelector(
-    get('entities.filters'),
-    get('entities.filterTypes'),
-    get('entities.filterOptions'),
-    get('entities.filterSelections'),
+    getRight('entities.filters'),
+    getRight('entities.filterTypes'),
+    getRight('entities.filterOptions'),
+    getRight('entities.filterSelections'),
     (filters, filterTypes, filterOptions, filterSelections) => denormalize(
         filters,
         [filterSchema],
@@ -17,8 +19,8 @@ export const filtersSelector = createSelector(
 );
 
 export const selectedFiltersSelector = createSelector(
-    get('filters.selectedFilters'),
-    get('entities.filterOptions'),
+    getRight('filters.selectedFilters'),
+    getRight('entities.filterOptions'),
     (filters, options) => filters
         .map(value => options[value])
         .filter(value => Boolean(value))

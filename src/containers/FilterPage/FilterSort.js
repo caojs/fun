@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash/fp';
+import { get } from 'lodash-es';
 import { changeSort } from './actions';
 import Select from '../../components/common/Select';
 import {
     type_options as typeOptions,
     order_options as orderOptions
-} from './dummy/sort.json';
+} from './initialState/sort.json';
 
 import styles from './FilterSort.module.css';
 
@@ -19,8 +19,8 @@ class FilterSort extends Component {
         } = this.props;
 
         if (!type) {
-            type = get('[0].value', typeOptions);
-            order = get('[0].value', orderOptions);
+            type = get(typeOptions, '[0].value');
+            order = get(orderOptions, '[0].value');
             changeSort([type, order]);
         }
 
@@ -44,7 +44,7 @@ class FilterSort extends Component {
 
 export default connect(
     (state) => {
-        let [type, order] = get('filters.order', state);
+        let [type, order] = get(state, 'filters.order');
         return {
             type,
             order

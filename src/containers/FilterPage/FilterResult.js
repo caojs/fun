@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { get } from 'lodash/fp';
+import { get } from 'lodash-es';
 import cn from 'classnames';
 
 import ErrorWrapper from '../../components/common/ErrorWrapper';
@@ -82,5 +82,5 @@ class FilterResult extends Component {
 }
 
 export default connect(
-    (state) => get('filters.results', state)
+    (state) => get(state, 'filters.results')
 )(FilterResult);
