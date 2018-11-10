@@ -142,6 +142,8 @@ export default class Select extends Component {
         let selectedIndex = selectedOption
             ? findIndex(options, option => getOptionValue(option) === getOptionValue(selectedOption))
             : -1;
+        
+        console.log(options);
 
         let DropDownIcon = this.renderDropDownIcon;
         let OptionLabel = this.renderOptionLabelPartial(selectedOption);

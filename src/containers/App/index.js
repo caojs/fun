@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { renderRoutes } from 'react-router-config';
+import Navbar from './Navbar';
 import './App.css';
 
 class App extends Component {
@@ -7,8 +8,8 @@ class App extends Component {
     let { route } = this.props;
     return (
       <div className="App">
-        Filter: /filter
         <div className="container">
+          <Navbar/>
           {renderRoutes(route.routes)}
         </div>
       </div>
