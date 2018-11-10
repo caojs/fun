@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import cn from 'classnames';
 import FilterTag from './FilterTag';
 import styles from './FilterActived.module.css';
 import { selectedFiltersSelector } from './selectors';
@@ -9,9 +10,9 @@ class ActivatedFilters extends Component {
         let { selectedFilters } = this.props;
         return (
             selectedFilters.length > 0 ?
-                (<div className="cm-zone">
-                    <span className="cm-heading">Active filters:</span>
-                    <div className={styles.filters}>
+                (<>
+                    <span className="col-12 cm-heading">Active filters:</span>
+                    <div className={cn("col-12", styles.filters)}>
                         {selectedFilters.map(filter => {
                             let {
                                 id,
@@ -26,7 +27,7 @@ class ActivatedFilters extends Component {
                                     label={`${selectLabel} : ${label}`}/>);
                         })}
                     </div>
-                </div>):
+                </>):
                 null);
     }
 }

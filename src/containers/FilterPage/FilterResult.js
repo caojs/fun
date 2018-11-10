@@ -42,7 +42,7 @@ class FilterResult extends Component {
                     return isLoaded
                         ? (isLoading && loadingType === ALL
                             ? <LoadingMessage/>
-                            : <div className={styles.main}>
+                            : <div className={cn("col-12", styles.main)}>
                                 <span className="cm-heading">Results:</span>
                                 <div className={cn(styles.result)}>
                                     <Tabs>

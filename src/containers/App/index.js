@@ -6,9 +6,11 @@ class App extends Component {
   render() {
     let { route } = this.props;
     return (
-      <div className="App container">
+      <div className="App">
         Filter: /filter
-        {renderRoutes(route.routes)}
+        <div className="container">
+          {renderRoutes(route.routes)}
+        </div>
       </div>
     );
   }

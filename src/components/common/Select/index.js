@@ -72,6 +72,7 @@ export default class Select extends Component {
             getOptionValue
         } = this.props;
 
+        this.hide();
         if (onSelect)
             onSelect(getOptionValue(data));
     }

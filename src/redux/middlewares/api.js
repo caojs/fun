@@ -3,7 +3,7 @@ import { rootApi } from '../../configs/apiConfig';
 const callApi = (endpoint, options) => {
     const fullUrl = (endpoint.indexOf(rootApi) === -1) ? rootApi + endpoint : endpoint;
 
-    //return Promise.resolve(require('../../containers/FilterPage/dummy.json'))
+    return Promise.resolve(require('../../containers/FilterPage/dummy.json'))
     return fetch(fullUrl, options)
         .then(response => response
             .json()

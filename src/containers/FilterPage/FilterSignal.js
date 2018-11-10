@@ -28,6 +28,6 @@ class FilterSignal extends Component {
 }
 
 export default connect(
-    (state) => ({ signal: get('filters.signal', state) }),
+    (state) => ({ signal: get(state, 'filters.signal') }),
     { changeSignal: changeSignal }
 )(FilterSignal)

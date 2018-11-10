@@ -5,12 +5,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import 'bootstrap/dist/css/bootstrap.css';
-import './common.css';
-import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './configureStore';
 import routes from './routes';
+
+//import 'bootstrap/dist/css/bootstrap.css';
+import './styles/index.scss';
 
 const store = configureStore();
 
