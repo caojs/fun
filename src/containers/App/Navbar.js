@@ -15,9 +15,8 @@ class Navbar extends Component {
     }
 
     render() {
-        let {
-            isShow
-        } = this.state;
+        let { query } = this.props;
+        let { isShow } = this.state;
         
         return (
             <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-5">
@@ -31,7 +30,7 @@ class Navbar extends Component {
                 </button>
                 <div className={cn("navbar-collapse d-none", { "d-block": isShow })}>
                     <div className="navbar-nav mr-auto">
-                        <NavLink className="nav-item nav-link" to="/filter">Filter</NavLink>
+                        <NavLink className="nav-item nav-link" to={"/filter" + (query ? "?" + query : "")}>Filter</NavLink>
                         <NavLink className="nav-item nav-link" to="/portfolio">Portfolio</NavLink>
                         <NavLink className="nav-item nav-link" to="/optimize">Optimize</NavLink>
                     </div>
