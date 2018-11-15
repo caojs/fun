@@ -75,9 +75,9 @@ class Allocations extends Component {
                                             </tr>
                                         ))}
                                     <tr>
-                                        <td><span className={cn({
-                                            "text-danger": total < 100 || total > 100
-                                        })}>Total: {total}</span></td>
+                                        <td>
+                                            <span className={cn({ "text-danger": total < 100 || total > 100 })}>Total: {total}</span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -14,29 +14,28 @@ class PortfolioPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tickers: ['A', 'B', 'C'],
-            allocations: [1, 2, 3]
+            set: 'one',
+            allocations: [1, 2, 3],
+            one: {
+                tickers: ['A', 'B', 'C'],
+            },
+            two: {
+                tickers: [''],
+            }
         };
-
-        this.addTicker = this.addTicker.bind(this);
-    }
-
-    addTicker(ticker) {
-        this.setState(({ tickers }) => ({
-            tickers: tickers.concat(ticker)
-        }));
     }
 
     render() {
         let {
-            tickers,
+            set,
             allocations
          } = this.state;
 
-         console.log(tickers)
+         let { tickers } = this.state[set];
 
         return (
             <Formik
+                key={set}
                 initialValues={{
                     tickers,
                     allocations: []
@@ -71,8 +70,7 @@ class PortfolioPage extends Component {
                                 name="checkbox"/>
                             <Allocations
                                 tickers={tickers}
-                                allocations={allocations}
-                                addTicker={this.addTicker}/>
+                                allocations={allocations}/>
                             <button type="submit">Submit</button>
                         </Form>
                     )
