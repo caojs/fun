@@ -24,7 +24,7 @@ class Allocations extends Component {
 
     render() {
         let {
-            allocations,
+            portfolios,
             formik
         } = this.props;
         let { tickerCount } = this.state; 
@@ -56,7 +56,7 @@ class Allocations extends Component {
                         </tbody>
                     </table>
                 </div>
-                {allocations.map((allocation, index) => {
+                {portfolios.map((portfolio, index) => {
                     const total = (getIn(formik.values, `allocations.${index}`) || [])
                         .filter(value => value)
                         .reduce((accum, value) => accum + +value, 0);
@@ -64,7 +64,7 @@ class Allocations extends Component {
                     return (
                         <div className="col" key={index}>
                             <table className="table">
-                                <thead><tr><th>Allocation #{allocation}</th></tr></thead>
+                                <thead><tr><th>Allocation #{portfolio}</th></tr></thead>
                                 <tbody>
                                     {range(tickerCount)
                                         .map((tidx) => (

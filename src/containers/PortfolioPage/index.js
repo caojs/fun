@@ -10,67 +10,72 @@ import Allocations from './Allocations';
 
 import schema from './schema';
 
+const Left = 'left';
+const Right = 'right';
+
 class PortfolioPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            set: 'one',
-            allocations: [1, 2, 3],
-            one: {
+            set: Left,
+            portfolios: [1, 2, 3],
+            [Left]: {
                 tickers: ['A', 'B', 'C'],
+                allocations: []
             },
-            two: {
+            [Right]: {
                 tickers: [''],
+                allocations: []
             }
         };
+        
+        this.changeSide = this.changeSide.bind(this)
+    }
+
+    changeSide(e) {
+        this.setState({
+            set: e.target.checked ? Left : Right
+        });
     }
 
     render() {
         let {
             set,
-            allocations
+            portfolios
          } = this.state;
 
-         let { tickers } = this.state[set];
+         let {
+             tickers,
+             allocations
+        } = this.state[set];
 
         return (
             <Formik
                 key={set}
-                initialValues={{
-                    tickers,
-                    allocations: []
-                }}
-
                 validationSchema={schema}
+                initialValues={this.state[set]}
 
-                onSubmit={(values) => {
-                    console.log(values);
-                }}
+                onSubmit={(values) => { console.log(values); }}
 
-                render={(props) => {
+                render={({ values }) => {
+                    // no need to setState.
+                    this.state[set] = values;
+
                     return (
                         <Form>
-                            <RawNumberInput
-                                name="numberer"/>
-                            <CustomSelect
-                                label="test"
-                                name="test"
-                                options={[{ label: "1", value:"1"}, { label:"2", value:"2"}]}/>
-                            <PrependInput
-                                label="test2"
-                                name="tes2"
-                                pender="abc"/>
-                            <AppendInput
-                                label="test2"
-                                name="tes52"
-                                pender="abc"/>
-                            <Input label="input" name="input" placeholder="abc"/>
-                            <CustomCheckbox
-                                label="label"
-                                name="checkbox"/>
+                        <div className="custom-control custom-checkbox">
+                            <input
+                                id="checktest"
+                                className="custom-control-input"
+                                type="checkbox"
+                                checked={set === Left}
+                                onChange={this.changeSide}/>
+                            <label className="custom-control-label" htmlFor="checktest">Test</label>
+                        </div>
                             <Allocations
+                                portfolios={portfolios}
                                 tickers={tickers}
-                                allocations={allocations}/>
+                                allocations={allocations} />
                             <button type="submit">Submit</button>
                         </Form>
                     )
