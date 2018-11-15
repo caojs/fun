@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { Formik, Form } from 'formik';
-import CustomSelect from '../../components/Formiks/CustomSelect';
-import PrependInput from '../../components/Formiks/PrependInput';
-import AppendInput from '../../components/Formiks/AppendInput';
-import Input from '../../components/Formiks/Input';
-import CustomCheckbox from '../../components/Formiks/CustomCheckbox';
-import RawNumberInput from '../../components/Formiks/RawNumberInput';
+import { MonthYearInput } from '../../components/Formiks';
 import Allocations from './Allocations';
 
 import schema from './schema';
@@ -53,7 +48,10 @@ class PortfolioPage extends Component {
             <Formik
                 key={set}
                 validationSchema={schema}
-                initialValues={this.state[set]}
+                initialValues={{
+                    startDate: new Date(),
+                    ...this.state[set]
+                }}
 
                 onSubmit={(values) => { console.log(values); }}
 
@@ -63,15 +61,16 @@ class PortfolioPage extends Component {
 
                     return (
                         <Form>
-                        <div className="custom-control custom-checkbox">
-                            <input
-                                id="checktest"
-                                className="custom-control-input"
-                                type="checkbox"
-                                checked={set === Left}
-                                onChange={this.changeSide}/>
-                            <label className="custom-control-label" htmlFor="checktest">Test</label>
-                        </div>
+                            <MonthYearInput name="startDate"/>
+                            <div className="custom-control custom-checkbox">
+                                <input
+                                    id="checktest"
+                                    className="custom-control-input"
+                                    type="checkbox"
+                                    checked={set === Left}
+                                    onChange={this.changeSide}/>
+                                <label className="custom-control-label" htmlFor="checktest">Test</label>
+                            </div>
                             <Allocations
                                 portfolios={portfolios}
                                 tickers={tickers}
