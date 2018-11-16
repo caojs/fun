@@ -6,28 +6,19 @@ import { range } from 'lodash-es';
 import { RawInput, RawNumberInput, RawDumbInput } from '../../../components/Formiks';
 
 class Allocations extends Component {
-    constructor(props) {
-        super(props);
-
-        const { tickers } = this.props;
-
-        this.state = { tickerCount: tickers.length };
-
-        this.addTicker = this.addTicker.bind(this);
-    }
-
-    addTicker() {
-        this.setState(({ tickerCount }) => ({
-            tickerCount: tickerCount + 1
-        }));
+    addTickerPartial(name, setFieldValue) {
+        return () => setFieldValue(name, "");
     }
 
     render() {
         let {
+            set,
             portfolios,
-            formik
+            formik: { values, setFieldValue }
         } = this.props;
-        let { tickerCount } = this.state; 
+
+        const { tickers } = values[set];
+        const tickerCount = tickers.length;
 
         return (
             <>
@@ -41,7 +32,7 @@ class Allocations extends Component {
                                 .map((tidx) => (
                                     <tr key={tidx}>
                                         <td>
-                                            <RawInput name={`tickers.${tidx}`}/>
+                                            <RawInput name={`${set}.tickers.${tidx}`}/>
                                         </td>
                                     </tr>
                                 ))}
@@ -49,8 +40,8 @@ class Allocations extends Component {
                                 <td>
                                     <button
                                         type="button"
-                                        className="btn btn-primary"
-                                        onClick={this.addTicker}>
+                                        className="btn btn-primary btn-sm"
+                                        onClick={this.addTickerPartial(`${set}.tickers.${tickerCount}`, setFieldValue)}>
                                         <IoMdAdd/>
                                     </button>
                                 </td>
@@ -59,7 +50,7 @@ class Allocations extends Component {
                     </table>
                 </div>
                 {portfolios.map((portfolio, index) => {
-                    const total = (getIn(formik.values, `allocations.${index}`) || [])
+                    const total = (getIn(values, `${set}.allocations.${index}`) || [])
                         .filter(value => value)
                         .reduce((accum, value) => accum + +value, 0);
 
@@ -72,14 +63,17 @@ class Allocations extends Component {
                                         .map((tidx) => (
                                             <tr key={tidx}>
                                                 <td>
-                                                    <RawNumberInput min={0} max={100} name={`allocations.${index}.${tidx}`}/>
+                                                    <RawNumberInput
+                                                        min={0}
+                                                        max={100}
+                                                        name={`${set}.allocations.${index}.${tidx}`}/>
                                                 </td>
                                             </tr>
                                         ))}
                                     <tr>
                                         <td>
                                             <RawDumbInput
-                                                name={`allocationTotal.${index}`}
+                                                name={`${set}.total.${index}`}
                                                 value={total}/>
                                         </td>
                                     </tr>

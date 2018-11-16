@@ -8,23 +8,15 @@ import Allocations from './Allocations';
 
 import schema from './schema';
 
-const Left = 'left';
-const Right = 'right';
+const On = 'on';
+const Off = 'off';
 
 class PortfolioPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            set: Left,
+            set: On,
             portfolios: [1, 2, 3],
-            [Left]: {
-                tickers: ['A', 'B', 'C'],
-                allocations: []
-            },
-            [Right]: {
-                tickers: [''],
-                allocations: []
-            }
         };
         
         this.changeSide = this.changeSide.bind(this)
@@ -32,7 +24,7 @@ class PortfolioPage extends Component {
 
     changeSide(e) {
         this.setState({
-            set: e.target.checked ? Left : Right
+            set: e.target.checked ? On : Off
         });
     }
 
@@ -42,27 +34,25 @@ class PortfolioPage extends Component {
             portfolios
          } = this.state;
 
-         let {
-             tickers,
-             allocations
-        } = this.state[set];
-
         return (
             <Formik
-                key={set}
                 validationSchema={schema}
                 initialValues={{
                     period: ['11/2013', '12/2018'],
                     initialAmount: '100000',
-                    ...this.state[set]
+                    [On]: {
+                        tickers: ['A', 'B', 'C'],
+                        allocations: []
+                    },
+                    [Off]: {
+                        tickers: [''],
+                        allocations: []
+                    }
                 }}
 
                 onSubmit={(values) => { console.log(values); }}
 
-                render={({ values, errors }) => {
-                    console.log(errors);
-                    // no need to setState.
-                    this.state[set] = values;
+                render={(_props) => {
 
                     return (
                         <Form>
@@ -71,13 +61,13 @@ class PortfolioPage extends Component {
                                     id="checktest"
                                     className="custom-control-input"
                                     type="checkbox"
-                                    checked={set === Left}
+                                    checked={set === On}
                                     onChange={this.changeSide}/>
-                                <label className="custom-control-label" htmlFor="checktest">Test</label>
+                                <label className="custom-control-label" htmlFor="checktest">Use filter results</label>
                             </div>
 
                             <div className="row mb-4">
-                                <div className="col-8">
+                                <div className="col-12">
                                     <MonthYearRangePicker
                                         name="period"
                                         label="Time period"
@@ -87,25 +77,25 @@ class PortfolioPage extends Component {
                             </div>
 
                             <div className="row mb-4">
-                                <div className="col-4">
+                                <div className="col-6">
                                     <AppendInput name="initialAmount" label="Initial Amount" pender="VND"/>
                                 </div>
                             </div>
 
                             <div className="row mb-4">
-                                <div className="col-4">
+                                <div className="col-6">
                                     <PeriodicAdjustment/>
                                 </div>
                             </div>
 
                             <div className="row mb-4">
-                                <div className="col-4">
+                                <div className="col-6">
                                     <Rebalancing/>
                                 </div>
                             </div>
 
                             <div className="row mb-4">
-                                <div className="col-4">
+                                <div className="col-6">
                                     <Benchmark/>
                                 </div>
                             </div>
@@ -113,12 +103,14 @@ class PortfolioPage extends Component {
                             <div className="row mb-4">
                                 <div className="col-12">
                                     <Allocations
-                                        portfolios={portfolios}
-                                        tickers={tickers}
-                                        allocations={allocations} />
+                                        key={set}
+                                        set={set}
+                                        portfolios={portfolios}/>
                                 </div>
                             </div>
-                            <button type="submit">Submit</button>
+                            <div className="d-flex justify-content-center mb-4">
+                                <button className="btn btn-primary" type="submit">Submit</button>
+                            </div>
                         </Form>
                     )
                 }}

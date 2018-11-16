@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import { stateToQuery } from '../FilterPage/helpers';
 
@@ -30,7 +30,11 @@ class Navbar extends Component {
                 </button>
                 <div className={cn("navbar-collapse d-none", { "d-block": isShow })}>
                     <div className="navbar-nav mr-auto">
-                        <NavLink className="nav-item nav-link" to={"/filter" + (query ? "?" + query : "")}>Filter</NavLink>
+                        <NavLink
+                            className="nav-item nav-link"
+                            to={"/filter" + (query ? "?" + query : "")}
+                            isActive={(_, { pathname }) => pathname === '/filter'}>Filter
+                        </NavLink>
                         <NavLink className="nav-item nav-link" to="/portfolio">Portfolio</NavLink>
                         <NavLink className="nav-item nav-link" to="/optimize">Optimize</NavLink>
                     </div>
@@ -40,8 +44,8 @@ class Navbar extends Component {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     state => ({
         query: stateToQuery(state.filters)
     })
-)(Navbar)
+)(Navbar));
