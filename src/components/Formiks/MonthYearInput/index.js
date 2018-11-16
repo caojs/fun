@@ -1,35 +1,19 @@
 import React, { Component } from 'react';
-import { FastField } from 'formik';
-import { MonthYearInput } from '../../Forms';
+import RawMonthYearInput from '../RawMonthYearInput';
 
-export default class FormikMonthYearInput extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    onChangePartial(name, setFieldValue) {
-        return (value) => {
-            setFieldValue(name, value);
-        }
-    }
-
+export default class MonthYearInput extends Component {
     render() {
         const {
+            label,
             name,
             ...rest
         } = this.props;
 
         return (
-            <FastField name={name}>
-                {({ field, form }) => {
-                    return (
-                        <MonthYearInput
-                            {...rest}
-                            value={field.value}
-                            onChange={this.onChangePartial(name, form.setFieldValue)}/>
-                    )
-                }}
-            </FastField>
+            <>
+                <label>{label}</label>
+                <RawMonthYearInput name={name} {...rest}/>
+            </>
         )
     }
 }

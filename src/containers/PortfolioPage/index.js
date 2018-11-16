@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Formik, Form } from 'formik';
-import { MonthYearInput } from '../../components/Formiks';
+import { MonthYearInput, MonthYearRangePicker } from '../../components/Formiks';
 import Allocations from './Allocations';
 
 import schema from './schema';
@@ -49,7 +49,7 @@ class PortfolioPage extends Component {
                 key={set}
                 validationSchema={schema}
                 initialValues={{
-                    startDate: new Date(),
+                    period: ['11/2013', '12/2018'],
                     ...this.state[set]
                 }}
 
@@ -61,7 +61,15 @@ class PortfolioPage extends Component {
 
                     return (
                         <Form>
-                            <MonthYearInput name="startDate"/>
+                            <div className="row">
+                                <div className="col-12">
+                                    <MonthYearRangePicker
+                                        name="period"
+                                        label="Time period"
+                                        startLabel="From"
+                                        endLabel="To"/>
+                                </div>
+                            </div>
                             <div className="custom-control custom-checkbox">
                                 <input
                                     id="checktest"

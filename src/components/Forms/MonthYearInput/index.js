@@ -1,8 +1,62 @@
 import React, { Component } from 'react';
-import { range } from 'lodash-es';
+import { range, isObject } from 'lodash-es';
 import cn from 'classnames';
 
-export default class MonthYearInput extends Component {
+const regex = /^(\d{1,2})[\/-](\d{4})$/;
+
+/*
+Date
+month/year
+{ month, year }
+*/
+function parseFormat(d) {
+    if (d instanceof Date) {
+        return {
+            month: d.getMonth() + 1,
+            year: d.getFullYear()
+        };
+    }
+
+    if (typeof d === 'string') {
+        const matched = d.match(regex);
+        if (matched) {
+            return {
+                month: +matched[1],
+                year: +matched[2]
+            }
+        }
+    }
+    else if (isObject(d)) {
+        const {
+            month,
+            year
+        } = d;
+        return {
+            month: +month,
+            year: +year
+        };
+    }
+
+    throw new Error('Wrong format');
+}
+
+export function formatToDate(d) {
+    const {
+        month,
+        year
+    } = parseFormat(d);
+
+    if (!month || !year) throw new Error('Wrong format');
+
+    return new Date(year, month - 1);
+}
+
+export function dateToFormat(d) {
+    return [d.getMonth() + 1, d.getFullYear()]
+        .join('/');
+}
+
+export default class FormsMonthYearInput extends Component {
     constructor(props) {
         super(props);
         let {
@@ -12,20 +66,12 @@ export default class MonthYearInput extends Component {
 
         this.state = {
             minYear: min ?
-                this.parseDate(min).year:
+                parseFormat(min).year:
                 1970,
             maxYear: max ?
-                this.parseDate(max).year:
+                parseFormat(max).year:
                 (new Date()).getFullYear(),
         };
-    }
-
-    parseDate(d) {
-        const [month, year] = d instanceof Date ?
-            [d.getMonth() + 1, d.getFullYear()] :
-            d.split('/');
-
-        return { month, year };
     }
 
     onSelectPartial(key) {
@@ -35,11 +81,13 @@ export default class MonthYearInput extends Component {
         } = this.props;
 
         return (e) => {
-            const v = e.target.value;
-            const parsed = this.parseDate(value);
-            parsed[key] = v;
+            const currentDate = formatToDate(value);
 
-            onChange([parsed.month, parsed.year].join('/'));
+            const parsed = parseFormat(value);
+            parsed[key] = e.target.value;
+            const newDate = formatToDate(parsed);
+
+            onChange(dateToFormat(newDate));
         }
     }
 
@@ -57,7 +105,7 @@ export default class MonthYearInput extends Component {
         const {
             month,
             year
-        } = this.parseDate(value);
+        } = parseFormat(value);
 
         return (
             <div className={cn(className, "input-group")}>
