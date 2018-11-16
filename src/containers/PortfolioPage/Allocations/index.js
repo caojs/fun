@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { IoMdAdd } from 'react-icons/io';
 import { connect, getIn } from 'formik';
 import { range } from 'lodash-es';
-import { RawInput, RawNumberInput } from '../../../components/Formiks';
+import { RawInput, RawNumberInput, RawDumbInput } from '../../../components/Formiks';
 
 class Allocations extends Component {
     constructor(props) {
@@ -30,9 +30,11 @@ class Allocations extends Component {
         let { tickerCount } = this.state; 
 
         return (
-            <div className="row">
+            <>
+            <label>Portfolio assets</label>
+            <div className="row no-gutters">
                 <div className="col-3">
-                    <table className="table">
+                    <table className="table mb-0">
                         <thead><tr><th>#Asset</th></tr></thead>
                         <tbody>
                             {range(tickerCount)
@@ -63,7 +65,7 @@ class Allocations extends Component {
 
                     return (
                         <div className="col" key={index}>
-                            <table className="table">
+                            <table className="table mb-0">
                                 <thead><tr><th>Allocation #{portfolio}</th></tr></thead>
                                 <tbody>
                                     {range(tickerCount)
@@ -76,7 +78,9 @@ class Allocations extends Component {
                                         ))}
                                     <tr>
                                         <td>
-                                            <span className={cn({ "text-danger": total < 100 || total > 100 })}>Total: {total}</span>
+                                            <RawDumbInput
+                                                name={`allocationTotal.${index}`}
+                                                value={total}/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -85,6 +89,7 @@ class Allocations extends Component {
                     )
                 })}
             </div>
+            </>
         )
     }
 }

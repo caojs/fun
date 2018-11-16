@@ -39,25 +39,32 @@ export default class MonthYearRangePicker extends Component {
             <FastField name={name}>
                 {({ field, form }) => {
                     const [startValue, endValue] = field.value;
-                    console.log(field.value);
 
                     return (
                         <>
                             <label>{label}</label>
                             <div className="row">
-                                <div className="col-3">
-                                    <label className="text-secondary mb-0"><small>{startLabel}</small></label>
-                                    <MonthYearInput
-                                        {...start}
-                                        value={startValue}
-                                        onChange={this.onStartChangePartial(name, field.value, form.setFieldValue)}/>
+                                <div className="col">
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <small className="input-group-text">{startLabel}</small>
+                                        </div>
+                                        <MonthYearInput
+                                            {...start}
+                                            value={startValue}
+                                            onChange={this.onStartChangePartial(name, field.value, form.setFieldValue)}/>
+                                    </div>
                                 </div>
-                                <div className="col-3">
-                                    <label className="text-secondary mb-0"><small>{endLabel}</small></label>
-                                    <MonthYearInput
-                                        {...end}
-                                        value={endValue}
-                                        onChange={this.onEndChangePartial(name, field.value, form.setFieldValue)}/>
+                                <div className="col">
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <small className="input-group-text">{endLabel}</small>
+                                        </div>
+                                        <MonthYearInput
+                                            {...end}
+                                            value={endValue}
+                                            onChange={this.onEndChangePartial(name, field.value, form.setFieldValue)}/>
+                                    </div>
                                 </div>
                             </div>
                         </>

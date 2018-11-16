@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Formik, Form } from 'formik';
-import { MonthYearInput, MonthYearRangePicker } from '../../components/Formiks';
+import { MonthYearRangePicker, AppendInput, CustomSelect } from '../../components/Formiks';
+import PeriodicAdjustment from './PeriodicAdjustment';
+import Rebalancing from './Rebalancing';
+import Benchmark from './Benchmark';
 import Allocations from './Allocations';
 
 import schema from './schema';
@@ -50,27 +53,20 @@ class PortfolioPage extends Component {
                 validationSchema={schema}
                 initialValues={{
                     period: ['11/2013', '12/2018'],
+                    initialAmount: '100000',
                     ...this.state[set]
                 }}
 
                 onSubmit={(values) => { console.log(values); }}
 
-                render={({ values }) => {
+                render={({ values, errors }) => {
+                    console.log(errors);
                     // no need to setState.
                     this.state[set] = values;
 
                     return (
                         <Form>
-                            <div className="row">
-                                <div className="col-12">
-                                    <MonthYearRangePicker
-                                        name="period"
-                                        label="Time period"
-                                        startLabel="From"
-                                        endLabel="To"/>
-                                </div>
-                            </div>
-                            <div className="custom-control custom-checkbox">
+                            <div className="custom-control custom-checkbox mb-4">
                                 <input
                                     id="checktest"
                                     className="custom-control-input"
@@ -79,10 +75,49 @@ class PortfolioPage extends Component {
                                     onChange={this.changeSide}/>
                                 <label className="custom-control-label" htmlFor="checktest">Test</label>
                             </div>
-                            <Allocations
-                                portfolios={portfolios}
-                                tickers={tickers}
-                                allocations={allocations} />
+
+                            <div className="row mb-4">
+                                <div className="col-8">
+                                    <MonthYearRangePicker
+                                        name="period"
+                                        label="Time period"
+                                        startLabel="From"
+                                        endLabel="To"/>
+                                </div>
+                            </div>
+
+                            <div className="row mb-4">
+                                <div className="col-4">
+                                    <AppendInput name="initialAmount" label="Initial Amount" pender="VND"/>
+                                </div>
+                            </div>
+
+                            <div className="row mb-4">
+                                <div className="col-4">
+                                    <PeriodicAdjustment/>
+                                </div>
+                            </div>
+
+                            <div className="row mb-4">
+                                <div className="col-4">
+                                    <Rebalancing/>
+                                </div>
+                            </div>
+
+                            <div className="row mb-4">
+                                <div className="col-4">
+                                    <Benchmark/>
+                                </div>
+                            </div>
+
+                            <div className="row mb-4">
+                                <div className="col-12">
+                                    <Allocations
+                                        portfolios={portfolios}
+                                        tickers={tickers}
+                                        allocations={allocations} />
+                                </div>
+                            </div>
                             <button type="submit">Submit</button>
                         </Form>
                     )

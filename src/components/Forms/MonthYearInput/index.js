@@ -108,7 +108,7 @@ export default class FormsMonthYearInput extends Component {
         } = parseFormat(value);
 
         return (
-            <div className={cn(className, "input-group")}>
+            <>
                 <select
                     className="custom-select"
                     value={month}
@@ -125,7 +125,7 @@ export default class FormsMonthYearInput extends Component {
                         <option key={year} value={year}>{year}</option>
                     ))}
                 </select>
-            </div>
+            </>
         )
     }
 }
