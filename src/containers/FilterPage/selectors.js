@@ -36,3 +36,12 @@ export const countSelectedFiltersSelector = createSelector(
             return accum;
         }, {})
 )
+
+export const tickersSelector = createSelector(
+    getRight('filters.results.error'),
+    getRight('filters.results.response'),
+    (error, response) => {
+        if (error || !response) return null;
+        return response.body.map(row => row[0].value)
+    }
+)

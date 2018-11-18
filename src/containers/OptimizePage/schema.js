@@ -21,6 +21,5 @@ const setSchema = object().shape({
 export default object()
     .shape({
         tickers: array().of(string()),
-        on: setSchema,
-        off: setSchema,
+        optimize: setSchema
     });

@@ -1,59 +1,27 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { MonthYearRangePicker, AppendInput } from '../../components/Formiks';
-import PeriodicAdjustment from './PeriodicAdjustment';
-import Rebalancing from './Rebalancing';
-import Benchmark from './Benchmark';
+import { MonthYearRangePicker } from '../../components/Formiks';
+import OptimizationGoal from './OptimizationGoal';
+import AssetConstraints from './AssetConstraints';
+import ComparedAllocation from './ComparedAllocation';
+import Benchmark from '../PortfolioPage/Benchmark';
 import PortfolioAssets from './PortfolioAssets';
-import { tickersSelector } from '../FilterPage/selectors';
 
 import schema from './schema';
 
-const On = 'on';
-const Off = 'off';
-
-class PortfolioPage extends Component {
+class OptimizePage extends Component {
     constructor(props) {
         super(props);
-
-        const { hasFilters } = props;
-
-        // TODO: dynamic portfolios
-        this.state = {
-            set: hasFilters ? On : Off,
-            portfolios: [1, 2, 3],
-        };
-        
-        this.useFilter = this.useFilter.bind(this)
-    }
-
-    useFilter(e) {
-        this.setState({
-            set: e.target.checked ? On : Off
-        });
     }
 
     render() {
-        const {
-            tickers
-         } = this.props;
-        let {
-            set,
-            portfolios
-         } = this.state;
-
         return (
             <Formik
                 validationSchema={schema}
                 initialValues={{
                     period: ['11/2013', '12/2018'],
                     initialAmount: '100000',
-                    [On]: {
-                        tickers: tickers,
-                        allocations: []
-                    },
-                    [Off]: {
+                    optimize: {
                         tickers: [''],
                         allocations: []
                     }
@@ -62,7 +30,6 @@ class PortfolioPage extends Component {
                 onSubmit={(values) => { console.log(values); }}
 
                 render={(_props) => {
-
                     return (
                         <Form>
                             <div className="row mb-4">
@@ -77,19 +44,19 @@ class PortfolioPage extends Component {
 
                             <div className="row mb-4">
                                 <div className="col-6">
-                                    <AppendInput name="initialAmount" label="Initial Amount" pender="VND"/>
+                                    <OptimizationGoal/>
                                 </div>
                             </div>
 
                             <div className="row mb-4">
                                 <div className="col-6">
-                                    <PeriodicAdjustment/>
+                                    <AssetConstraints/>
                                 </div>
                             </div>
 
                             <div className="row mb-4">
                                 <div className="col-6">
-                                    <Rebalancing/>
+                                    <ComparedAllocation/>
                                 </div>
                             </div>
 
@@ -102,13 +69,11 @@ class PortfolioPage extends Component {
                             <div className="row mb-4">
                                 <div className="col-12">
                                     <PortfolioAssets
-                                        hasFilters={!!tickers}
-                                        key={set}
-                                        set={set}
-                                        portfolios={portfolios}
-                                        onUseFilter={this.useFilter}/>
+                                        set={'optimize'}
+                                        portfolios={[1]}/>
                                 </div>
                             </div>
+                            
                             <div className="d-flex justify-content-center mb-4">
                                 <button className="btn btn-primary" type="submit">Submit</button>
                             </div>
@@ -120,12 +85,4 @@ class PortfolioPage extends Component {
     }
 }
 
-export default connect(
-    state => {
-        const tickers = tickersSelector(state);
-        return ({
-            tickers,
-            hasFilters: !!tickers
-        });
-    }
-)(PortfolioPage);
+export default OptimizePage;
