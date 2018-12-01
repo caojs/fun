@@ -5,7 +5,7 @@ import FilterResult from './FilterResult';
 
 export default function FilterPage() {
     return (
-        <React.Fragment>
+        <div className="container">
             <div className="row pb-4">
                 <Filter/>
             </div>
@@ -15,6 +15,6 @@ export default function FilterPage() {
             <div className="row pb-4">
                 <FilterResult/>
             </div>
-        </React.Fragment>
+        </div>
     );
 }

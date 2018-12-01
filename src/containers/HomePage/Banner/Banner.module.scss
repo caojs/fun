@@ -1,0 +1,15 @@
+.main {
+    padding: 60px 0 70px 0;
+
+    :global {
+        .me-name {
+            letter-spacing: 0.01rem;
+            font-weight: bold;
+        }
+
+        .me-description {
+            letter-spacing: 0.01rem;
+            font-weight: 200;
+        }
+    }
+}

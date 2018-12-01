@@ -1,0 +1,25 @@
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.main {
+    position: relative;
+    display: inline-block;
+
+    :global {
+        .me-circle-icon {
+            color: theme-color('primary');
+            font-size: 6rem;
+        }
+
+        .me-tool {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .me-tool-icon {
+            color: white;
+            font-size: 3rem;
+        }
+    }
+}

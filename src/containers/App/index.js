@@ -8,10 +8,8 @@ class App extends Component {
     let { route } = this.props;
     return (
       <div className="App">
-        <div className="container">
           <Navbar/>
           {renderRoutes(route.routes)}
-        </div>
       </div>
     );
   }
