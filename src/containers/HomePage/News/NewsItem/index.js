@@ -18,7 +18,7 @@ export default function NewsItem(props) {
                 <img className="card-img-top" src={thumbnail} alt="thumbnail"/>
                 <div className="card-body">
                     <h4 className="card-title">
-                        <Link to="/">{title}</Link>
+                        <Link to={`/news/${title}`}>{title}</Link>
                     </h4>
                     <p className="card-text">{description}</p>
                     <p class="card-text"><small class="text-muted">{date}</small></p>

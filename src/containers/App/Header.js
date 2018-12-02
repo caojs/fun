@@ -25,7 +25,7 @@ class Header extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <nav className="navbar navbar-expand-md navbar-dark">
+                            <nav className="navbar navbar-expand-md navbar-dark pl-0 pr-0">
                                 <NavLink className="navbar-brand mr-4" to="/">Logo</NavLink>
                                 <button
                                     className="navbar-toggler"

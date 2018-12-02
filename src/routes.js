@@ -1,5 +1,7 @@
 import App from './containers/App';
 import HomePage from './containers/HomePage';
+import PostsPage from './containers/PostsPage';
+import PostDetailPage from './containers/PostDetailPage';
 import FilterPage from './containers/FilterPage';
 import PortfolioPage from './containers/PortfolioPage';
 import OptimizePage from './containers/OptimizePage';
@@ -10,6 +12,13 @@ const routes = [{
         path: '/',
         exact: true,
         component: HomePage
+    }, {
+        path: '/news',
+        exact: true,
+        component: PostsPage
+    }, {
+        path: '/news/:slug',
+        component: PostDetailPage
     }, {
         path: '/filter',
         component: FilterPage,
