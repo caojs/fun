@@ -4,9 +4,9 @@ import { withRouter, NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import { stateToQuery } from '../FilterPage/helpers';
 
-import styles from './Navbar.module.scss';
+import styles from './Header.module.scss';
 
-class Navbar extends Component {
+class Header extends Component {
     constructor(props) {
         super(props);
         this.state = { isShow: false }
@@ -59,4 +59,4 @@ export default withRouter(connect(
     state => ({
         query: stateToQuery(state.filters)
     })
-)(Navbar));
+)(Header));

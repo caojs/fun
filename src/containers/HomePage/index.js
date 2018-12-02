@@ -10,7 +10,6 @@ export default class HomePage extends Component {
             <div>
                 <Banner/>
                 <MainTools/>
-                <hr/>
                 <News/>
             </div>
         )

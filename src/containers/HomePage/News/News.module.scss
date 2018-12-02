@@ -1,0 +1,12 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.main {
+    padding: 60px 0;
+    background: white;
+
+    :global {
+        .me-title {
+            margin-bottom: 50px;
+        }
+    }
+}

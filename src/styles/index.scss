@@ -11,3 +11,7 @@ body {
   padding: 0;
   background-color: #f5f6f6;
 }
+
+:focus {
+  outline: 0;
+}

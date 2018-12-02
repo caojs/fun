@@ -19,7 +19,7 @@ export default function Tool(props) {
                     <ToolIcon icon={icon}/>
                 </div>
                 <div className="card-body">
-                    <h5 className="card-title text-center">{title}</h5>
+                    <h4 className="card-title text-center">{title}</h4>
                     <p className="card-text text-muted">{text}</p>
                     <Link to={link} className="card-link">View</Link>
                 </div>

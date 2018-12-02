@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { renderRoutes } from 'react-router-config';
-import Navbar from './Navbar';
-import './App.css';
+import Header from './Header';
+import Footer from './Footer';
 
 class App extends Component {
   render() {
     let { route } = this.props;
     return (
       <div className="App">
-          <Navbar/>
+          <Header/>
           {renderRoutes(route.routes)}
+          <Footer/>
       </div>
     );
   }
