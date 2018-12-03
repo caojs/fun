@@ -3,13 +3,17 @@ import { renderRoutes } from 'react-router-config';
 import Header from './Header';
 import Footer from './Footer';
 
+import styles from './App.module.scss';
+
 class App extends Component {
   render() {
     let { route } = this.props;
     return (
-      <div className="App">
+      <div className={styles.main}>
           <Header/>
-          {renderRoutes(route.routes)}
+          <div className="me-app">
+            {renderRoutes(route.routes)}
+          </div>
           <Footer/>
       </div>
     );
