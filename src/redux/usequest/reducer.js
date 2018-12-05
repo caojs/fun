@@ -1,4 +1,4 @@
-import { get } from 'lodash-es';
+import { get, merge } from 'lodash-es';
 import update from 'immutability-helper';
 import { REQUEST, SUCCESS, FAILURE} from './actions';
 
@@ -18,13 +18,14 @@ export default function uqReducer(state = {}, action) {
     switch (type) {
         case REQUEST: {
             const { where } = meta;
-            return update(state, {
-                $merge: {
+            const st = update(state, {
+                $apply: (s) => merge(s, {
                     [where]: {
                         loading: true
                     }
-                }
+                })
             });
+            return st;
         }
 
         case SUCCESS: {

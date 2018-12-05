@@ -2,11 +2,26 @@
 
 .main {
     padding: 60px 0;
-    background: white;
 
     :global {
-        .me-title {
-            margin-bottom: 50px;
+        .me-header {
+            margin: 0 1.25rem 30px 1.25rem;
+        }
+
+        .me-title-link {
+            font-weight: 200;
+            text-transform: uppercase;
+        }
+
+        .me-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .me-item {
+            display: flex;
+            flex: 1 1 300px;
+            margin: 0 1.25rem 2rem;
         }
     }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash-es';
+import fecha from 'fecha';
 
 import { getP, uqSelector } from '../../redux/usequest';
 
@@ -51,11 +52,13 @@ class PostDetailPage extends Component {
             createdAt
         } = data;
 
+        const createdDate = fecha.format(createdAt, 'DD/MM/YYYY');
+
         return (
             <div className={styles.main}>
                 <section className="me-title-section">
                     <div className="container text-center">
-                        <p className="text-muted me-date mb-2">{createdAt}</p>
+                        <p className="text-muted me-date mb-2">{createdDate}</p>
                         <h1 className="text-secondary mb-3">{title}</h1>
                         <p className="me-description">{description}</p>
                     </div>

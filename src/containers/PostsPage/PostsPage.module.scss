@@ -4,9 +4,16 @@
             padding: 60px 0 50px 0;
         }
 
+        .me-item {
+            display: flex;
+            flex: 1 1 300px;
+            margin: 0 1.25rem 2rem;
+        }
+
         .me-content-section {
-            padding: 60px 0;
-            background: white;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -1.25rem;
         }
         
         .me-date {

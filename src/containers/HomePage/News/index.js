@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { FaAngleRight } from 'react-icons/fa';
 
 import { getP, uqSelector } from '../../../redux/usequest';
-import NewsItem from './NewsItem';
+import NewsItem from '../NewsItem';
 
 import styles from './News.module.scss';
 
@@ -29,12 +31,18 @@ class News extends Component {
 
         return (
             <section className={cn(styles.main)}>
-                <h1 className="text-center me-title text-muted">Tin Tức</h1>
                 <div className="container">
-                    <div className="row">
+                    <div className="d-flex justify-content-between align-items-center me-header">
+                        <h2 className="me-title m-0">Tin Tức</h2>
+                        <Link className="d-flex align-items-center font-13 me-title-link" to="/news">
+                            <span>See more</span>
+                            <FaAngleRight/>
+                        </Link>
+                    </div>
+                    <div className="me-list">
                         {data.map((item, index) => {
                             return (
-                                <div key={index} className="col-12 col-sm-6 col-md-4">
+                                <div key={index} className="me-item">
                                     <NewsItem {...item}/>
                                 </div>
                             );
