@@ -26,7 +26,7 @@ class FilterResult extends Component {
             <ErrorWrapper error={error}>
                 {() => {
                     let {
-                        response,
+                        data,
                         summaryHeaderIds,
                         customHeaderIds
                     } = this.props;
@@ -35,7 +35,7 @@ class FilterResult extends Component {
                         headers,
                         body,
                         total_count: totalCount
-                    } = response || {};
+                    } = data || {};
 
                     let LoadingMessage = () => <MessageAlert type={Waiting} message="Loading..."/>;
 

@@ -3,17 +3,20 @@ import { rootApi } from '../../configs/apiConfig';
 const callApi = (endpoint, options) => {
     const fullUrl = (endpoint.indexOf(rootApi) === -1) ? rootApi + endpoint : endpoint;
 
-    return Promise.resolve(require('../../containers/FilterPage/dummy.json'))
-    return fetch(fullUrl, options)
+    return fetch(endpoint, options)
         .then(response => response
             .json()
-            .then(json => {
-                if (!response.ok) {
-                    return Promise.reject(json)
-                }
-
-                return json;
+            .then(json => ({
+                status: response.status,
+                ok: response.ok,
+                json
             }))
+        )
+        .then(response => response.ok ?
+            { data: response.json }:
+            Promise.reject(new Error('Server error.'))
+        )
+        .catch(err => Promise.reject(err))
 }
 
 export const CALL_API = '[Call API]';
@@ -54,14 +57,13 @@ export default store => next => action => {
 
     next(actionWith({ type: requestType }));
 
-    return callApi(endpoint, options).then(
-        response => next(actionWith({
+    return callApi(endpoint, options)
+        .then(({ data }) => next(actionWith({
             type: successType,
-            payload: { response },
-        })),
-        error => next(actionWith({
+            payload: { data },
+        })))
+        .catch(error => next(actionWith({
             type: failureType,
             payload: { error: error.message || 'Something bad happened'}
-        }))
-    )
+        })))
 }

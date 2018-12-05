@@ -37,7 +37,9 @@ const doFilter = (loadingType = ALL) => ({
             let query = stateToQuery(state.filters);
             let u = query ? url + "?" + query : url;
 
-            return u;
+            
+            //return u;
+            return 'http://5bd3f794be3a0b0013d034d9.mockapi.io/api/v1/filter/1'
         }
     }
 });

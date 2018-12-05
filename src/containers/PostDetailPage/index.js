@@ -1,24 +1,77 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { get } from 'lodash-es';
+
+import { getP, uqSelector } from '../../redux/usequest';
 
 import styles from './PostDetailPage.module.scss';
 
-export default class PostDetailPage extends Component {
+const WHERE = 'PostDetailPage';
+const getPost = getP(WHERE);
+
+class PostDetailPage extends Component {
+    getId(match) {
+        const slug = get(match, 'params.slug');
+        if (slug) {
+            return slug.split('.')[1];
+        }
+    }
+
+    htmlDecode(input){
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    componentDidMount() {
+        const {
+            match,
+            getPost
+        } = this.props;
+        const id = this.getId(match);
+        if (id) {
+            getPost('http://5bd3f794be3a0b0013d034d9.mockapi.io/api/v1/posts/' + id);
+        }
+    }
+
     render() {
+        const { post } = this.props;
+        if (!post || post.loading) return <div></div>;
+
+        const { error, data } = post;
+
+        if (error) return <div></div>
+
+        const {
+            id,
+            title,
+            description,
+            content,
+            imageUrl,
+            createdAt
+        } = data;
+
         return (
             <div className={styles.main}>
                 <section className="me-title-section">
                     <div className="container text-center">
-                        <p className="text-muted me-date mb-2">20/11/2018</p>
-                        <h1 className="text-secondary mb-3">Inventore laborum et nihil voluptatem.</h1>
-                        <p className="me-description">Ipsa dolor ut minus ut sequi. Qui rerum ipsa. Recusandae non repudiandae aut odit sed non architecto et. Non sequi neque aut autem nisi rerum eum porro accusantium.</p>
+                        <p className="text-muted me-date mb-2">{createdAt}</p>
+                        <h1 className="text-secondary mb-3">{title}</h1>
+                        <p className="me-description">{description}</p>
                     </div>
                 </section>
                 <section className="me-content-section">
                     <div className="container">
-                        <div dangerouslySetInnerHTML={{__html: "Voluptas repudiandae voluptates reprehenderit inventore ratione laudantium et. Enim fugit adipisci aspernatur iusto sit ab error. Et enim voluptatibus impedit et beatae porro possimus quaerat. Quae culpa soluta ea. Neque sint eum. Ipsam impedit a hic vero omnis ut earum maxime aut. Consequuntur dolorem quas id. Fugit doloremque non et. Laboriosam ut accusantium. Molestiae ratione sit inventore dolor cupiditate. Et ut harum molestias nihil. Molestiae eum ipsa exercitationem est. Velit consectetur enim omnis quis iure. Fuga tempore eum fugiat officiis qui explicabo nisi soluta cum. Consectetur excepturi eveniet recusandae vitae natus et."}}/>
+                        <div dangerouslySetInnerHTML={{ __html: this.htmlDecode(content) }} />
                     </div>
                 </section>
             </div>
         )
     }
 }
+
+export default connect(
+    state => ({ post: uqSelector(WHERE, state)})
+, {
+    getPost: getPost
+})(PostDetailPage);

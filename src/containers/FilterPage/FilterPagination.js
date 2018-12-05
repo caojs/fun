@@ -20,13 +20,13 @@ class FilterPagination extends Component {
 
     render() {
         let {
-            response,
+            data,
         } = this.props;
 
         let {
             per_page: perPage,
             total_count: totalCount,
-        } = response;
+        } = data;
 
         let pageCount = Math.ceil(totalCount/perPage);
 

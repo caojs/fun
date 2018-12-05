@@ -13,7 +13,7 @@ import {
     FILTERS_SEARCH,
 } from './constants';
 
-export default (state, action) => {
+export default (state = {}, action) => {
     let {
         type,
         payload,
@@ -55,12 +55,12 @@ export default (state, action) => {
 
         case FILTERS_SUCCESS:
         {
-            let { response } = payload;
+            let { data } = payload;
             return update(state, {
                 results: {
                     isLoading: { $set: false },
                     isLoaded: { $set: true },
-                    response: { $set: response },
+                    data: { $set: data },
                     error: { $set: null }
                 }
             });
