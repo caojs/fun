@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Tag from '../../components/common/Tag';
-import { onRemove } from './actions';
+import Tag from '../../../../components/common/Tag';
+import { onRemove } from '../../actions';
 
 export default connect(
     null,

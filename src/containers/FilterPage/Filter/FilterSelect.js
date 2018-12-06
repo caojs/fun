@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Select from '../../components/common/Select';
-import { onSelect } from './actions';
+import Select from '../../../components/common/Select';
+import { onSelect } from '../actions';
 
 import styles from './FilterSelect.module.css';
 

@@ -5,7 +5,6 @@
 .result {
     padding: 15px;
     background-color: white;
-    font-size: 0.75em;
 }
 
 .result :global(.tabs__head) {

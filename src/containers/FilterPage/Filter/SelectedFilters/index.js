@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 import FilterTag from './FilterTag';
 import styles from './FilterActived.module.css';
-import { selectedFiltersSelector } from './selectors';
+import { selectedFiltersSelector } from '../../selectors';
 
-class ActivatedFilters extends Component {
+class SelectedFilters extends Component {
     render() {
         let { selectedFilters } = this.props;
         return (
             selectedFilters.length > 0 ?
                 (<>
-                    <span className="col-12 cm-heading">Active filters:</span>
-                    <div className={cn("col-12", styles.filters)}>
+                    <div className={styles.filters}>
+                        <span>Activated Filters:</span>
                         {selectedFilters.map(filter => {
                             let {
                                 id,
@@ -34,10 +34,9 @@ class ActivatedFilters extends Component {
 
 export default connect(
     (state, ownProps) => {
-
         return {
             ...ownProps,
             selectedFilters: selectedFiltersSelector(state)
         };
     }
-)(ActivatedFilters)
+)(SelectedFilters)

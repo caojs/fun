@@ -6,7 +6,7 @@ import MultiGrid from 'react-virtualized/dist/es/MultiGrid';
 import AutoSizer from 'react-virtualized/dist/es/AutoSizer';
 import CellMeasurer from 'react-virtualized/dist/es/CellMeasurer';
 import CellMeasurerCache from 'react-virtualized/dist/es/CellMeasurer/CellMeasurerCache';
-import MessageAlert, { Info } from '../../components/common/MessageAlert';
+import MessageAlert, { Info } from '../../../components/common/MessageAlert';
 
 import styles from './FilterTable.module.css';
 

@@ -1,20 +1,73 @@
-import React from 'react';
-import Filter from './Filter';
-import ActivatedFilters from './FilterActived';
-import FilterResult from './FilterResult';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default function FilterPage() {
-    return (
-        <div className="container">
-            <div className="row pb-4">
-                <Filter/>
+import Filter from './Filter';
+import FilterResult from './FilterResult';
+import LoadableButton from '../../components/common/LoadableButton';
+import { applyFilters } from './actions';
+import { stateToQuery } from './helpers';
+
+class FilterPage extends Component {
+    constructor(props) {
+        super(props);
+        this.onFilter = this.onFilter.bind(this);
+    }
+
+    onFilter() {
+        const {
+            history,
+            applyFilters,
+            query
+        } = this.props;
+
+        return applyFilters()
+            .then(() => {
+                if (query) history.push('/filter?' + query)
+            })
+    }
+
+    componentDidMount() {
+        let {
+            query,
+            applyFilters
+        } = this.props;
+        if (query) {
+            applyFilters();
+        }
+    }
+
+
+    render() {
+        return (
+            <>
+                <div className="mb-4">
+                    <Filter/>
+                </div>
+            <div className="container">
+                <div className="text-center mb-4">
+                    <LoadableButton
+                        className="btn btn-primary"
+                        onClickPromise={this.onFilter}>Apply
+                    </LoadableButton>
+                </div>
+                <div className="row mb-4">
+                    <FilterResult/>
+                </div>
             </div>
-            <div className="row pb-4">
-                <ActivatedFilters/>
-            </div>
-            <div className="row pb-4">
-                <FilterResult/>
-            </div>
-        </div>
-    );
+            </>
+        );
+    }
 }
+
+export default connect(
+
+    (state) => {
+        let query = stateToQuery(state.filters || {});
+        return ({
+            query
+        });
+    },
+    {
+        applyFilters
+    }
+)(FilterPage);

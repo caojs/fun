@@ -1,0 +1,76 @@
+.main {
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: white;
+    color: #8c8b8f;
+
+    :global {
+        .me-tools {
+            padding: 15px 0;
+        }
+        .me-filters {
+        }
+
+        .me-filters-item {
+            padding: (15px /2) 15px;
+        }
+
+        .tabs__head {
+            padding: 15px 0;
+        }
+
+        .tabs__label {
+            margin-right: 15px;
+            color: #323642;
+            font-weight: bold;
+        }
+
+        .react-tabs__tab-list {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .react-tabs__tab {
+            display: inline-block;
+            padding: 3px 8px;
+            margin-right: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .react-tabs__tab:hover {
+            background-color: #f7f7f7;
+        }
+
+        .react-tabs__tab.react-tabs__tab--selected {
+            background-color: #2591db;
+            color: white;
+        }
+
+        .tabs__select-item {
+            margin: 16px 0 13px 0;
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.buttons :global(.filters__apply) {
+    padding: 5px 10px 4px 10px;
+    background-color: #2591db;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+
+.buttons :global(.loadablebutton__icon) {
+    font-size: 1.4em;
+}

@@ -6,7 +6,6 @@
 
 .label {
     padding-right: 5px;
-    font-size: 0.7em;
     color: #8c8b8f;
 }
 
@@ -28,7 +27,6 @@
 .dropdown {
     position: relative;
     width: 100%;
-    font-size: 0.8em;
 }
 
 .optionLabel {
@@ -36,7 +34,6 @@
     padding: 2px 5px;
     margin-bottom: 3px;
     border-radius: 1px;
-    font-size: 0.65em;
     color: #2591db;
     background-color: #c1e3f5;
 }

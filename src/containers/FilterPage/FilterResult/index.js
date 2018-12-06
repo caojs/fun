@@ -4,12 +4,12 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { get } from 'lodash-es';
 import cn from 'classnames';
 
-import ErrorWrapper from '../../components/common/ErrorWrapper';
-import MessageAlert, { Waiting } from '../../components/common/MessageAlert';
+import ErrorWrapper from '../../../components/common/ErrorWrapper';
+import MessageAlert, { Waiting } from '../../../components/common/MessageAlert';
 import FilterSummary from './FilterSummary';
 import FilterCustom from './FilterCustom';
 import FilterPagination from './FilterPagination';
-import { ALL, PAGE } from './constants';
+import { ALL, PAGE } from '../constants';
 
 import styles from './FilterResult.module.css';
 
@@ -43,7 +43,6 @@ class FilterResult extends Component {
                         ? (isLoading && loadingType === ALL
                             ? <LoadingMessage/>
                             : <div className={cn("col-12", styles.main)}>
-                                <span className="cm-heading">Results:</span>
                                 <div className={cn(styles.result)}>
                                     <Tabs>
                                         <div className="tabs__head">
