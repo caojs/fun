@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Select from '../../../components/common/Select';
-import { onSelect } from '../actions';
+import Select from '../../../../components/common/Select';
+import { onSelect } from '../../actions';
 
-import styles from './FilterSelect.module.css';
+import styles from './index.module.scss';
 
 const FilterSelect = ({ label, options, ...rest }) => {
     return (

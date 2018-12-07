@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
+import PageHeader from '../../components/PageHeader';
 import NewsItem from '../HomePage/NewsItem';
 import { getP, uqSelector } from '../../redux/usequest';
 import styles from './PostsPage.module.scss';
@@ -59,11 +60,7 @@ class PostsPage extends Component {
         return (
             <div className={styles.main}>
                 <div className="container">
-                    <section className="me-title-section">
-                        <div className="text-center">
-                            <h1>Tin Tức</h1>
-                        </div>
-                    </section>
+                    <PageHeader title="Tin Tức"/>
                     <section className="me-content-section">
                         {data && data.map(item => (
                             <div key={item.id} className="me-item">

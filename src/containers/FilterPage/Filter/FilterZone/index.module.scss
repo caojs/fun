@@ -1,23 +1,11 @@
 .main {
-    align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
-    background-color: white;
-    color: #8c8b8f;
-
+    padding: 15px 0;
     :global {
-        .me-tools {
-            padding: 15px 0;
-        }
-        .me-filters {
+        .tabs__head {
         }
 
         .me-filters-item {
-            padding: (15px /2) 15px;
-        }
-
-        .tabs__head {
-            padding: 15px 0;
+            padding: 10px 15px 0;
         }
 
         .tabs__label {
@@ -53,24 +41,4 @@
             margin: 16px 0 13px 0;
         }
     }
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    padding-top: 15px;
-}
-
-.buttons :global(.filters__apply) {
-    padding: 5px 10px 4px 10px;
-    background-color: #2591db;
-    color: white;
-    text-transform: uppercase;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-}
-
-.buttons :global(.loadablebutton__icon) {
-    font-size: 1.4em;
 }

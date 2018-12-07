@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import FilterTag from './FilterTag';
-import styles from './FilterActived.module.css';
 import { selectedFiltersSelector } from '../../selectors';
+
+import styles from './index.module.scss';
 
 class SelectedFilters extends Component {
     render() {
@@ -11,8 +12,8 @@ class SelectedFilters extends Component {
         return (
             selectedFilters.length > 0 ?
                 (<>
-                    <div className={styles.filters}>
-                        <span>Activated Filters:</span>
+                    <div className={styles.main}>
+                        <span className="d-block me-label">Activated Filters:</span>
                         {selectedFilters.map(filter => {
                             let {
                                 id,

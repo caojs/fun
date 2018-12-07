@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
+
+import PageHeader from '../../components/PageHeader';
 import { MonthYearRangePicker, AppendInput } from '../../components/Formiks';
 import PeriodicAdjustment from './PeriodicAdjustment';
 import Rebalancing from './Rebalancing';
@@ -44,6 +46,8 @@ class PortfolioPage extends Component {
          } = this.state;
 
         return (
+            <div className="container">
+            <PageHeader title="portfolio"/>
             <Formik
                 validationSchema={schema}
                 initialValues={{
@@ -116,6 +120,7 @@ class PortfolioPage extends Component {
                     )
                 }}
             />
+            </div>
         )
     }
 }

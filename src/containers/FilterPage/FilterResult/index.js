@@ -23,6 +23,7 @@ class FilterResult extends Component {
         } = this.props;
 
         return (
+            <div className="container">
             <ErrorWrapper error={error}>
                 {() => {
                     let {
@@ -76,6 +77,7 @@ class FilterResult extends Component {
                         : null}
                 }
             </ErrorWrapper>
+            </div>
         );
     }
 }

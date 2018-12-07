@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash-es';
 import { IoMdSearch } from 'react-icons/io';
-import LoadableButton from '../../../components/common/LoadableButton';
-import { searchName, applyFilters } from '../actions';
+import LoadableButton from '../../../../components/common/LoadableButton';
+import { searchName, applyFilters } from '../../actions';
 
-import styles from './FilterSearch.module.css';
+import styles from './index.module.scss';
 
 class FilterSearch extends Component {
     constructor(props) {

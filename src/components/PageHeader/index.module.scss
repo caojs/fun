@@ -1,0 +1,25 @@
+.main {
+    padding: 60px 0 50px 0;
+    :global {
+        .ph-title {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            &:after {
+                display: inline-block;
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: -10px;
+                width: 40%;
+                height: 3px;;
+                transform: translateX(-50%);
+                background: black;
+            }
+        }
+
+        .ph-subtitle {
+            margin-top: 20px;
+        }
+    }
+}

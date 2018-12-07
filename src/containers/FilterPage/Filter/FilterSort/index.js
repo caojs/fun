@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash-es';
-import { changeSort } from '../actions';
-import Select from '../../../components/common/Select';
+import { changeSort } from '../../actions';
+import Select from '../../../../components/common/Select';
 import {
     type_options as typeOptions,
     order_options as orderOptions
-} from '../initialState/sort.json';
+} from '../../initialState/sort.json';
 
-import styles from './FilterSort.module.css';
+import styles from './index.module.scss';
 
 class FilterSort extends Component {
     render() {

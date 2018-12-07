@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import PageHeader from '../../components/PageHeader';
 import Filter from './Filter';
 import FilterResult from './FilterResult';
 import LoadableButton from '../../components/common/LoadableButton';
@@ -40,19 +41,19 @@ class FilterPage extends Component {
     render() {
         return (
             <>
-                <div className="mb-4">
-                    <Filter/>
-                </div>
-            <div className="container">
-                <div className="text-center mb-4">
-                    <LoadableButton
-                        className="btn btn-primary"
-                        onClickPromise={this.onFilter}>Apply
-                    </LoadableButton>
-                </div>
-                <div className="row mb-4">
-                    <FilterResult/>
-                </div>
+            <PageHeader title="Filter"/>
+            <div className="mb-4">
+                <Filter/>
+            </div>
+            <div className="text-center mb-4">
+                <LoadableButton
+                    className="btn btn-primary"
+                    onClickPromise={this.onFilter}>
+                    Apply
+                </LoadableButton>
+            </div>
+            <div className="mb-4">
+                <FilterResult/>
             </div>
             </>
         );

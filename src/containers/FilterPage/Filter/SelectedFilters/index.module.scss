@@ -1,0 +1,15 @@
+.main {
+    padding-bottom: 15px;
+    :global {
+        .me-label {
+            margin-bottom: 5px;
+            color: #323642;
+            font-weight: bold;
+        }
+        .tag{
+            background: #f7f7f7;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+    }
+}
