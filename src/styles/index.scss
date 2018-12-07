@@ -1,6 +1,6 @@
-@import './custom.scss';
 @import './common.scss';
 @import './fonts.scss';
+@import './custom.scss';
 
 html {
   font-size: $base + px;
@@ -15,3 +15,4 @@ body {
 :focus {
   outline: 0;
 }
+

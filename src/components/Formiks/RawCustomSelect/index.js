@@ -1,7 +1,6 @@
 import React from 'react';
 import { FastField, getIn } from 'formik';
 import cn from 'classnames';
-import { FaChevronDown } from 'react-icons/fa';
 
 import styles from './index.module.scss';
 
@@ -23,7 +22,7 @@ export default function RawCustomSelect(props) {
                 return (
                     <div className={styles.main}>
                         <select
-                            className={cn("custom-select", {"is-invalid" : isInvalid })}
+                            className={cn("custom-select", { "is-invalid" : isInvalid })}
                             id={nameId}
                             {...field}>
                             {options.map(option => (
@@ -34,7 +33,6 @@ export default function RawCustomSelect(props) {
                                 </option>
                             ))}
                         </select>
-                        <label className="rcs-icon" htmlFor={nameId}><FaChevronDown/></label>
                         {isInvalid && <div className="invalid-feedback">{error}</div>}
                     </div>
                 )

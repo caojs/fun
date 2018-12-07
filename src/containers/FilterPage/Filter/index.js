@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import cn from 'classnames';
 
 import FilterSearch from './FilterSearch';
 import FilterSort from './FilterSort';
@@ -13,7 +12,7 @@ class Filter extends Component {
     render() {
         return (
             <div className="container">
-            <div className={cn(styles.main)}>
+            <div className={styles.main}>
                 <div className="d-flex align-items-center me-tools">
                     <div className="mr-4">
                         <FilterSearch/>

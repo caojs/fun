@@ -5,8 +5,8 @@ import PostDetailPage from './containers/PostDetailPage';
 import FilterPage from './containers/FilterPage';
 import PortfolioPage from './containers/PortfolioPage';
 import OptimizePage from './containers/OptimizePage';
-import SignIn from './containers/Login/SignIn';
-import Register from './containers/Login/Register';
+import SignIn from './containers/AuthenticationPage/SignIn';
+import Register from './containers/AuthenticationPage/Register';
 
 const routes = [{
     component: App,

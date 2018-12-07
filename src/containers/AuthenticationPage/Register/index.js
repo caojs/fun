@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { Formik, Form } from 'formik';
 import schema from './schema';
 import { RawInput } from '../../../components/Formiks';
-import styles from '../Login.module.scss';
+import styles from '../index.module.scss';
 import cn from 'classnames';
 
-export default class SignIn extends Component {
+export default class Register extends Component {
     render() {
         return (
             <Formik
                 validationSchema={schema}
                 initialValues={{
+                    username: '',
+                    password: '',
+                    confirmPassword: ''
                 }}
 
                 onSubmit={(values) => { console.log(values); }}
@@ -22,27 +25,29 @@ export default class SignIn extends Component {
                                 <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                                     <div className="card card-signin my-5">
                                         <div className="card-body">
-                                            <h5 className="card-title text-center">Sign In</h5>
+                                            <h5 className="card-title text-center">Register</h5>
                                             <Form className="form-signin">
                                                 <div className="form-label-group">
                                                     <RawInput 
-                                                    placeholder="Email address"
-                                                    name="userEmail"/>
+                                                    placeholder="Username"
+                                                    name="username"/>
                                                 </div>
 
                                                 <div className="form-label-group">
                                                     <RawInput 
                                                     type="password"
                                                     placeholder="Password"
-                                                    placeholder="Password"
-                                                    name="userPassword"/>
+                                                    name="password"/>
                                                 </div>
 
-                                                <div className="custom-control custom-checkbox mb-3">
-                                                    <input type="checkbox" className="custom-control-input" id="customCheck1"/>
-                                                    <label className="custom-control-label" htmlFor="customCheck1">Remember password</label>
+                                                <div className="form-label-group">
+                                                    <RawInput 
+                                                    type="password"
+                                                    placeholder="Confirm Password"
+                                                    name="confirmPassword"/>
                                                 </div>
-                                                <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                                                
+                                                <button className="btn btn-lg btn-primary btn-block text-uppercase mt-4" type="submit">Register</button>
                                             </Form>
                                         </div>
                                     </div>
