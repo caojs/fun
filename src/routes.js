@@ -5,6 +5,8 @@ import PostDetailPage from './containers/PostDetailPage';
 import FilterPage from './containers/FilterPage';
 import PortfolioPage from './containers/PortfolioPage';
 import OptimizePage from './containers/OptimizePage';
+import SignIn from './containers/Login/SignIn';
+import Register from './containers/Login/Register';
 
 const routes = [{
     component: App,
@@ -28,6 +30,12 @@ const routes = [{
     }, {
         path: '/optimization',
         component: OptimizePage
+    },{
+        path: '/login',
+        component: SignIn
+    },{
+        path: '/register',
+        component: Register
     }]
 }];
 
