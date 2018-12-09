@@ -67,6 +67,7 @@ class Header extends Component {
                                             Optimization
                                         </NavLink>
                                         <NavLink className="nav-item nav-link" to="/portfolio">Portfolio</NavLink>
+                                        <NavLink className="nav-item nav-link" to="/chart">Chart</NavLink>
                                     </div>
                                     <div className="d-none d-md-inline-block">
                                         <AuthenticationButtons/>

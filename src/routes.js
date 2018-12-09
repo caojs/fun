@@ -7,6 +7,7 @@ import PortfolioPage from './containers/PortfolioPage';
 import OptimizePage from './containers/OptimizePage';
 import SignIn from './containers/AuthenticationPage/SignIn';
 import Register from './containers/AuthenticationPage/Register';
+import ChartPage from './containers/ChartPage';
 
 const routes = [{
     component: App,
@@ -36,6 +37,9 @@ const routes = [{
     },{
         path: '/register',
         component: Register
+    },{
+        path: '/chart',
+        component: ChartPage
     }]
 }];
 
