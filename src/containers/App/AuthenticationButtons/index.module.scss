@@ -1,0 +1,12 @@
+.main {
+    padding-right: 10px;
+    color: white;
+    :global {
+        .ab-seperator {
+            padding: 0 5px;
+        }
+        a, a:hover {
+            color: white;
+        }
+    }
+}

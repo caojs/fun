@@ -12,7 +12,6 @@ import registerServiceWorker from './registerServiceWorker';
 import configureStore from './configureStore';
 import routes from './routes';
 
-//import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.scss';
 
 ReactGA.initialize('UA-130658907-1');

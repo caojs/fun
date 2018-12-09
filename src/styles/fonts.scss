@@ -7,7 +7,7 @@ $breakpoints: $grid-breakpoints;
     $infix: breakpoint-infix($breakpoint, $breakpoints);
 
     @include media-breakpoint-up($breakpoint) {
-        @for $i from 8 to 50 {
+        @for $i from 4 to 50 {
             .font#{$infix}-#{$i} {
                 font-size: ($i/$base) + rem;
             }
