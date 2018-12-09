@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-import { onPageChange, applyFilters } from '../actions';
+import { onPageChange, applyFilters } from '../../actions';
 
-import styles from './FilterPagination.module.css';
+import styles from './index.module.css';
 
 class FilterPagination extends Component {
     constructor(props) {

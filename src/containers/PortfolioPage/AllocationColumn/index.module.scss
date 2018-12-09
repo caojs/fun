@@ -1,0 +1,11 @@
+.main {
+    padding: 0 15px;
+    :global {
+        .table {
+            th, td {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+}

@@ -45,13 +45,16 @@ class RawDumbInput extends Component {
         )
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(props) {
         const {
             formik,
             name,
             value
         } = this.props;
-        formik.setFieldValue(name, value);
+        if (value && props.value != value)
+        {
+            formik.setFieldValue(name, value);
+        }
     }
 }
 

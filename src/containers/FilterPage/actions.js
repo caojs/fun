@@ -1,4 +1,4 @@
-import { stateToQuery } from './helpers';
+import { filterQuerySelector } from './selectors';
 import {
     ON_FILTER_SELECT,
     REMOVE_ACTIVATED_FILTER,
@@ -34,7 +34,7 @@ const doFilter = (loadingType = ALL) => ({
         endpoint: (state) => {
             //TODO: find somewhere to place this code
             let url = filterApi;
-            let query = stateToQuery(state.filters);
+            let query = filterQuerySelector(state);
             let u = query ? url + "?" + query : url;
 
             

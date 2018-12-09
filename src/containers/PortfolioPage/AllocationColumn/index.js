@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'formik';
 import { RawNumberInput, RawDumbInput } from '../../../components/Formiks';
 
+import styles from './index.module.scss';
+
 // TODO: optimize
 class AllocationColumn extends Component {
     constructor(props) {
@@ -55,8 +57,9 @@ class AllocationColumn extends Component {
             .reduce((accum, value) => accum + +value, 0);
 
         return (
+            <div className={styles.main}>
             <table className="table table-borderless mb-0">
-                <thead className="thead-light"><tr><th>
+                <thead className=""><tr><th>
                     Allocation #{name}
                     {/* <button className="btn btn-primary" onClick={this.equalize}>Equalize</button>
                     <button className="btn btn-primary" onClick={this.reset}>Reset</button> */}
@@ -82,6 +85,7 @@ class AllocationColumn extends Component {
                     </tr>
                 </tbody>
             </table>
+            </div>
         )
     }
 }

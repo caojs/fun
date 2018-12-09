@@ -1,0 +1,17 @@
+.main {
+    padding: 30px 15px;
+    background: white;
+
+    :global {
+        .table {
+            td:first-child {
+            }
+        }
+
+        .col:last-child .table {
+            td {
+                padding-right: 0;
+            }
+        }
+    }
+}

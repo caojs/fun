@@ -4,8 +4,8 @@ import { flow, map, filter, get, curryRight } from 'lodash-es';
 import { FiSquare, FiCheckSquare } from 'react-icons/fi';
 import cn from 'classnames';
 
-import MultiSelectableList from '../../../components/common/MultiSelectableList';
-import { changeCustomHeaders } from '../actions';
+import MultiSelectableList from '../../../../components/common/MultiSelectableList';
+import { changeCustomHeaders } from '../../actions';
 
 import styles from './FilterCustomSelect.module.css';
 

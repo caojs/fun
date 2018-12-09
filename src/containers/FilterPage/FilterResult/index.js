@@ -11,7 +11,7 @@ import FilterCustom from './FilterCustom';
 import FilterPagination from './FilterPagination';
 import { ALL, PAGE } from '../constants';
 
-import styles from './FilterResult.module.css';
+import styles from './index.module.css';
 
 class FilterResult extends Component {
     render() {

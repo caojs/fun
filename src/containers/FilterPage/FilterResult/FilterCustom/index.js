@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import FilterTable from './FilterTable';
+import FilterTable from '../FilterTable';
 import FilterCustomSelect from './FilterCustomSelect';
 
 let keyId = 0;

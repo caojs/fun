@@ -6,7 +6,7 @@ import Filter from './Filter';
 import FilterResult from './FilterResult';
 import LoadableButton from '../../components/common/LoadableButton';
 import { applyFilters } from './actions';
-import { stateToQuery } from './helpers';
+import { filterQuerySelector } from './selectors';
 
 class FilterPage extends Component {
     constructor(props) {
@@ -62,12 +62,9 @@ class FilterPage extends Component {
 
 export default connect(
 
-    (state) => {
-        let query = stateToQuery(state.filters || {});
-        return ({
-            query
-        });
-    },
+    (state) => ({
+        query: filterQuerySelector(state)
+    }),
     {
         applyFilters
     }

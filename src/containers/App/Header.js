@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
 import cn from 'classnames';
-import { stateToQuery } from '../FilterPage/helpers';
+import { filterQuerySelector, tickersSelector } from '../FilterPage/selectors';
 
 import styles from './Header.module.scss';
 
@@ -17,8 +17,14 @@ class Header extends Component {
     }
 
     render() {
-        let { query } = this.props;
+        let {
+            query,
+            tickers
+        } = this.props;
         let { isShow } = this.state;
+
+        const filterLink = `/filter${query ? "?" + query : ""}`;
+        const optimizationLink = `/optimization${tickers.length ? "?" + tickers.join(','): ""}`;
         
         return (
             <header className={cn(styles.main)}>
@@ -38,12 +44,17 @@ class Header extends Component {
                                     <div className="navbar-nav mr-auto">
                                         <NavLink
                                             className="nav-item nav-link"
-                                            to={"/filter" + (query ? "?" + query : "")}
+                                            to={filterLink}
                                             isActive={(_, { pathname }) => pathname === '/filter'}>
                                             Filter
                                         </NavLink>
+                                        <NavLink
+                                            className="nav-item nav-link"
+                                            to={optimizationLink}
+                                            isActive={(_, { pathname }) => pathname === '/optimization'}>
+                                            Optimization
+                                        </NavLink>
                                         <NavLink className="nav-item nav-link" to="/portfolio">Portfolio</NavLink>
-                                        <NavLink className="nav-item nav-link" to="/optimization">Optimization</NavLink>
                                         <NavLink className="nav-item nav-link" to="/login">Login</NavLink>
                                         <NavLink className="nav-item nav-link" to="/register">Login</NavLink>
                                     </div>
@@ -59,6 +70,7 @@ class Header extends Component {
 
 export default withRouter(connect(
     state => ({
-        query: stateToQuery(state.filters)
+        query: filterQuerySelector(state),
+        tickers: tickersSelector(state)
     })
 )(Header));

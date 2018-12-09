@@ -38,7 +38,7 @@ class Allocations extends Component {
 
         const col = tickers.map(() => "");
         setFieldValue(`${set}.tickers`, col);
-        setFieldValue(`${set}.allocations`, allocations.map(() => col))
+        setFieldValue(`${set}.allocations`, allocations.map(() => col.slice()))
     }
 
     render() {
@@ -56,7 +56,7 @@ class Allocations extends Component {
             <>
             <label>
                 <span>Portfolio assets</span>
-                <span className="btn btn-secondary btn-sm ml-2" onClick={this.reset}><FaTrashAlt/></span>
+                {/* <span className="btn btn-secondary btn-sm ml-2" onClick={this.reset}><FaTrashAlt/></span> */}
             </label>
 
             {hasFilters && <div className="row mb-2">

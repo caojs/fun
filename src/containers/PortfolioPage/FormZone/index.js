@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 
-import PageHeader from '../../components/PageHeader';
-import { MonthYearRangePicker, AppendInput } from '../../components/Formiks';
 import PeriodicAdjustment from './PeriodicAdjustment';
 import Rebalancing from './Rebalancing';
 import Benchmark from './Benchmark';
@@ -12,30 +10,7 @@ import { tickersSelector } from '../FilterPage/selectors';
 
 import schema from './schema';
 
-const On = 'on';
-const Off = 'off';
-
-class PortfolioPage extends Component {
-    constructor(props) {
-        super(props);
-
-        const { hasFilters } = props;
-
-        // TODO: dynamic portfolios
-        this.state = {
-            set: hasFilters ? On : Off,
-            portfolios: [1, 2, 3],
-        };
-        
-        this.useFilter = this.useFilter.bind(this)
-    }
-
-    useFilter(e) {
-        this.setState({
-            set: e.target.checked ? On : Off
-        });
-    }
-
+export default class FormZone extends Component {
     render() {
         const {
             tickers
@@ -46,9 +21,6 @@ class PortfolioPage extends Component {
          } = this.state;
 
         return (
-            <>
-            <PageHeader title="Portfolio"/>
-            <div className="container">
             <Formik
                 validationSchema={schema}
                 initialValues={{
@@ -101,9 +73,8 @@ class PortfolioPage extends Component {
                             </div>
                         </Form>
                     )
-                }}/>
-            </div>
-            </>
+                }}
+            />
         )
     }
 }
@@ -111,9 +82,10 @@ class PortfolioPage extends Component {
 export default connect(
     state => {
         const tickers = tickersSelector(state);
+        console.log(tickers);
         return ({
             tickers,
-            hasFilters: !!tickers.length
+            hasFilters: !!tickers
         });
     }
-)(PortfolioPage);
+)(FormZone);

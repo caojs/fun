@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 
 import { filterSchema } from './initialState/masterData';
+import { stateToQuery } from './helpers';
 
 const getRight = curryRight(get, 2);
 
@@ -39,9 +40,14 @@ export const countSelectedFiltersSelector = createSelector(
 
 export const tickersSelector = createSelector(
     getRight('filters.results.error'),
-    getRight('filters.results.response'),
+    getRight('filters.results.data'),
     (error, response) => {
-        if (error || !response) return null;
+        if (error || !response) return [];
         return response.body.map(row => row[0].value)
     }
-)
+);
+
+export const filterQuerySelector = createSelector(
+    getRight('filters'),
+    stateToQuery
+);
