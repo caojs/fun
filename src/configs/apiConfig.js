@@ -1,2 +1,3 @@
-export const rootApi = window.location.protocol + "//" + window.location.hostname + ":4000/";
-export const filterApi = "filtering";
+export const rootApi = process.env.NODE_ENV === 'production' ?
+    'http://127.0.0.1:1337' :
+    'http://127.0.0.1:1337';

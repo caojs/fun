@@ -3,7 +3,7 @@ import { rootApi } from '../../configs/apiConfig';
 const callApi = (endpoint, options) => {
     const fullUrl = (endpoint.indexOf(rootApi) === -1) ? rootApi + endpoint : endpoint;
 
-    return fetch(endpoint, options)
+    return fetch(fullUrl, options)
         .then(response => response
             .json()
             .then(json => ({

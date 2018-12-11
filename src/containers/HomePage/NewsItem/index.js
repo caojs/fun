@@ -4,6 +4,8 @@ import cn from 'classnames';
 import slugify from 'slugify';
 import fecha from 'fecha';
 
+import { rootApi } from '../../../configs/apiConfig';
+
 import styles from './NewsItem.module.scss';
 
 export default function NewsItem(props) {
@@ -11,20 +13,21 @@ export default function NewsItem(props) {
         id,
         title,
         description,
-        thumbnailUrl,
-        createdAt
+        thumbnail,
+        created_at
     } = props;
 
     const linkTo = `/news/${slugify(title)}.${id}`;
     
-    const createdDate = fecha.format(createdAt, 'DD/MM/YYYY');
+    const createdDate = fecha.format(new Date(created_at), 'DD/MM/YYYY');
 
     return (
         <article className={cn(styles.main, "d-flex")}>
             <div className="card pl-0 pr-0">
-                <Link className="card-img-link" to={linkTo}>
-                    <img className="card-img-top" src={thumbnailUrl} alt="thumbnail"/>
-                </Link>
+                {thumbnail ?
+                    <Link className="card-img-link" to={linkTo}>
+                        <img className="card-img-top" src={rootApi + thumbnail.url} alt="thumbnail"/>
+                    </Link> : null}
                 <div className="card-body">
                     <Link to={linkTo}>
                         <h4 className="card-title">{title}</h4>

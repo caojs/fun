@@ -15,7 +15,6 @@ import {
 } from './constants';
 
 import { CALL_API } from '../../redux/middlewares/api';
-import { filterApi } from '../../configs/apiConfig';
 
 export const onSelect = (value) => ({
     type: ON_FILTER_SELECT,
@@ -33,7 +32,7 @@ const doFilter = (loadingType = ALL) => ({
         types: [FILTERS_REQUEST, FILTERS_SUCCESS, FILTERS_FAILURE],
         endpoint: (state) => {
             //TODO: find somewhere to place this code
-            let url = filterApi;
+            let url = '/filtering';
             let query = filterQuerySelector(state);
             let u = query ? url + "?" + query : url;
 

@@ -34,11 +34,11 @@ class Header extends Component {
                     <div className="row">
                         <div className="col">
                             <nav className="navbar navbar-expand-md navbar-dark pl-0 pr-0">
-                                <NavLink className="navbar-brand mr-4" to="/">Logo</NavLink>
+                                <NavLink className="navbar-brand mr-4" to="/">Xquant</NavLink>
                                 <div>
-                                    <div className="d-inline d-md-none">
+                                    {/* <div className="d-inline d-md-none">
                                         <AuthenticationButtons/>
-                                    </div>
+                                    </div> */}
                                     <button
                                         className="navbar-toggler"
                                         type="button"
@@ -54,7 +54,7 @@ class Header extends Component {
                                             to="/news">
                                             News
                                         </NavLink>
-                                        <NavLink
+                                        {/* <NavLink
                                             className="nav-item nav-link"
                                             to={filterLink}
                                             isActive={(_, { pathname }) => pathname === '/filter'}>
@@ -67,11 +67,11 @@ class Header extends Component {
                                             Optimization
                                         </NavLink>
                                         <NavLink className="nav-item nav-link" to="/portfolio">Portfolio</NavLink>
-                                        <NavLink className="nav-item nav-link" to="/chart">Chart</NavLink>
+                                        <NavLink className="nav-item nav-link" to="/chart">Chart</NavLink> */}
                                     </div>
-                                    <div className="d-none d-md-inline-block">
+                                    {/* <div className="d-none d-md-inline-block">
                                         <AuthenticationButtons/>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </nav>
                         </div>

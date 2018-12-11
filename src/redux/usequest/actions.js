@@ -13,8 +13,12 @@ export function getA(where, url, config = {}) {
         ...rest
     } = config;
 
-    if (params && typeof url === 'function') {
-        url = (state) => url(state) + '?' + queryString.stringify(params);
+    const query = params ? queryString.stringify(params) : '';
+
+    if (query) {
+        url = (typeof url === 'function') ? 
+            (state) => url(state) + '?' + query :
+            url + '?' + query;
     }
 
     const options = merge({

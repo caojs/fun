@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { FaAngleRight } from 'react-icons/fa';
 
-import { getP, uqSelector } from '../../../redux/usequest';
 import NewsItem from '../NewsItem';
+import { getP, uqSelector } from '../../../redux/usequest';
 
 import styles from './News.module.scss';
 
@@ -14,7 +14,11 @@ const getPosts = getP(WHERE);
 
 class News extends Component {
     componentDidMount() {
-        this.props.getPosts('http://5bd3f794be3a0b0013d034d9.mockapi.io/api/v1/posts');
+        this.props.getPosts('/posts', {
+            params: {
+                _limit: 6
+            }
+        });
     }
 
     render() {
@@ -33,7 +37,7 @@ class News extends Component {
             <section className={cn(styles.main)}>
                 <div className="container">
                     <div className="d-flex justify-content-between align-items-center me-header">
-                        <h2 className="me-title m-0">Tin Tức</h2>
+                        <h2 className="me-title m-0">News</h2>
                         <Link className="d-flex align-items-center font-13 me-title-link" to="/news">
                             <span>See more</span>
                             <FaAngleRight/>

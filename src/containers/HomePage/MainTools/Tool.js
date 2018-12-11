@@ -21,7 +21,8 @@ export default function Tool(props) {
                 <div className="card-body">
                     <h4 className="card-title text-center">{title}</h4>
                     <p className="card-text text-muted">{text}</p>
-                    <Link to={link} className="card-link">View</Link>
+                    <p>Comming soon</p>
+                    {/* <Link to={link} className="card-link">View</Link> */}
                 </div>
             </div>
         </div>

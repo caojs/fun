@@ -8,8 +8,13 @@ import NewsItem from '../HomePage/NewsItem';
 import { getP, uqSelector } from '../../redux/usequest';
 import styles from './PostsPage.module.scss';
 
-const WHERE = 'PostsPage';
-const getPosts = getP(WHERE);
+const WHERE_LIST = 'PostsPage-List';
+const getPosts = getP(WHERE_LIST);
+
+const WHERE_COUNT = 'PostsPage-Count';
+const getPostCount = getP(WHERE_COUNT);
+
+const LIMIT = 10;
 
 class PostsPage extends Component {
     constructor(props) {
@@ -22,12 +27,16 @@ class PostsPage extends Component {
     }
 
     getPosts() {
-        return this.props.getPosts('http://5bd3f794be3a0b0013d034d9.mockapi.io/api/v1/posts', {
+        return this.props.getPosts('/posts', {
             params: {
-                page: this.state.page,
-                limit: 10
+                _start:this.state.page * LIMIT,
+                _limit: LIMIT
             }
         })
+    }
+    
+    getPostCount() {
+        return this.props.getPostCount('/posts/count');
     }
 
     onPageChange({ selected }) {
@@ -36,6 +45,7 @@ class PostsPage extends Component {
 
     componentDidMount() {
         this.getPosts();
+        this.getPostCount();
     }
 
     componentDidUpdate(props, state) {
@@ -43,51 +53,53 @@ class PostsPage extends Component {
     }
 
     render() {
-        const { posts } = this.props;
-
-        if (!posts) return null;
-
         const {
-            loading,
-            error,
-            data
-        } = posts;
+            count,
+            posts
+        } = this.props;
 
-        if (error) return null;
+        if (!posts || !count) return null;
+
+        if (posts.error || count.error) return null;
+
+        const { loading, data: postList } = posts;
+
+        const totalPage = Math.ceil(count.data/LIMIT);
 
         const { page } = this.state;
 
         return (
             <div className={styles.main}>
                 <div className="container">
-                    <PageHeader title="Tin Tức"/>
+                    <PageHeader title="News"/>
                     <section className="me-content-section">
-                        {data && data.map(item => (
+                        {postList && postList.map(item => (
                             <div key={item.id} className="me-item">
                                 <NewsItem {...item}/>
                             </div>
                         ))}
                     </section>
-                    <section className="me-pagination">
-                        <ReactPaginate
-                            previousLabel={<FiChevronLeft/>}
-                            nextLabel={<FiChevronRight/>}
-                            breakLabel={"..."}
-                            initialPage={page}
-                            pageCount={10}
-                            marginPagesDisplayed={3}
-                            pageRangeDisplayed={3}
-                            disableInitialCallback={true}
-                            onPageChange={this.onPageChange}
-                            containerClassName="pagination"
-                            pageClassName="page-item"
-                            pageLinkClassName="page-link"
-                            previousClassName="page-item"
-                            previousLinkClassName="page-link"
-                            nextClassName="page-item"
-                            nextLinkClassName="page-link"
-                            activeClassName={"active"} />
-                    </section>
+                    {totalPage > 1 ?
+                        <section className="me-pagination">
+                            <ReactPaginate
+                                previousLabel={<FiChevronLeft/>}
+                                nextLabel={<FiChevronRight/>}
+                                breakLabel={"..."}
+                                initialPage={page}
+                                pageCount={totalPage}
+                                marginPagesDisplayed={3}
+                                pageRangeDisplayed={3}
+                                disableInitialCallback={true}
+                                onPageChange={this.onPageChange}
+                                containerClassName="pagination"
+                                pageClassName="page-item"
+                                pageLinkClassName="page-link"
+                                previousClassName="page-item"
+                                previousLinkClassName="page-link"
+                                nextClassName="page-item"
+                                nextLinkClassName="page-link"
+                                activeClassName={"active"} />
+                        </section> : null}
                 </div>
            </div>
         )
@@ -96,9 +108,11 @@ class PostsPage extends Component {
 
 export default connect(
     state => ({
-        posts: uqSelector(WHERE, state)
+        posts: uqSelector(WHERE_LIST, state),
+        count: uqSelector(WHERE_COUNT, state)
     }),
     {
-        getPosts
+        getPosts,
+        getPostCount
     }
 )(PostsPage);
