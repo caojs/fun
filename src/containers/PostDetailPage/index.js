@@ -5,7 +5,7 @@ import { get } from 'lodash-es';
 import fecha from 'fecha';
 
 import { getP, uqSelector } from '../../redux/usequest';
-import { rootApi } from '../../configs/apiConfig';
+import { rootImg } from '../../configs/urls';
 
 import styles from './PostDetailPage.module.scss';
 
@@ -73,7 +73,7 @@ class PostDetailPage extends Component {
                         <div className={cn({ "has-image ": hasImage })}>
                             {image ?
                                 <div className="text-center">
-                                    <img className="img-fluid me-image" src={rootApi + image.url}/>
+                                    <img className="img-fluid me-image" src={rootImg + image.url}/>
                                 </div> :
                                 null}
                             <div className="ql-editor" dangerouslySetInnerHTML={{ __html: content }} />

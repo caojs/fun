@@ -4,7 +4,7 @@ import cn from 'classnames';
 import slugify from 'slugify';
 import fecha from 'fecha';
 
-import { rootApi } from '../../../configs/apiConfig';
+import { rootImg } from '../../../configs/urls';
 
 import styles from './NewsItem.module.scss';
 
@@ -26,7 +26,7 @@ export default function NewsItem(props) {
             <div className="card pl-0 pr-0">
                 {thumbnail ?
                     <Link className="card-img-link" to={linkTo}>
-                        <img className="card-img-top" src={rootApi + thumbnail.url} alt="thumbnail"/>
+                        <img className="card-img-top" src={rootImg + thumbnail.url} alt="thumbnail"/>
                     </Link> : null}
                 <div className="card-body">
                     <Link to={linkTo}>
